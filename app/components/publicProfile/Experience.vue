@@ -7,7 +7,7 @@
     colored-border
     icon="mdi-briefcase"
   >
-    <h2 class="font-weight-bold">Experiance</h2>
+    <h2 class="font-weight-bold">Experience</h2>
 
     <v-timeline dense>
       <v-timeline-item
