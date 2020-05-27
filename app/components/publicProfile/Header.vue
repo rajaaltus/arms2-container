@@ -1,5 +1,5 @@
 <template>
-  <v-system-bar height="120" color="grey lighten-4">
+  <div class="back">
       <v-container>
         <v-row>
           <v-col cols="12" md="auto" lg="auto">
@@ -11,5 +11,11 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-system-bar>
+    </div>
 </template>
+
+<style scoped>
+.back {
+  background-color: rgba(247,247,247,1);
+}
+</style>
