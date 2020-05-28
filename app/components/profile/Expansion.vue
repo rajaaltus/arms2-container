@@ -279,6 +279,7 @@
 </template>
 
 <script>
+import VueGallery from 'vue-gallery'
 export default {
   props: [
     "recognitionsData",
@@ -287,7 +288,10 @@ export default {
     "researchData",
     "patentsData",
     "publicationsData"
-  ]
+  ],
+  components: {
+    VueGallery
+  },
 };
 </script>
 

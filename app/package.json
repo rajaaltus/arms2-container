@@ -32,6 +32,7 @@
     "v-calendar": "^1.0.6",
     "vue-apexcharts": "^1.5.3",
     "vue-cli-plugin-vuetify-preset-crane": "^1.0.2",
+    "vue-gallery": "^2.0.1",
     "vue-moment": "^4.1.0",
     "vue-scrollto": "^2.18.1",
     "vue-wordcloud": "^1.1.1"

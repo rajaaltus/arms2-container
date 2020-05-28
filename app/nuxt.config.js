@@ -40,7 +40,8 @@ export default {
     { src : '~/plugins/vue-apexchart.js', ssr : false },
     { src : '~/plugins/highcharts-vue.js' },
     { src: '~/plugins/TiptapVuetify', mode: 'client' },
-    { src: '~/plugins/v-calendar', ssr: false}
+    { src: '~/plugins/v-calendar', ssr: false},
+    '~plugins/vue-gallery.client.js'
   ],
   /*
   ** Nuxt.js dev-modules

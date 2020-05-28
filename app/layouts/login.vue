@@ -291,7 +291,7 @@ export default {
             this.$router.push('/admin');
 				})
 				.catch(err => {
-          this.$store.dispatch('snackbar/setSnackbar', {color: 'red', text: err.response.data.data[0].messages[0].message, timer: '1000'})
+          this.$store.dispatch('snackbar/setSnackbar', {color: 'red', text: err.response.data.data[0].messages[0].message, timeout: 2000})
 					this.resetLogin();
 				});
 		},
