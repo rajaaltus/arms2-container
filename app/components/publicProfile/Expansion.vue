@@ -3,26 +3,18 @@
     <v-expansion-panel>
       <v-expansion-panel-header>
         <h2 class="font-weight-bold">
-          <v-icon color="red darken-3" class="mdi mdi-bookshelf mr-3"></v-icon
+          <v-icon color="amber darken-3" class="mdi mdi-bookshelf mr-3"></v-icon
           >Publications
         </h2>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-row v-for="(item, index) in publicationsData" :key="index">
           <v-col cols="12" lg="12">
-            <v-card flat class="my-card">
-              <v-btn label class="mb-2" x-small color="green darken-2" dark>
+            <v-card tile elevation="0" class="my-card pb-5" style="border-bottom:1px solid #ccc;">
+              <v-chip label x-small color="amber darken-5" dark>
                 {{ item.publication_type }}
-              </v-btn>
-              <v-btn
-                v-if="item.classification !== 'Not_Applicable'"
-                label
-                class="mb-2"
-                x-small
-                color="green lighten-4"
-              >
-                {{ item.classification }} </v-btn
-              ><br />
+              </v-chip>
+
               <template v-if="item.publication_type == 'Journal_Article'">
                 <span class="body-2 font-weight-bold">{{
                   item.article_title
@@ -189,10 +181,25 @@
       <v-expansion-panel-content>
         <v-row v-for="(item, index) in recognitionsData" :key="index">
           <v-col cols="12" md="12" lg="12">
-            <v-card flat class="my-card">
-              <v-row>
-                <v-col cols="3" md="3" lg="3">
-                  <v-img
+            <v-card tile elevation="0" class="mx-auto" style="border-bottom:1px solid #ccc;">
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <div class="overline mb-4">{{ $moment(item.date).format("DD MMM YYYY") }}</div>
+                 
+                  <v-list-item-subtitle
+                    > <span class="body-2 font-weight-normal">
+                    <b>{{ item.award_title }}</b> from {{ item.organization }},
+                    {{ item.place }}. </span
+                  >
+                    </v-list-item-subtitle
+                  >
+                </v-list-item-content>
+
+                <v-list-item-avatar
+                  tile
+                  size="80"
+                >
+                <v-img
                     :src="
                       item.image !== null && item.image !== undefined
                         ? $axios.defaults.baseURL + item.image.url
@@ -204,38 +211,9 @@
                     max-width="200"
                     max-height="120"
                   >
-                    <template v-slot:placeholder>
-                      <v-row
-                        class="fill-height ma-0"
-                        align="center"
-                        justify="center"
-                      >
-                        <v-progress-circular
-                          indeterminate
-                          color="grey lighten-5"
-                        ></v-progress-circular>
-                      </v-row>
-                    </template>
-                  </v-img>
-                </v-col>
-                <v-col cols="9" md="9" lg="9">
-                  <v-btn label class="mb-2" x-small color="green darken-2" dark>
-                    Date Awarded: {{ item.date }} </v-btn
-                  ><br />
-                  <span class="body-2 font-weight-normal">
-                    {{ item.award_title }} from {{ item.organization }},
-                    {{ item.place }}. </span
-                  ><br />
-                  <v-btn
-                    v-if="item.faculty_name !== 'null'"
-                    label
-                    class="mt-2"
-                    x-small
-                    color="grey lighten-4"
-                    >Awardee(s): {{ item.faculty_name }}</v-btn
-                  >
-                </v-col>
-              </v-row>
+                </v-img>
+                </v-list-item-avatar>
+              </v-list-item>
             </v-card>
           </v-col>
         </v-row>
