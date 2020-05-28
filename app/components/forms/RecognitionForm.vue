@@ -170,7 +170,7 @@ export default {
       organization: "",
       date: "",
       place: "",
-      approval_status: "Pending",
+      approval_status: "Approved",
       approved_by: null,
       approved_date: null,
       deleted: false,
@@ -217,7 +217,6 @@ export default {
           this.recognition.user = this.$auth.user.id;
         if (this.$store.state.auth.user.userType === "DEPARTMENT") {
           var today = new Date();
-          this.recognition.approval_status = "Approved";
           this.recognition.approved_date = this.$moment(today).format();
         }
         var payload = this.recognition;

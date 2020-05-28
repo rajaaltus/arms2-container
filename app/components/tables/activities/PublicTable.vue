@@ -12,11 +12,6 @@
       <template v-slot:item.updated_at="{ item }">
         {{ $moment(item.updated_at).fromNow() }}
       </template>
-      <template v-slot:item.approval_status="{ item }">
-        <v-chip :color="getColor(item.approval_status)" dark @click="handleclick(item)">
-          {{ item.approval_status }}
-        </v-chip>
-      </template>
       <template v-slot:top>
         <v-toolbar
           flat
@@ -227,6 +222,7 @@ export default {
   props: ["reportYears"],
   data: () => ({
     loading: false,
+    editDate: null,
     dialog: false,
     annualYear: 0,
     headers: [
@@ -242,7 +238,6 @@ export default {
 			{ text: 'Target Audience', value: 'target_audience' },
 			{ text: 'Date', value: 'date' },
 			{ text: 'Place', value: 'place' },
-			{ text: 'Approval Status', value: 'approval_status' },
 			{ text: 'Actions', value: 'action', sortable: false },
 		],
     coAuthors: [],
@@ -255,7 +250,7 @@ export default {
 			target_audience: "",
 			date: "",
 			place: "",
-			approval_status: "Pending",
+			approval_status: "Approved",
 			approved_by: null,
 			approved_date: null,
 			deleted: false,
@@ -275,7 +270,7 @@ export default {
 			target_audience: "",
 			date: "",
 			place: "",
-			approval_status: "Pending",
+			approval_status: "Approved",
 			approved_by: null,
 			approved_date: null,
 			deleted: false,
@@ -452,9 +447,6 @@ export default {
     },
     save() {
       if (this.editedIndex > -1) {
-        if (this.$auth.user.userType === "DEPARTMENT")
-          this.editedItem.approval_status = "Approved";
-        else this.editedItem.approval_status = "Pending";
         this.editedItem.user = this.editedItem.user.id;
         this.editedItem.department = this.editedItem.department.id;
         var payload = this.editedItem;

@@ -238,7 +238,7 @@ export default {
       to_date: "",
       funded_by: "",
       brief_report: "",
-      approval_status: "Pending",
+      approval_status: "Approved",
       approved_by: null,
       approved_date: null,
       deleted: false,
@@ -276,7 +276,6 @@ export default {
         if (this.$store.state.auth.user.userType === "DEPARTMENT") {
           var today = new Date();
           this.training.approved_date = this.$moment(today).format();
-          this.training.approval_status = "Approved";
         }
         this.training.department = this.$store.state.auth.user.department;
         var payload = this.training;

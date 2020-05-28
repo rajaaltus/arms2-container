@@ -12,11 +12,6 @@
       <template v-slot:item.updated_at="{ item }">
         {{ $moment(item.updated_at).fromNow() }}
       </template>
-      <template v-slot:item.approval_status="{ item }">
-        <v-chip :color="getColor(item.approval_status)" dark @click="handleclick(item)">
-          {{ item.approval_status }}
-        </v-chip>
-      </template>
       <template v-slot:top>
        		  <v-toolbar
           flat
@@ -226,7 +221,6 @@ export default {
 			{ text: 'Organiztion', value: 'organization' },
 			{ text: 'Date', value: 'date' },
 			{ text: 'Place', value: 'place' },
-			{ text: 'Approval Status', value: 'approval_status' },
 			{ text: 'Actions', value: 'action', sortable: false },
 		],
     editedItem: {
@@ -349,11 +343,6 @@ export default {
         // Swal.fire('Pudhusu');
       }
     },
-    getColor(approval_status) {
-      if (approval_status === "Rejected") return "red";
-      else if (approval_status === "Pending") return "orange";
-      else return "green";
-    },
     editItem(item) {
       this.editedIndex = this.recognitionsData.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -436,9 +425,6 @@ export default {
     },
     save() {
       if (this.editedIndex > -1) {
-        if (this.$auth.user.userType === "DEPARTMENT")
-          this.editedItem.approval_status = "Approved";
-        else this.editedItem.approval_status = "Pending";
         this.editedItem.user = this.editedItem.user.id;
         this.editedItem.department = this.editedItem.department.id;
         var payload = this.editedItem;

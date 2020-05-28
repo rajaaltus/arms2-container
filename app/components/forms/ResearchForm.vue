@@ -232,7 +232,7 @@ export default {
       funding_on_review_period: null,
       research_status: "",
       research_abstract: "",
-      approval_status: "Pending",
+      approval_status: "Approved",
       approved_by: null,
       approved_date: null,
       deleted: false,
@@ -274,7 +274,6 @@ export default {
         if (this.$store.state.auth.user.userType === "DEPARTMENT") {
           var today = new Date();
           this.research.approved_date = this.$moment(today).format();
-          this.research.approval_status = "Approved";
         }
         this.research.department = this.$store.state.auth.user.department;
         var payload = this.research;

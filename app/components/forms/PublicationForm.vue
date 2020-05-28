@@ -634,7 +634,7 @@ export default {
         reference: "",
         deleted: false,
         authors: "",
-        approval_status: "Pending",
+        approval_status: "Approved",
         department: 0,
         user: 0,
         pages: "",
@@ -698,7 +698,7 @@ export default {
         this.publication.reference= "",
         this.publication.deleted= false,
         this.publication.authors= "",
-        this.publication.approval_status= "Pending",
+        this.publication.approval_status= "Approved",
         this.publication.department= 0,
         this.publication.user= 0,
         this.publication.pages= "",
@@ -844,7 +844,6 @@ export default {
           this.publication.approved_date = this.$moment(today).format(
             "YYYY-MM-DD"
           );
-          this.publication.approval_status = "Approved";
           // this.publication.approved_by = this.$store.state.auth.user.fullname;
         } 
         if (this.publication_type == 1) {
