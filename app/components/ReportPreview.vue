@@ -90,7 +90,7 @@
             <v-row>
               <v-layout align-start justify-start>
                 <v-btn
-                  v-if="selectedYear && userType"
+                  v-if="selectedYear"
                   :loading="loading"
                   :disabled="loading"
                   color="green"
@@ -124,7 +124,7 @@
         <!-- {{ queryData }} -->
         <v-stepper
           v-if="
-            dataLoaded && isPreview!==true && $auth.user.userType === 'DEPARTMENT'
+            dataLoaded && isPreview!==true && $auth.user.userType === 'DEPARTMENT' && userType
           "
           v-model="report"
           style="border-radius: 0;"
@@ -284,7 +284,7 @@ export default {
       },
       showAvailableReports: false,
       sheet: false,
-      isPreview: false,
+      isPreview: true,
       previewData: [],
       dataLoaded: false,
       assignedPeople: [],
