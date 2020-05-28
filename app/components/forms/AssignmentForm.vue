@@ -151,7 +151,7 @@ export default {
       faculty_name: "",
       designation: "",
       brief_report: "",
-      approval_status: "Pending",
+      approval_status: "Approved",
       approved_by: null,
       approved_date: null,
       deleted: false,
@@ -192,7 +192,6 @@ export default {
         if (this.$store.state.auth.user.userType === "DEPARTMENT") {
           var today = new Date();
           this.assignment.approved_date = this.$moment(today).format();
-          this.assignment.approval_status = "Approved";
         }
         this.assignment.department = this.$store.state.auth.user.department;
         var payload = this.assignment;

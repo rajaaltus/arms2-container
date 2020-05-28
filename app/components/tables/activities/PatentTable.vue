@@ -12,11 +12,6 @@
       <template v-slot:item.updated_at="{ item }">
         {{ $moment(item.updated_at).fromNow() }}
       </template>
-      <template v-slot:item.approval_status="{ item }">
-        <v-chip :color="getColor(item.approval_status)" dark @click="handleclick(item)">
-          {{ item.approval_status }}
-        </v-chip>
-      </template>
       <template v-slot:item.patentStatus>
         <v-chip v-if="patentStatus == 1" dark>
           Yes
@@ -208,7 +203,6 @@ export default {
 			{ text: 'Registration #', value: 'registration_no' },
 			{ text: 'Patent Status', value: 'patent_status' },
 			{ text: 'Brief Report', value: 'brief_report' },
-			{ text: 'Approval Status', value: 'approval_status' },
 			{ text: 'Actions', value: 'action', sortable: false },
 		],
     editedItem: {
@@ -218,7 +212,7 @@ export default {
 			registration_no: "",
 			patent_status: "",
 			brief_report: "",
-			approval_status: "Pending",
+			approval_status: "Approved",
 			approved_by: null,
 			approved_date: null,
 			deleted: false,
@@ -236,7 +230,7 @@ export default {
 			registration_no: "",
 			patent_status: "",
 			brief_report: "",
-			approval_status: "Pending",
+			approval_status: "Approved",
 			approved_by: null,
 			approved_date: null,
 			deleted: false,
@@ -322,11 +316,6 @@ export default {
         // Swal.fire('Pudhusu');
       }
     },
-    getColor(approval_status) {
-      if (approval_status === "Rejected") return "red";
-      else if (approval_status === "Pending") return "orange";
-      else return "green";
-    },
     editItem(item) {
       this.editedIndex = this.patentsData.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -409,9 +398,6 @@ export default {
     },
     save() {
       if (this.editedIndex > -1) {
-        if (this.$auth.user.userType === "DEPARTMENT")
-          this.editedItem.approval_status = "Approved";
-        else this.editedItem.approval_status = "Pending";
         this.editedItem.user = this.editedItem.user.id;
         this.editedItem.department = this.editedItem.department.id;
         var payload = this.editedItem;

@@ -12,17 +12,12 @@
       <template v-slot:item.updated_at="{ item }">
         {{ $moment(item.updated_at).fromNow() }}
       </template>
-      <template v-slot:item.approval_status="{ item }">
-        <v-chip :color="getColor(item.approval_status)" dark @click="handleclick(item)">
-          {{ item.approval_status }}
-        </v-chip>
-      </template>
       <template v-slot:top>
-        		  <v-toolbar
+        <v-toolbar
           flat
           color="#ebebeb"
           class="d-flex justify mt-4 pt-1"
-          style="border-radius:0;"
+          style="border-radius: 0;"
         >
           <v-toolbar-title
             ><span class="frm-title">Key Assignments</span></v-toolbar-title
@@ -62,14 +57,11 @@
             transition="dialog-bottom-transition"
           >
             <v-card>
-              		  
-<v-toolbar dark color="#41704e">
+              <v-toolbar dark color="#41704e">
                 <v-btn icon dark @click="close">
                   <v-icon>mdi-close</v-icon>
                 </v-btn>
-                <v-toolbar-title
-                  >Key Assignments</v-toolbar-title
-                >
+                <v-toolbar-title>Key Assignments</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
                   <v-btn dark text @click="close">
@@ -130,7 +122,11 @@
                   <v-hover>
                     <template v-slot:default="{ hover }">
                       <v-img
-                        :src="image_url==='/image_placeholder.png'?'/image_placeholder.png':`${$axios.defaults.baseURL}${image_url}`"
+                        :src="
+                          image_url === '/image_placeholder.png'
+                            ? '/image_placeholder.png'
+                            : `${$axios.defaults.baseURL}${image_url}`
+                        "
                         lazy-src="/image_placeholder.png"
                         aspect-ratio="1"
                         class="grey lighten-2"
@@ -162,7 +158,7 @@
                   <input
                     ref="image"
                     type="file"
-                    style="display:none;"
+                    style="display: none;"
                     label="File input"
                     @change="handleFileUpload"
                   />
@@ -197,15 +193,14 @@ export default {
       {
         text: "Last updated",
         align: "left",
-        value: "updated_at"
+        value: "updated_at",
       },
       { text: "Faculty Name", value: "faculty_name" },
       { text: "Classifcation", value: "classification" },
       { text: "Roles", value: "roles" },
       { text: "Designation", value: "designation" },
       { text: "Brief Report", value: "brief_report" },
-      { text: "Approval Status", value: "approval_status" },
-      { text: "Actions", value: "action", sortable: false }
+      { text: "Actions", value: "action", sortable: false },
     ],
     editedItem: {
       annual_year: 0,
@@ -214,14 +209,14 @@ export default {
       faculty_name: "",
       designation: "",
       brief_report: "",
-      approval_status: "Pending",
+      approval_status: "Approved",
       approved_by: null,
       approved_date: null,
       deleted: false,
       department: 0,
       user: 0,
       image: null,
-      rejected_reason: null
+      rejected_reason: null,
     },
     image_url: "/image_placeholder.png",
     selectedFile: null,
@@ -232,28 +227,28 @@ export default {
       faculty_name: "",
       designation: "",
       brief_report: "",
-      approval_status: "Pending",
+      approval_status: "Approved",
       approved_by: null,
       approved_date: null,
       deleted: false,
       department: 0,
       user: 0,
       image: null,
-      rejected_reason: null
+      rejected_reason: null,
     },
     classifications: ["International", "National", "NotApplicable", "Others"],
-    imageToDelete: null
+    imageToDelete: null,
   }),
   computed: {
     ...mapState({
-      assignmentsData: state => state.assignment.assignmentsData.result,
-      staffs: state => state.staffs
-    })
+      assignmentsData: (state) => state.assignment.assignmentsData.result,
+      staffs: (state) => state.staffs,
+    }),
   },
   watch: {
     dialog(val) {
       val || this.close();
-    }
+    },
   },
   async fetch({ store }) {
     let queryString = "";
@@ -264,12 +259,12 @@ export default {
       queryString = `department.id=${store.state.auth.user.department}&user.id=${store.state.auth.user.id}&annual_year=${store.state.selectedYear}&deleted_ne=true`;
       console.log(queryString);
       await store.dispatch("assignment/setAssignmentsData", {
-        qs: queryString
+        qs: queryString,
       });
     } else {
       queryString = `department.id=${store.state.auth.user.department}&annual_year=${store.state.selectedYear}&deleted_ne=true`;
       await store.dispatch("assignment/setAssignmentsData", {
-        qs: queryString
+        qs: queryString,
       });
     }
   },
@@ -278,15 +273,13 @@ export default {
     this.reloadData();
   },
   methods: {
-    handleclick(item)
-    {
+    handleclick(item) {
       var index = this.assignmentsData.indexOf(item);
-      if(item.approval_status === 'Rejected')
-      {
-       Swal.fire({
-         title:'Reason for Rejection',
-         text:this.assignmentsData[index].rejected_reason,
-       });
+      if (item.approval_status === "Rejected") {
+        Swal.fire({
+          title: "Reason for Rejection",
+          text: this.assignmentsData[index].rejected_reason,
+        });
       }
     },
     async handleFileUpload(event) {
@@ -299,7 +292,7 @@ export default {
         const uploadRes = await this.$axios({
           method: "POST",
           url: "/upload",
-          data
+          data,
         });
         this.image_url = uploadRes.data[0].url;
         this.editedItem.image = uploadRes.data[0].id;
@@ -312,17 +305,12 @@ export default {
         const uploadRes = await this.$axios({
           method: "POST",
           url: "/upload",
-          data
+          data,
         });
         this.image_url = uploadRes.data[0].url;
         this.editedItem.image = uploadRes.data[0].id;
         // Swal.fire('Pudhusu');
       }
-    },
-    getColor(approval_status) {
-      if (approval_status === "Rejected") return "red";
-      else if (approval_status === "Pending") return "orange";
-      else return "green";
     },
     editItem(item) {
       this.editedIndex = this.assignmentsData.indexOf(item);
@@ -338,7 +326,7 @@ export default {
         {},
         {
           id: item.id,
-          deleted: item.deleted
+          deleted: item.deleted,
         }
       );
       this.deletedItem.deleted = true;
@@ -352,20 +340,20 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then(result => {
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
         if (result.value) {
           this.loading = true;
           this.$store
             .dispatch("assignment/updateAssignment", payload)
-            .then(resp => {
+            .then((resp) => {
               this.loading = false;
               Swal.fire({
                 title: "Success",
                 text: "Deleted Successfully!",
                 icon: "success",
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1500,
               });
               this.reloadData();
             });
@@ -374,7 +362,7 @@ export default {
             text: err,
             icon: "warning",
             showConfirmButton: false,
-            timer: 4500
+            timer: 4500,
           });
         }
       });
@@ -382,17 +370,19 @@ export default {
     async reloadData() {
       this.loading = true;
       if (
-        this.$store.state.auth.user.userType === "FACULTY" || this.$store.state.auth.user.userType === "STUDENT") {
+        this.$store.state.auth.user.userType === "FACULTY" ||
+        this.$store.state.auth.user.userType === "STUDENT"
+      ) {
         let queryString = "";
         queryString = `department.id=${this.$auth.user.department}&user.id=${this.$auth.user.id}&deleted_ne=true&annual_year=${this.annualYear}`;
         await this.$store.dispatch("assignment/setAssignmentsData", {
-          qs: queryString
+          qs: queryString,
         });
       } else {
         let queryString = "";
         queryString = `department.id=${this.$auth.user.department}&annual_year=${this.annualYear}&deleted_ne=true`;
         await this.$store.dispatch("assignment/setAssignmentsData", {
-          qs: queryString
+          qs: queryString,
         });
       }
       this.loading = false;
@@ -400,26 +390,23 @@ export default {
     },
     close() {
       this.dialog = false;
-      this.image_url = '/image_placeholder.png';
+      this.image_url = "/image_placeholder.png";
     },
     save() {
       if (this.editedIndex > -1) {
-        if (this.$auth.user.userType === "DEPARTMENT")
-          this.editedItem.approval_status = "Approved";
-        else this.editedItem.approval_status = "Pending";
         this.editedItem.user = this.editedItem.user.id;
         this.editedItem.department = this.editedItem.department.id;
         var payload = this.editedItem;
         console.log(payload);
         this.$store
           .dispatch("assignment/updateAssignment", payload)
-          .then(resp => {
+          .then((resp) => {
             Swal.fire({
               title: "Success",
               text: "Updated Successfully!",
               icon: "success",
               showConfirmButton: false,
-              timer: 1500
+              timer: 1500,
             });
 
             if (this.imageToDelete) {
@@ -428,19 +415,19 @@ export default {
             }
             this.reloadData();
           })
-          .catch(err => {
+          .catch((err) => {
             Swal.fire({
               title: "Something Wrong!",
               text: err,
               icon: "warning",
               showConfirmButton: false,
-              timer: 4500
+              timer: 4500,
             });
           });
       }
       this.close();
-    }
-  }
+    },
+  },
 };
 </script>
 

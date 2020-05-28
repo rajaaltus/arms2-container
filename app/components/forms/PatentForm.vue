@@ -150,7 +150,7 @@ export default {
       registration_no: "",
       patent_status: "",
       brief_report: "",
-      approval_status: "Pending",
+      approval_status: "Approved",
       approved_by: null,
       approved_date: null,
       deleted: false,
@@ -193,7 +193,6 @@ export default {
         if (this.$store.state.auth.user.userType === "DEPARTMENT") {
           var today = new Date();
           this.patent.approved_date = this.$moment(today).format();
-          this.patent.approval_status = "Approved";
         }
         this.patent.department = this.$store.state.auth.user.department;
         var payload = this.patent;

@@ -90,7 +90,7 @@
             <v-row>
               <v-layout align-start justify-start>
                 <v-btn
-                  v-if="selectedYear"
+                  v-if="selectedYear && userType"
                   :loading="loading"
                   :disabled="loading"
                   color="green"
@@ -318,6 +318,7 @@ export default {
       this.reportStepper = val;
     },
     selectedYear(val) {
+      
       this.yearParam = "annual_year=" + val;
     },
     userType(val) {
@@ -340,13 +341,16 @@ export default {
       // console.log("at Range:", this.isPreview);
     },
     selectedUser(val) {
-      if(val)
+      if(val) {
+        this.dataLoaded = false;
         this.isPreview = true;
+      }
       this.userParam = `&user.id=${val}`;
     },
   },
 
   computed: {
+    
     // reportId() {
     //   return this.$store.state.report.reportId;
     // },

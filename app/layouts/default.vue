@@ -368,7 +368,7 @@ export default {
             },
           ],
         },
-        { title: "Approval Status", icon: "mdi-cards", to: "/admin/approvals" },
+        // { title: "Approval Status", icon: "mdi-cards", to: "/admin/approvals" },
         // { title: "Reports", icon: "mdi-chart-bar", to: "/admin/reports" },
         // { title: "Test Report", icon: "mdi-cogs", to:"/admin/medium" }
       ],

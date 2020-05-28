@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-row>
       <v-col cols="12" md="12">
         <v-form ref="form" v-model="valid" lazy-validation @submit.prevent>
           <v-row no-gutters v-if="$auth.user.userType==='DEPARTMENT'">
@@ -263,7 +264,7 @@ export default {
         coordinators: "",
         brief_report: "",
         deleted: false,
-        approval_status: "Pending",
+        approval_status: "Approved",
         approved_by: "",
         approved_date: null,
         rejected_reason: null,
@@ -318,8 +319,6 @@ export default {
         this.program.department = this.$store.state.auth.user.department;
         if (this.$store.state.auth.user.userType !== "DEPARTMENT")
           this.program.user = this.$auth.user.id;
-        if (this.$store.state.auth.user.userType === "DEPARTMENT")
-          this.program.approval_status = "Approved";
         if (typeof this.program.name === "object")
           this.program.name = this.program.name.name;
         var payload = this.program;

@@ -217,7 +217,7 @@ export default {
       target_audience: "",
       date: "",
       place: "",
-      approval_status: "Pending",
+      approval_status: "Approved",
       approved_by: null,
       approved_date: null,
       deleted: false,
@@ -256,7 +256,6 @@ export default {
         this.publicEngagement.department = this.$store.state.auth.user.department;
         if (this.$store.state.auth.user.userType === "DEPARTMENT") {
           var today = new Date();
-          this.publicEngagement.approval_status = "Approved";
           this.publicEngagement.approved_date = this.$moment(today).format();
         }
         var payload = this.publicEngagement;
