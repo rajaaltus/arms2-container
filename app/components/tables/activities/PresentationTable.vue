@@ -133,7 +133,6 @@
                         v-model="editedItem.reference"
                         :rules="[v => !!v || 'Item is required']"
                         label="Reference"
-                        :value="value"
                         color="success"
                       ></v-textarea>
                     </v-container>

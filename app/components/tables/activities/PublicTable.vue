@@ -222,6 +222,7 @@ export default {
   props: ["reportYears"],
   data: () => ({
     loading: false,
+    editDate: null,
     dialog: false,
     annualYear: 0,
     headers: [
