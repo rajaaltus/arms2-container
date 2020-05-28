@@ -240,7 +240,7 @@ export default {
       to_date: "",
       place: "",
       image: null,
-      approval_status: "Pending",
+      approval_status: "Approved",
       approved_by: null,
       approved_date: null,
       deleted: false,
@@ -278,7 +278,6 @@ export default {
         if (this.$store.state.auth.user.userType === "DEPARTMENT") {
           var today = new Date();
           this.participation.approved_date = this.$moment(today).format();
-          this.participation.approval_status = "Approved";
         }
         this.participation.department = this.$store.state.auth.user.department;
         var payload = this.participation;

@@ -12,11 +12,6 @@
       <template v-slot:item.updated_at="{ item }">
         {{ $moment(item.updated_at).fromNow() }}
       </template>
-      <template v-slot:item.approval_status="{ item }">
-        <v-chip :color="getColor(item.approval_status)" dark @click="handleclick(item)">
-          {{ item.approval_status }}
-        </v-chip>
-      </template>
       <template v-slot:item.publicationTypeId="{ item }">
         {{ getPublicationType(item.publicationTypeId) }}
       </template>
@@ -357,7 +352,6 @@ export default {
       { text: 'Type of Publication', value: 'publication_type' },
       { text: 'Calssification', value: 'classification' },
 			{ text: 'Reference', value: 'reference', width: '60%' },
-			{ text: 'Approval Status', value: 'approval_status' },
 			{ text: 'Actions', value: 'action', sortable: false },
 		],
     editedItem: {
@@ -381,7 +375,7 @@ export default {
 			approved_date: "",
 			deleted: false,
 			authors: "",
-			approval_status: "Pending",
+			approval_status: "Approved",
 			department: 0,
 			user: 0,
 			pages: "",
@@ -408,7 +402,7 @@ export default {
 			approved_date: "",
 			deleted: false,
 			authors: "",
-			approval_status: "Pending",
+			approval_status: "Approved",
 			department: 0,
 			user: 0,
 			pages: "",
@@ -536,11 +530,6 @@ export default {
 			if(this.publication_type>4)
 				this.editedItem.reference = this.editedItem.authors + '. ' + this.editedItem.article_title + '.' + this.editedItem.edition + '.' + this.editedItem.place + ':' + this.editedItem.publisher + ';' + this.editedItem.year;
 		},
-    getColor(approval_status) {
-      if (approval_status === "Rejected") return "red";
-      else if (approval_status === "Pending") return "orange";
-      else return "green";
-    },
     editItem (item) {
 			this.editedIndex = this.publicationsData.indexOf(item)
 			this.editedItem = Object.assign({}, item)
@@ -620,10 +609,6 @@ export default {
 				// Object.assign(this.program[this.editedIndex], this.editedItem)
 				this.editedItem.user = this.editedItem.user.id;
 				this.editedItem.department = this.editedItem.department.id;
-				if(this.$store.state.auth.user.userType!='DEPARTMENT')
-					this.editedItem.approval_status = 'Pending'
-				else
-					this.editedItem.approval_status = 'Approved'
 				var payload = this.editedItem;
 				console.log(payload);
 			 	this.$store.dispatch('publication/updatePublication', payload)
