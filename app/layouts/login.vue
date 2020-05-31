@@ -376,7 +376,7 @@ export default {
   width: 100vw;
   height: 100vh !important;
   vertical-align: middle;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .text-input-style {
