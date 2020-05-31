@@ -855,8 +855,10 @@ export default {
             this.journalArticle.epubdate === ""
               ? null
               : this.$moment(this.journalArticle.epubdate).format("YYYY-MM-DD");
-          if(typeof this.publication.authors==='array')
-            this.authorNames.join();
+          if(typeof this.authorNames ==='object')
+            this.publication.authors = this.authorNames.join();
+          else
+           this.publication.authors = this.authorNames;
 
         }
         if (this.publication.pub_date === "") this.publication.pub_date = null;
@@ -868,7 +870,7 @@ export default {
 
         var payload = this.publication;
         console.log(payload);
-        // var vm = this;
+        var vm = this;
         this.$store
           .dispatch("publication/publicationAdd", payload)
           .then((resp) => {
