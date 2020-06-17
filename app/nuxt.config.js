@@ -97,8 +97,8 @@ export default {
   */
 	axios: {
         // baseURL: 'http://armsbackend.localhost'
-		// baseURL: 'http://localhost:1338'
-		 baseURL: 'https://genie2.rotihouselao.com'
+		baseURL: 'http://localhost:1337'
+		//  baseURL: 'https://genie2.rotihouselao.com'
     // baseURL: 'http://14.139.159.112:1338'
 	},
 
