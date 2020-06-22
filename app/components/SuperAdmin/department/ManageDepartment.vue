@@ -5,6 +5,7 @@
     :items="departments"
     :sort-by="sortBy"
     :sort-desc="desc"
+    :search="search"
     class="elevation-1"
     :loading="loading"
     loading-text="Loading... Please wait"
@@ -17,6 +18,13 @@
           inset
           vertical
         ></v-divider>
+        <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on }">
@@ -74,6 +82,7 @@ import Swal from 'sweetalert2'
   export default {
     data: () => ({
       dialog: false,
+      search: '',
       headers: [
         {
           text: 'Department Name',
