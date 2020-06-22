@@ -54,7 +54,6 @@
             <vc-date-picker
               mode="range"
               v-model="range"
-              :class="$vuetify.theme.dark ? 'customMonth' : ''"
               ref="range"
             />
           </v-col>
@@ -629,6 +628,7 @@ export default {
         end: null,
       },
       mon: null,
+      menu: null,
       showAvailableReports: false,
       sheet: false,
       isPreview: true,
@@ -661,7 +661,6 @@ export default {
     };
   },
   watch: {
-    
     report(val) {
       this.reportStepper = val;
     },
@@ -676,10 +675,10 @@ export default {
       if (val === "DEPARTMENT") this.assignedPeople = this.people;
     },
     range(val) {
-      if (val.start) {
-        this.dataLoaded = false;
-        this.isPreview = true;
-      }
+      // if (val.start) {
+      //   this.dataLoaded = false;
+      //   this.isPreview = true;
+      // }
       var range = Object.assign({}, val);
       this.monthParam = `&created_at_gt=${this.$moment(range.start).format(
         "YYYY-MM-DD"
@@ -1019,7 +1018,7 @@ export default {
         });
       }
 
-      if (this.range.start) this.query += this.monthParam;
+      if (this.range) this.query += this.monthParam;
 
       if (this.userType) this.query += this.userTypeParam;
 
