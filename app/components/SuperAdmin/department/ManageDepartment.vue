@@ -3,8 +3,11 @@
   <v-data-table
     :headers="headers"
     :items="departments"
-    sort-by="name"
+    :sort-by="sortBy"
+    :sort-desc="desc"
     class="elevation-1"
+    :loading="loading"
+    loading-text="Loading... Please wait"
   >
     <template v-slot:top>
       <v-toolbar flat color="white">
@@ -67,6 +70,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import Swal from 'sweetalert2'
   export default {
     data: () => ({
       dialog: false,
@@ -90,6 +94,9 @@ import {mapState} from 'vuex'
         name: '',
         status: true,
       },
+      loading: false,
+      sortBy: "name",
+      desc: false
     }),
 
     computed: {
@@ -122,8 +129,20 @@ import {mapState} from 'vuex'
       },
 
       deleteItem (item) {
-        const index = this.departments.indexOf(item)
-        // confirm('Are you sure you want to delete this item?') && this.departments.splice(index, 1)
+        const index = item.id
+        confirm('Are you sure you want to delete this item?') && 
+          this.$axios.$delete(`/departments/${index}`)
+            .then(resp => {
+              Swal.fire({
+                title: 'Deleted!',
+                text: 'Department deleted Successfully',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.loading= true;
+              this.$store.dispatch('department/getDepartments').then().catch().finally(this.loading=false)
+            })
       },
 
       close () {
@@ -135,13 +154,34 @@ import {mapState} from 'vuex'
       },
 
       save () {
+        this.loading = true;
         if (this.editedIndex > -1) {
-          // Object.assign(this.departments[this.editedIndex], this.editedItem)
-          console.log(this.editedItem);
+          console.log('Editing: ', this.editedItem);
+          var payload = Object.assign({
+            id: this.editedItem.id,
+            name: this.editedItem.name
+          });
+          // console.log(payload)
+          this.$axios.$put(`/departments/${payload.id}`, payload)
+            .then(resp => {
+              Swal.fire({
+                title: 'Updated!',
+                text: 'Department updated Successfully',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              this.loading= true;
+              this.$store.dispatch('department/getDepartments').then().catch().finally(this.loading=false)
+            })
+            .catch((e) => {
+              this.$store.dispatch('snackbar/setSnackbar', {color: 'red', text: 'Something Wrong!', timeout: 3000}, {root: true});
+            })
+            .finally(this.loading = false)
         } else {
           var payload = Object.assign({},this.editedItem);
-          console.log(payload);
-          // this.$store.dispatch('department/addDepartment', payload);
+          console.log('i think it new: ', payload);
+          this.$store.dispatch('department/addDepartment', payload).then(resp=> {}).catch((e)=>{}).finally(this.loading = false, this.sortBy = 'id', this.desc=true)
           // this.departments.push(this.editedItem)
         }
         this.close()
