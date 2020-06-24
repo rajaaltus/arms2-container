@@ -5,6 +5,7 @@ export default {
   /*
   ** Headers of the page
   */
+ target: 'static',
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_description,
     title: process.env.npm_package_description || '',
@@ -97,9 +98,9 @@ export default {
   */
 	axios: {
         // baseURL: 'http://armsbackend.localhost'
-		baseURL: 'http://localhost:1337'
+		// baseURL: 'http://localhost:1337'
 		//  baseURL: 'https://genie2.rotihouselao.com'
-    // baseURL: 'http://14.139.159.112:1338'
+    baseURL: 'http://14.139.159.112:1338'
 	},
 
   /*
