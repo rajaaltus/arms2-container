@@ -9,7 +9,7 @@
             v-model="profile.name"
             color="green"
             label="Full Name"
-            :rules="[v => !!v || 'Full Name is Required']"
+            :rules="[(v) => !!v || 'Full Name is Required']"
           ></v-text-field>
         </v-col>
         <v-col cols="12" lg="3">
@@ -17,7 +17,7 @@
             v-model="profile.designation"
             color="green"
             label="Designation"
-            :rules="[v => !!v || 'Designation is Required']"
+            :rules="[(v) => !!v || 'Designation is Required']"
           ></v-text-field>
         </v-col>
         <v-col cols="12" lg="3">
@@ -25,7 +25,7 @@
             v-model="profile.employee_id"
             color="green"
             label="Employee ID"
-            :rules="[v => !!v || 'Employee ID is Required']"
+            :rules="[(v) => !!v || 'Employee ID is Required']"
           ></v-text-field>
         </v-col>
         <v-col cols="12" lg="3" v-if="$auth.user.userType === 'STUDENT'">
@@ -33,7 +33,7 @@
             v-model="profile.stu_batch"
             color="green"
             label="Batch (Years)"
-            :rules="[v => !!v || 'Batch is Required']"
+            :rules="[(v) => !!v || 'Batch is Required']"
           ></v-text-field>
         </v-col>
         <v-col cols="12" lg="3" v-else>
@@ -41,7 +41,7 @@
             v-model="profile.stu_batch"
             color="green"
             label="Batch (Years)"
-            :rules="[v => !!v || 'Batch is Required']"
+            :rules="[(v) => !!v || 'Batch is Required']"
             disabled
           ></v-text-field>
         </v-col>
@@ -111,8 +111,9 @@
           <v-text-field
             v-model="profile.personal_email"
             color="green"
-            :rules="[v => !!v || 'Email ID is Required']"
+            :rules="[(v) => !!v || 'Email ID is Required']"
             label="Email ID"
+            @blur="updateEmail()"
             placeholder="Also your Primary Login ID"
           ></v-text-field>
         </v-col>
@@ -162,42 +163,111 @@ export default {
         deleted: false,
         active_status: true,
         user: 0,
-        image: null
+        image: null,
       },
-      genders: ["Male", "Female", "Others"]
+      genders: ["Male", "Female", "Others"],
     };
   },
+
   computed: {
     ...mapState({
-      userProfile: state => state.user.userProfile
-    })
+      userProfile: (state) => state.user.userProfile,
+    }),
   },
   async mounted() {
     this.profile = Object.assign({}, this.userProfile);
+    if (this.userProfile.personal_email !== this.userProfile.user.email) {
+      Swal.fire({
+        title: "Email Conflict",
+        text: "Your Profile Email is differs from primary Login Email",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, fix it!",
+      }).then((result) => {
+        if (result.value) {
+          var payload = Object.assign({
+          id: this.userProfile.user.id,
+          email: this.profile.personal_email,
+        });
+        this.$axios
+          .$put(`/users/${this.userProfile.user.id}`, payload)
+          .then((resp) => {
+            this.$store.dispatch(
+              "snackbar/setSnackbar",
+              {
+                color: "green",
+                text: "Email Updated Successfully!",
+                timeout: 3000,
+              },
+              { root: true }
+            );
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              "snackbar/setSnackbar",
+              { color: "red", text: "Something Wrong!", timeout: 3000 },
+              { root: true }
+            );
+          });
+        }
+      });
+    }
   },
   methods: {
-     updateProfile() {
+    updateEmail() {
+      if (this.userProfile.personal_email === this.profile.personal_email)
+        console.log("Email not Updated!");
+      else {
+        console.log("Email  Updated!");
+        var payload = Object.assign({
+          id: this.userProfile.user.id,
+          email: this.profile.personal_email,
+        });
+        console.log("Payload: ", payload);
+        this.$axios
+          .$put(`/users/${this.userProfile.user.id}`, payload)
+          .then((resp) => {
+            this.$store.dispatch(
+              "snackbar/setSnackbar",
+              {
+                color: "green",
+                text: "Email Updated Successfully!",
+                timeout: 3000,
+              },
+              { root: true }
+            );
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              "snackbar/setSnackbar",
+              { color: "red", text: "Something Wrong!", timeout: 3000 },
+              { root: true }
+            );
+          });
+      }
+    },
+    updateProfile() {
       var payload = this.profile;
       console.log(payload);
-       this.$store
+      this.$store
         .dispatch("user/updateUserProfile", payload)
-        .then(resp => {
+        .then((resp) => {
           Swal.fire({
             title: "Updated",
             text: "Your Profile has been updated successfully!",
             icon: "success",
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
           this.$emit("profile-update");
           // this.profile = Object.assign({}, this.$store.state.user.userProfile);
         })
-        .catch(e => {
+        .catch((e) => {
           Swal.fire("something Wrong!");
-          
         });
     },
-    
-  }
+  },
 };
 </script>

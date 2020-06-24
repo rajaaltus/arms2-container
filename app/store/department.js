@@ -5,6 +5,9 @@ departments: []
 export const mutations = {
   SET_DEPARTMENTS(state, departments) {
     state.departments = departments;
+  },
+  UPDATE_DEPARTMENTS(state, response) {
+    state.departments.push(response);
   }
 };
 
@@ -21,10 +24,11 @@ export const actions = {
   async addDepartment({commit}, payload) {
     await this.$axios.$post('/departments', payload)
     .then(response => {
-      commit("SET_DEPARTMENTS", response);
+      commit("UPDATE_DEPARTMENTS", response);
     })
     .catch((e)=> {
       console.log(e.response.data.message);
     });
-  }
+  },
+  
 };
