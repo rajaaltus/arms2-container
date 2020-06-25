@@ -1,10 +1,10 @@
 import colors from 'vuetify/es5/util/colors';
-require('dotenv').config();
 export default {
   mode: 'spa',
   /*
   ** Headers of the page
   */
+  target: 'static',
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_description,
     title: process.env.npm_package_description || '',
@@ -47,28 +47,19 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    '@nuxtjs/vuetify',
-    '@nuxtjs/dotenv',
+    '@nuxtjs/vuetify'
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    'nuxt-graphql-request',
     'nuxt-pdf',
     '@nuxtjs/pwa',
     'vue-scrollto/nuxt',
-    'nuxt-clipboard2',
+    'nuxt-clipboard2'
   ],
-   
-  graphql: {
-    endpoint: 'http://site1.localhost/graphql',
-    AST: false,
-    options: {},
-  },
   auth: {
 		strategies: {
 			local: {
