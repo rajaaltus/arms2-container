@@ -252,10 +252,10 @@
       <template v-slot:append>
         <v-list-item nav dense>
           <v-list-item-icon>
-            <v-icon color="blue darken-2">mdi-email-outline</v-icon>
+            <v-icon color="white">mdi-apple-icloud</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title class="menu-title">Contact Us</v-list-item-title>
+            <v-list-item-title class="menu-title">Version 2.1</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>

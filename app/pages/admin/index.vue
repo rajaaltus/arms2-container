@@ -9,7 +9,11 @@
         </v-tab>
         <v-tab>
           <span class="mdi mdi-file-word cust-icon"></span>
-          Reports
+          Report Preview
+        </v-tab>
+        <v-tab>
+          <span class="mdi mdi-file-word cust-icon"></span>
+          Generate / Edit Report
         </v-tab>
 
         <v-tab-item>
