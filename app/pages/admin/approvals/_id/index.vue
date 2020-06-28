@@ -151,33 +151,7 @@
 
 <script>
 import { mapState } from "vuex";
-import Program from "@/components/approvals/Program";
-import Visitor from "@/components/approvals/Visitor";
-import Training from "@/components/approvals/Training"
-import Presentation from "@/components/approvals/Presentation"
-import Participation from "@/components/approvals/Participation"
-import Public from "@/components/approvals/Public"
-import Publication from "@/components/approvals/Publication"
-import Research from "@/components/approvals/Research"
-import Recognition from "@/components/approvals/Recognition"
-import Patent from "@/components/approvals/Patent"
-import Assignment from "@/components/approvals/Assignment"
-import Theses from "@/components/approvals/Theses"
 export default {
-  components: {
-    Program,
-    Visitor,
-    Training,
-    Presentation,
-    Participation,
-    Public,
-    Research,
-    Publication,
-    Recognition,
-    Patent,
-    Assignment,
-    Theses
-  },
   data() {
     return {
       loading: false

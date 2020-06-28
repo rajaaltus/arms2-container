@@ -6,19 +6,19 @@
 
       <v-container>
         <v-row>
-          <ProfileCard :userProfile="userProfile" />
+          <PublicProfileCard :userProfile="userProfile" />
 
           <v-col cols="12" md="7" lg="7" class="pro-content">
-            <Publication v-if="total>0"
+            <PublicProfilePublication v-if="total>0"
               :publicationTypeCounts="publicationTypeCounts"
               :total="total"
             />
 
-            <Qualification :qualifications="qualifications" />
+            <PublicProfileQualification :qualifications="qualifications" />
 
-            <Experience :experiences="experiences" />
+            <PublicProfileExperience :experiences="experiences" />
 
-            <Expansion
+            <PublicProfileExpansion
               :publicationsData="publicationsData"
               :recognitionsData="recognitionsData"
               :presentationsData="presentationsData"
@@ -77,25 +77,9 @@
 
 <script>
 import { mapState } from "vuex";
-import Header from "@/components/publicProfile/Header";
-import MenuBar from "@/components/publicProfile/MenuBar";
-import ProfileCard from "@/components/publicProfile/ProfileCard";
-import Publication from "@/components/publicProfile/Publication";
-import Qualification from "@/components/publicProfile/Qualification";
-import Experience from "@/components/publicProfile/Experience";
-import Expansion from "@/components/publicProfile/Expansion";
 export default {
   layout: "profile",
   auth: false,
-  components: {
-    Header,
-    MenuBar,
-    ProfileCard,
-    Publication,
-    Qualification,
-    Experience,
-    Expansion,
-  },
   data() {
     return {
       codeGreen: false

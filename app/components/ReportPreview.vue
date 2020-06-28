@@ -605,20 +605,12 @@
 
 <script>
 import Swal from "sweetalert2";
-import AvailableReports from "@/components/AvailableReports";
 import { mapState } from "vuex";
-import PageHeader from "@/components/PageHeader";
-import Editor from "@/components/Editor";
 export default {
   head() {
     return {
       title: "Annual Report",
     };
-  },
-  components: {
-    PageHeader,
-    Editor,
-    AvailableReports,
   },
   data() {
     return {
