@@ -54,23 +54,11 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader";
-import YearDialog from "@/components/YearDialog";
-import PatientCare from "@/components/PatienCare";
-import ClinicalForm from "@/components/forms/patient-care/ClinicalForm";
-import ClinicalTable from "@/components/tables/PatientCare/ClinicalTable";
 export default {
   head() {
     return {
       title: "Clinical Services"
     };
-  },
-  components: {
-    PageHeader,
-    YearDialog,
-    PatientCare,
-    ClinicalForm,
-    ClinicalTable
   },
   data: () => ({
     selectedYear: 0

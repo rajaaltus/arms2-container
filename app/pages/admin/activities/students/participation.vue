@@ -51,24 +51,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import PageHeader from '@/components/PageHeader'
-import StudentActivities from '@/components/StudentActivities'
-import YearDialog from '@/components/YearDialog'
-import ParticipationForm from '@/components/forms/ParticipationForm'
-import ParticipationTable from '@/components/tables/activities/ParticipationTable'
 export default {
   head() {
     return {
       title: 'Participation'
     }
   }, 
-  components: {
-    PageHeader,
-    StudentActivities,
-    YearDialog,
-    ParticipationForm,
-    ParticipationTable
-  },
   data: () => ({
     selectedYear: 0,
   }),

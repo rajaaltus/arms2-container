@@ -52,23 +52,11 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader";
-import YearDialog from "@/components/YearDialog";
-import PatientCare from "@/components/PatienCare";
-import DiagnosticForm from "@/components/forms/patient-care/DiagnosticForm";
-import DiagnosticTable from "@/components/tables/PatientCare/DiagnosticTable";
 export default {
   head() {
     return {
       title: "Diagnostic Services"
     };
-  },
-  components: {
-    PageHeader,
-    YearDialog,
-    PatientCare,
-    DiagnosticForm,
-    DiagnosticTable
   },
   data: () => ({
     selectedYear: 0

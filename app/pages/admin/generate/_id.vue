@@ -40,17 +40,11 @@
 
 <script>
 import { mapState } from "vuex";
-import PageHeader from "@/components/PageHeader";
-import FinalEditor from "@/components/FinalEditor";
 export default {
   head() {
     return {
       title: "Generated Report",
     };
-  },
-  components: {
-    PageHeader,
-    FinalEditor,
   },
   data() {
     return {};
