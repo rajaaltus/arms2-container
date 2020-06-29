@@ -79,45 +79,32 @@ export const actions = {
 	async setClinicalData ({commit}, {qs}) {
 		 await this.$axios.$get(`/pc-clinical-services?${qs}`)
 			.then(response =>  {
-			// handle success
 				commit("SET_CLINICALDATA", response);
 			})
 			.catch((_e) => {
-			// handle error
 				commit("SET_CLINICALDATA", error);
 			})
 			.finally(function () {
-			// always executed
 			});
 	},
 
 	async addClinical ({commit}, payload) {
 		await this.$axios.$post('/pc-clinical-services', payload)
 			.then(response =>  {
-			// handle success
-				// commit("SET_CLINICALDATA", response);
 			})
 			.catch((_e) => {
-			// handle error
-				// commit("SET_CLINICALDATA", error);
 			})
 			.finally(function () {
-			// always executed
 			});
 		
 	},
 	async updateClinical ({commit}, payload) {
 		await this.$axios.$put(`/pc-clinical-services/${payload.id}`, payload)
 			.then(response =>  {
-			// handle success
-				// commit("SET_CLINICALDATA", response);
 			})
 			.catch((_e) => {
-			// handle error
-				// commit("SET_CLINICALDATA", error);
 			})
 			.finally(function () {
-			// always executed
 			});
 	
 	}
