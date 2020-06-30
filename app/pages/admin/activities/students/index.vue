@@ -74,19 +74,11 @@
 
 <script>
 import {mapState} from 'vuex'
-import PageHeader from "@/components/PageHeader";
-import YearDialog from "@/components/YearDialog";
-import StudentActivities from "@/components/StudentActivities";
 export default {
   head() {
     return {
       title: "Activities & Resources of Students"
     };
-  },
-  components: {
-		PageHeader,
-		YearDialog,
-    StudentActivities
   },
   data: () => ({
 		annualYear: 0,

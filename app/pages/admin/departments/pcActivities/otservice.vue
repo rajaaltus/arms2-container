@@ -51,23 +51,11 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader";
-import YearDialog from "@/components/YearDialog";
-import PatientCare from "@/components/PatienCare";
-import OTServiceForm from "@/components/forms/patient-care/OTServiceForm";
-import OTServiceTable from "@/components/tables/PatientCare/OTServiceTable";
 export default {
   head() {
     return {
       title: "OT & Other Procedures"
     };
-  },
-  components: {
-    PageHeader,
-    YearDialog,
-    PatientCare,
-    OTServiceForm,
-    OTServiceTable
   },
   data: () => ({
     selectedYear: 0

@@ -74,21 +74,11 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader";
-import YearDialog from "@/components/YearDialog";
-import TrainingsForm from "@/components/forms/hrd/TrainingsForm";
-import TrainingsTable from "@/components/tables/hrd/TrainingsTable";
 export default {
   head() {
     return {
       title: "Faculty/Staff/Students From Other Institutions Trained at NIMHANS"
     };
-  },
-  components: {
-    PageHeader,
-    YearDialog,
-    TrainingsForm,
-    TrainingsTable
   },
   data: () => ({
     selectedYear: 0

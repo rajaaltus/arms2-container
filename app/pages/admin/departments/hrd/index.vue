@@ -38,17 +38,12 @@
 </template>
 
 <script>
-
-import PageHeader from '@/components/PageHeader'
 export default {
   head() {
     return {
       title: 'HRD'
     }
   }, 
-  components: {
-    PageHeader
-  },
   data: () => ({
     selectedYear: 0,
   }),

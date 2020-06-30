@@ -55,23 +55,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import PageHeader from "@/components/PageHeader";
-import YearDialog from "@/components/YearDialog";
-import PatientCare from "@/components/PatienCare";
-import EmergencyForm from "@/components/forms/patient-care/EmergencyForm";
-import EmergencyTable from "@/components/tables/PatientCare/EmergencyTable";
 export default {
   head() {
     return {
       title: "Emergency Services"
     };
-  },
-  components: {
-    PageHeader,
-    YearDialog,
-    PatientCare,
-    EmergencyForm,
-    EmergencyTable
   },
   data: () => ({
   }),

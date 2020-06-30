@@ -51,24 +51,12 @@
 
 <script>
 import {mapState} from 'vuex'
-import PageHeader from '@/components/PageHeader'
-import StudentActivities from '@/components/StudentActivities'
-import YearDialog from "@/components/YearDialog"
-import RecognitionForm from '@/components/forms/RecognitionForm'
-import RecognitionTable from '@/components/tables/activities/RecognitionTable'
 export default {
   head() {
     return {
       title: 'Recognitions'
     }
   }, 
-  components: {
-    PageHeader,
-    StudentActivities,
-    YearDialog,
-    RecognitionForm,
-    RecognitionTable
-  },
   data: () => ({
     selectedYear: 0
   }),

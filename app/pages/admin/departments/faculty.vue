@@ -46,21 +46,11 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader";
-import YearDialog from "@/components/YearDialog";
-import FacultyForm from "@/components/forms/FacultyForm";
-import FacultyTable from "@/components/tables/FacultyTable";
 export default {
   head() {
     return {
       title: "Faculty and Staff served NIMHANS"
     };
-  },
-  components: {
-    PageHeader,
-    YearDialog,
-    FacultyForm,
-    FacultyTable
   },
   data: () => ({
     selectedYear: 0

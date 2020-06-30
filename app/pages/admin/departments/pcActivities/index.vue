@@ -20,20 +20,12 @@
 </template>
 
 <script>
-import PageHeader from '@/components/PageHeader'
-import PatientCare from '@/components/PatienCare'
-import YearDialog from '@/components/YearDialog'
 export default {
   head() {
     return {
       title: 'Patient Care Activities'
     }
   }, 
-  components: {
-    PageHeader,
-    YearDialog,
-    PatientCare
-  },
   data: () => ({
     selectedYear: 0,
   }),

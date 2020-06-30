@@ -179,18 +179,14 @@
 
 <script>
 import { mapState } from "vuex";
-import PageHeader from "@/components/PageHeader";
-import Editor from "@/components/Editor";
+
 export default {
   head() {
     return {
       title: "Annual Report"
     };
   },
-  components: {
-    PageHeader,
-    Editor
-  },
+  
   computed: {
     reportYears() {
       return this.$store.state.reportYears;
