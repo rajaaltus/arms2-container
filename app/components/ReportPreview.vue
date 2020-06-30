@@ -2,112 +2,8 @@
   <div>
     <v-card tile>
       <v-card-text class="px-0 py-0">
-        <QuerySelector />
-        <!-- {{ queryData }} -->
-        <v-stepper
-          v-if="
-            dataLoaded &&
-            isPreview !== true &&
-            $auth.user.userType === 'DEPARTMENT' &&
-            userType
-          "
-          v-model="report"
-          style="border-radius: 0;"
-        >
-          <v-stepper-header>
-            <v-stepper-step :complete="report > 1" step="1"
-              >Programmes / Events</v-stepper-step
-            >
-
-            <v-divider></v-divider>
-
-            <v-stepper-step :complete="report > 2" step="2"
-              >Contribution To Scientific Deliberations</v-stepper-step
-            >
-
-            <v-divider></v-divider>
-
-            <v-stepper-step :complete="report > 3" step="3"
-              >Public Engagement</v-stepper-step
-            >
-
-            <v-divider></v-divider>
-
-            <v-stepper-step :complete="report > 4" step="4"
-              >Research Activities</v-stepper-step
-            >
-
-            <v-divider></v-divider>
-
-            <v-stepper-step :complete="report > 5" step="5"
-              >Publications</v-stepper-step
-            >
-
-            <v-divider></v-divider>
-
-            <v-stepper-step step="6">Recogntions</v-stepper-step>
-          </v-stepper-header>
-
-          <v-stepper-items>
-            <v-stepper-content step="1" style="padding: 0px;">
-              <Editor
-                :content="step1Data"
-                :step="1"
-                @next="handleNext(1)"
-                :available="showAvailableReports"
-                :selectedYear="selectedYear"
-                :selectedUserType="userType"
-              />
-            </v-stepper-content>
-
-            <v-stepper-content step="2" style="padding: 0px;">
-              <Editor
-                :content="step2Data"
-                :step="2"
-                @next="handleNext(2)"
-                :available="showAvailableReports"
-              />
-            </v-stepper-content>
-
-            <v-stepper-content step="3" style="padding: 0px;">
-              <Editor
-                :content="step3Data"
-                :step="3"
-                @next="handleNext(3)"
-                :available="showAvailableReports"
-              />
-            </v-stepper-content>
-
-            <v-stepper-content step="4" style="padding: 0px;">
-              <Editor
-                :content="step4Data"
-                :step="4"
-                @next="handleNext(4)"
-                :available="showAvailableReports"
-              />
-            </v-stepper-content>
-
-            <v-stepper-content step="5" style="padding: 0px;">
-              <Editor
-                :content="step5Data"
-                :step="5"
-                @next="handleNext(5)"
-                :available="showAvailableReports"
-              />
-            </v-stepper-content>
-
-            <v-stepper-content step="6" style="padding: 0px;">
-              <Editor
-                :content="step6Data"
-                :step="6"
-                @next="handleNext(6)"
-                :available="showAvailableReports"
-              />
-            </v-stepper-content>
-          </v-stepper-items>
-        </v-stepper>
-        <div class="preview" v-else>
-          <!-- <div class="preview" v-if="isPreview && dataLoaded"> -->
+        <QuerySelector :reportYears="reportYears" :userTypes="userTypes" />
+        <div class="preview">
           <v-sheet width="100%" height="210vh" v-if="dataLoaded">
             <v-toolbar color="blue-grey darken-3" dark>
               <v-toolbar-title class="white--text"
@@ -455,7 +351,6 @@ export default {
         start: null,
         end: null,
       },
-      mon: null,
       menu: null,
       showAvailableReports: false,
       sheet: false,
@@ -488,41 +383,6 @@ export default {
       ],
     };
   },
-  watch: {
-    report(val) {
-      this.reportStepper = val;
-    },
-    selectedYear(val) {
-      this.yearParam = "annual_year=" + val;
-    },
-    userType(val) {
-      this.userParam = null;
-      this.userTypeParam = `&user.userType=${val}`;
-      if (val === "FACULTY") this.assignedPeople = this.faculties;
-      if (val === "STUDENT") this.assignedPeople = this.students;
-      if (val === "DEPARTMENT") this.assignedPeople = this.people;
-    },
-    range(val) {
-      // if (val.start) {
-      //   this.dataLoaded = false;
-      //   this.isPreview = true;
-      // }
-      var range = Object.assign({}, val);
-      this.monthParam = `&created_at_gt=${this.$moment(range.start).format(
-        "YYYY-MM-DD"
-      )}&created_at_lt=${this.$moment(range.end).format("YYYY-MM-DD")}`;
-      console.log("Month Param:", this.monthParam);
-      // console.log("at Range:", this.isPreview);
-    },
-    selectedUser(val) {
-      if (val) {
-        this.dataLoaded = false;
-        this.isPreview = true;
-      }
-      this.userParam = `&user.id=${val}`;
-    },
-  },
-
   computed: {
     // reportId() {
     //   return this.$store.state.report.reportId;

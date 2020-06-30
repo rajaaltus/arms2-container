@@ -152,5 +152,111 @@
         </v-row>
       </v-col>
     </v-row>
+    <div>
+    <pre>{{query}}</pre>
+    </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ['reportYears', 'userTypes'],
+  data() {
+    return {
+      report: 1,
+      range: {
+        start: '',
+        end: '',
+      },
+      menu: '',
+      sheet: false,
+      previewData: [],
+      dataLoaded: false,
+      assignedPeople: [],
+      loading: false,
+      selectedUser: '',
+      selectedYear: 0,
+      selectedQuery: '',
+      query: {
+        year: '',
+        range: '',
+        selectedUser: ''
+      },
+      yearParam: '',
+      userTypeParam: '',
+      monthParam: '',
+      userParam: '',
+      userType: '',
+    }
+  },
+  watch: {
+    // report(val) {
+    //   this.reportStepper = val;
+    // },
+    selectedYear(val) {
+      this.yearParam = "annual_year=" + val;
+      this.query.year=this.yearParam;
+    },
+    range(val) {
+      console.log('Range Val: ', val);
+      if(val) {
+       var range = Object.assign({}, {});
+      this.monthParam = `&created_at_gt=${this.$moment(range.start).format(
+        "YYYY-MM-DD"
+      )}&created_at_lt=${this.$moment(range.end).format("YYYY-MM-DD")}`;
+      }
+      this.query.range = this.monthParam;
+    },
+    selectedUser(val) {
+      this.userParam = `&user.id=${val}`;
+      this.query.selectedUser = this.userParam;
+    },
+    userType(val) {
+      this.userParam = null;
+      this.userTypeParam = `&user.userType=${val}`;
+      if (val === "FACULTY") this.assignedPeople = this.faculties;
+      if (val === "STUDENT") this.assignedPeople = this.students;
+      if (val === "DEPARTMENT") this.assignedPeople = this.people;
+    },
+  },
+  computed: {
+    people() {
+      return this.$store.state.user.activeUsersList.result;
+    },
+    faculties() {
+      return this.people.filter((item) => item.userType === "FACULTY");
+    },
+    students() {
+      return this.people.filter((item) => item.userType === "STUDENT");
+    },
+  },
+  methods: {
+    loader() {
+      // this.$emit()
+      this.selectedQuery = this.query.year + this.query.range + this.query.selectedUser;
+      console.log("Selected Query: ", this.selectedQuery);
+    },
+    resetFilter() {
+      // this.range = Object.assign({}, {
+      //   start: '',
+      //   end: ''
+      // });
+      this.range = null;
+      this.selectedQuery = '';
+      this.selectedYear = 0;
+      this.userType = '';
+      this.yearParam = '';
+      this.monthParam = '';
+      this.userTypeParam = '';
+      this.userParam = '';
+      this.query = Object.assign({}, {
+        year: '',
+        range: '',
+        selectedUser: ''
+      });
+      this.selectedUser = '';
+      this.assignedPeople = this.people;
+    }
+  }
+}
+</script>
