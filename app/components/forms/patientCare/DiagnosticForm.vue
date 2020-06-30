@@ -67,6 +67,7 @@
 import Swal from "sweetalert2";
 export default {
   data: () => ({
+    valid: false,
     testData: [],
     newTest: {
       lab_type: "",

@@ -21,6 +21,9 @@
         <v-tab-item>
           <ReportPreview />
         </v-tab-item>
+        <v-tab-item>
+          <ReportStepper />
+        </v-tab-item>
       </v-tabs>
     </v-container>
   </div>

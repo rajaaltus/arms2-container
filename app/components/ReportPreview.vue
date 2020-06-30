@@ -2,276 +2,8 @@
   <div>
     <v-card tile>
       <v-card-text class="px-0 py-0">
-        <v-row class="px-5">
-          <v-col cols="12" lg="2" class="mt-5">
-            <v-select
-              outlined
-              dense
-              v-model="selectedYear"
-              ref="year"
-              :items="reportYears"
-              item-value="id"
-              item-text="val"
-              label="Reporting Year"
-              placeholder="Pick Year"
-              color="success"
-            ></v-select>
-          </v-col>
-          <v-col cols="12" lg="1" class="mt-5">
-            <v-menu
-              ref="menu"
-              v-model="menu"
-              :close-on-content-click="false"
-              :return-value.sync="mon"
-              transition="scale-transition"
-              offset-y
-              max-width="290px"
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="mon"
-                  placeholder="Pick Month"
-                  label="Month"
-                  readonly
-                  outlined
-                  dense
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker v-model="mon" type="month" no-title scrollable>
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                <v-btn text color="primary" @click="$refs.menu.save(mon)"
-                  >OK</v-btn
-                >
-              </v-date-picker>
-            </v-menu>
-          </v-col>
-          <v-col cols="12" lg="3">
-            <v-label><small>Months Range</small></v-label>
-            <vc-date-picker
-              mode="range"
-              v-model="range"
-              ref="range"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            lg="2"
-            class="mt-5"
-            v-if="$auth.user.userType === 'DEPARTMENT'"
-          >
-            <v-select
-              outlined
-              dense
-              ref="user-type"
-              v-model="userType"
-              label="User Type"
-              placeholder="I am a"
-              :items="userTypes"
-              color="success"
-            ></v-select>
-          </v-col>
-
-          <v-col
-            cols="12"
-            lg="3"
-            class="mt-5"
-            v-if="$auth.user.userType === 'DEPARTMENT'"
-          >
-            <v-autocomplete
-              outlined
-              dense
-              v-model="selectedUser"
-              ref="user"
-              :items="assignedPeople"
-              color="blue-grey lighten-2"
-              label="Faculty / Staff / Student"
-              placeholder="My Name is"
-              item-text="fullname"
-              item-value="id"
-            >
-              <template v-slot:selection="data">
-                <!-- <v-chip
-                        v-bind="data.attrs"
-                        :input-value="data.selected"
-                        @click="data.select"
-                      > -->
-                <!-- <v-avatar left>
-                          <v-img :src="data.item.avatar"></v-img>
-                        </v-avatar> -->
-                {{ data.item.fullname }}
-                <!-- </v-chip> -->
-              </template>
-              <template v-slot:item="data">
-                <template v-if="typeof data.item !== 'object'">
-                  <v-list-item-content v-text="data.item"></v-list-item-content>
-                </template>
-                <template v-else>
-                  <v-list-item-avatar>
-                    <img
-                      :src="
-                        data.item.avatar !== null
-                          ? $axios.defaults.baseURL + data.item.avatar.url
-                          : '/avatar-default-icon.png'
-                      "
-                    />
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                    <v-list-item-title
-                      v-html="data.item.fullname"
-                    ></v-list-item-title>
-                    <v-list-item-subtitle
-                      v-html="data.item.userType"
-                    ></v-list-item-subtitle>
-                  </v-list-item-content>
-                </template>
-              </template>
-            </v-autocomplete>
-          </v-col>
-
-          <v-col cols="auto" lg="auto">
-            <v-row>
-              <v-layout align-start justify-start>
-                <v-btn
-                  v-if="selectedYear"
-                  :loading="loading"
-                  :disabled="loading"
-                  color="green"
-                  x-small
-                  class="mt-6 mr-1 white--text"
-                  fab
-                  @click="loader()"
-                >
-                  Go
-                </v-btn>
-                <v-tooltip right color="blue-grey darken-2">
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      color="blue-grey"
-                      fab
-                      x-small
-                      class="mt-6 white--text"
-                      dark
-                      @click="resetFilter"
-                      v-on="on"
-                    >
-                      <v-icon>mdi-reload</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>Reset Filter</span>
-                </v-tooltip>
-              </v-layout>
-            </v-row>
-          </v-col>
-        </v-row>
-        <!-- {{ queryData }} -->
-        <v-stepper
-          v-if="
-            dataLoaded &&
-            isPreview !== true &&
-            $auth.user.userType === 'DEPARTMENT' &&
-            userType
-          "
-          v-model="report"
-          style="border-radius: 0;"
-        >
-          <v-stepper-header>
-            <v-stepper-step :complete="report > 1" step="1"
-              >Programmes / Events</v-stepper-step
-            >
-
-            <v-divider></v-divider>
-
-            <v-stepper-step :complete="report > 2" step="2"
-              >Contribution To Scientific Deliberations</v-stepper-step
-            >
-
-            <v-divider></v-divider>
-
-            <v-stepper-step :complete="report > 3" step="3"
-              >Public Engagement</v-stepper-step
-            >
-
-            <v-divider></v-divider>
-
-            <v-stepper-step :complete="report > 4" step="4"
-              >Research Activities</v-stepper-step
-            >
-
-            <v-divider></v-divider>
-
-            <v-stepper-step :complete="report > 5" step="5"
-              >Publications</v-stepper-step
-            >
-
-            <v-divider></v-divider>
-
-            <v-stepper-step step="6">Recogntions</v-stepper-step>
-          </v-stepper-header>
-
-          <v-stepper-items>
-            <v-stepper-content step="1" style="padding: 0px;">
-              <Editor
-                :content="step1Data"
-                :step="1"
-                @next="handleNext(1)"
-                :available="showAvailableReports"
-                :selectedYear="selectedYear"
-                :selectedUserType="userType"
-              />
-            </v-stepper-content>
-
-            <v-stepper-content step="2" style="padding: 0px;">
-              <Editor
-                :content="step2Data"
-                :step="2"
-                @next="handleNext(2)"
-                :available="showAvailableReports"
-              />
-            </v-stepper-content>
-
-            <v-stepper-content step="3" style="padding: 0px;">
-              <Editor
-                :content="step3Data"
-                :step="3"
-                @next="handleNext(3)"
-                :available="showAvailableReports"
-              />
-            </v-stepper-content>
-
-            <v-stepper-content step="4" style="padding: 0px;">
-              <Editor
-                :content="step4Data"
-                :step="4"
-                @next="handleNext(4)"
-                :available="showAvailableReports"
-              />
-            </v-stepper-content>
-
-            <v-stepper-content step="5" style="padding: 0px;">
-              <Editor
-                :content="step5Data"
-                :step="5"
-                @next="handleNext(5)"
-                :available="showAvailableReports"
-              />
-            </v-stepper-content>
-
-            <v-stepper-content step="6" style="padding: 0px;">
-              <Editor
-                :content="step6Data"
-                :step="6"
-                @next="handleNext(6)"
-                :available="showAvailableReports"
-              />
-            </v-stepper-content>
-          </v-stepper-items>
-        </v-stepper>
-        <div class="preview" v-else>
-          <!-- <div class="preview" v-if="isPreview && dataLoaded"> -->
+        <QuerySelector :reportYears="reportYears" :userTypes="userTypes" @go="loader" />
+        <div class="preview">
           <v-sheet width="100%" height="210vh" v-if="dataLoaded">
             <v-toolbar color="blue-grey darken-3" dark>
               <v-toolbar-title class="white--text"
@@ -599,7 +331,6 @@
         </div>
       </v-card-text>
     </v-card>
-    <AvailableReports :availableReports="availableReports" v-if="sheet" />
   </div>
 </template>
 
@@ -614,28 +345,14 @@ export default {
   },
   data() {
     return {
-      report: 1,
       range: {
         start: null,
         end: null,
       },
-      mon: null,
-      menu: null,
-      showAvailableReports: false,
-      sheet: false,
-      isPreview: true,
       previewData: [],
       dataLoaded: false,
-      assignedPeople: [],
       loading: false,
-      selectedUser: null,
       selectedYear: 0,
-      query: null,
-      yearParam: null,
-      userTypeParam: null,
-      monthParam: null,
-      userParam: null,
-      userType: null,
       userTypes: [
         {
           text: "Department",
@@ -652,53 +369,11 @@ export default {
       ],
     };
   },
-  watch: {
-    report(val) {
-      this.reportStepper = val;
-    },
-    selectedYear(val) {
-      this.yearParam = "annual_year=" + val;
-    },
-    userType(val) {
-      this.userParam = null;
-      this.userTypeParam = `&user.userType=${val}`;
-      if (val === "FACULTY") this.assignedPeople = this.faculties;
-      if (val === "STUDENT") this.assignedPeople = this.students;
-      if (val === "DEPARTMENT") this.assignedPeople = this.people;
-    },
-    range(val) {
-      // if (val.start) {
-      //   this.dataLoaded = false;
-      //   this.isPreview = true;
-      // }
-      var range = Object.assign({}, val);
-      this.monthParam = `&created_at_gt=${this.$moment(range.start).format(
-        "YYYY-MM-DD"
-      )}&created_at_lt=${this.$moment(range.end).format("YYYY-MM-DD")}`;
-      console.log("Month Param:", this.monthParam);
-      // console.log("at Range:", this.isPreview);
-    },
-    selectedUser(val) {
-      if (val) {
-        this.dataLoaded = false;
-        this.isPreview = true;
-      }
-      this.userParam = `&user.id=${val}`;
-    },
-  },
-
   computed: {
     // reportId() {
     //   return this.$store.state.report.reportId;
     // },
-    reportStepper: {
-      get() {
-        return this.$store.state.reportStepper;
-      },
-      set(report) {
-        this.$store.dispatch("updateStepper", report);
-      },
-    },
+    
     reportYears() {
       return this.$store.state.reportYears;
     },
@@ -994,50 +669,17 @@ export default {
     },
   },
   methods: {
-    async loader() {
-      this.sheet = false;
-      this.$store.dispatch("report/initializeReportId", 0);
-      this.report = 1;
+    async loader(selectedQuery) {
       this.loading = true;
-      this.query = null;
-      this.query = this.yearParam ? this.yearParam : "?deleted_ne=true";
-
-      if (this.yearParam) {
-        let findQuery = "";
-        findQuery = `annual_year=${this.selectedYear}&department.id=${this.$store.state.auth.user.department}`;
-        await this.$store.dispatch("report/setAvailableReports", {
-          qs: findQuery,
-        });
-      }
-
-      if (this.range) this.query += this.monthParam;
-
-      if (this.userType) this.query += this.userTypeParam;
-
-      if (this.selectedUser) this.query += this.userParam;
-
-      if (this.yearParam && this.userTypeParam) {
-        let queryString = "";
-        queryString =
-          this.yearParam +
-          `&userType=${this.userType}&department.id=${this.$auth.user.department}`;
-        await this.$store.dispatch("report/setSavedReport", {
-          fq: queryString,
-        });
-        if (this.availableReports.length > 0 && !this.isPreview) {
-          this.sheet = true;
-        } else this.sheet = false;
-      }
-
       if (
         this.$auth.user.userType === "FACULTY" ||
         this.$auth.user.userType === "STUDENT"
       )
-        this.query += `&user.id=${this.$auth.user.id}`;
+        selectedQuery += `&user.id=${this.$auth.user.id}`;
 
       let queryString = "";
       queryString =
-        this.query +
+        selectedQuery +
         `&department.id=${this.$auth.user.department}&deleted_ne=true`;
 
       await this.$store.dispatch("program/setProgrammesData", {
@@ -1069,34 +711,17 @@ export default {
       await this.$store.dispatch("assignment/setAssignmentsData", {
         qs: queryString,
       });
-      this.previewData =
-        this.step1Data +
-        this.step2Data +
-        this.step3Data +
-        this.step4Data +
-        this.step5Data +
-        this.step6Data;
+      // this.previewData =
+      //   this.step1Data +
+      //   this.step2Data +
+      //   this.step3Data +
+      //   this.step4Data +
+      //   this.step5Data +
+      //   this.step6Data;
       this.loading = false;
       this.dataLoaded = true;
     },
-    async resetFilter() {
-      this.isPreview = false;
-      this.range = {};
-      this.previewData = [];
-      this.range.start = null;
-      this.showAvailableReports = false;
-      this.range.end = null;
-      this.selectedYear = 0;
-      this.userType = null;
-      this.yearParam = null;
-      this.monthParam = null;
-      this.userTypeParam = null;
-      this.userParam = null;
-      this.query = null;
-      this.selectedUser = null;
-      this.assignedPeople = this.people;
-      this.dataLoaded = false;
-    },
+    
     async changeReportingYear() {
       await this.$store.dispatch("setReportingYear", this.selectedYear);
     },

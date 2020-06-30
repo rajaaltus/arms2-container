@@ -89,6 +89,7 @@ export default {
     return {
       isLoading: false,
       search: "",
+      valid: false,
       otservice: {
         Procedure: "",
         classification: "",
