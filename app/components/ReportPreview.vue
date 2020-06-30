@@ -2,7 +2,7 @@
   <div>
     <v-card tile>
       <v-card-text class="px-0 py-0">
-        <QuerySelector :reportYears="reportYears" :userTypes="userTypes" />
+        <QuerySelector :reportYears="reportYears" :userTypes="userTypes" @go="loader" />
         <div class="preview">
           <v-sheet width="100%" height="210vh" v-if="dataLoaded">
             <v-toolbar color="blue-grey darken-3" dark>
@@ -331,7 +331,6 @@
         </div>
       </v-card-text>
     </v-card>
-    <AvailableReports :availableReports="availableReports" v-if="sheet" />
   </div>
 </template>
 
@@ -346,27 +345,14 @@ export default {
   },
   data() {
     return {
-      report: 1,
       range: {
         start: null,
         end: null,
       },
-      menu: null,
-      showAvailableReports: false,
-      sheet: false,
-      isPreview: true,
       previewData: [],
       dataLoaded: false,
-      assignedPeople: [],
       loading: false,
-      selectedUser: null,
       selectedYear: 0,
-      query: null,
-      yearParam: null,
-      userTypeParam: null,
-      monthParam: null,
-      userParam: null,
-      userType: null,
       userTypes: [
         {
           text: "Department",
@@ -387,14 +373,7 @@ export default {
     // reportId() {
     //   return this.$store.state.report.reportId;
     // },
-    reportStepper: {
-      get() {
-        return this.$store.state.reportStepper;
-      },
-      set(report) {
-        this.$store.dispatch("updateStepper", report);
-      },
-    },
+    
     reportYears() {
       return this.$store.state.reportYears;
     },
@@ -690,50 +669,17 @@ export default {
     },
   },
   methods: {
-    async loader() {
-      this.sheet = false;
-      this.$store.dispatch("report/initializeReportId", 0);
-      this.report = 1;
+    async loader(selectedQuery) {
       this.loading = true;
-      this.query = null;
-      this.query = this.yearParam ? this.yearParam : "?deleted_ne=true";
-
-      if (this.yearParam) {
-        let findQuery = "";
-        findQuery = `annual_year=${this.selectedYear}&department.id=${this.$store.state.auth.user.department}`;
-        await this.$store.dispatch("report/setAvailableReports", {
-          qs: findQuery,
-        });
-      }
-
-      if (this.range) this.query += this.monthParam;
-
-      if (this.userType) this.query += this.userTypeParam;
-
-      if (this.selectedUser) this.query += this.userParam;
-
-      if (this.yearParam && this.userTypeParam) {
-        let queryString = "";
-        queryString =
-          this.yearParam +
-          `&userType=${this.userType}&department.id=${this.$auth.user.department}`;
-        await this.$store.dispatch("report/setSavedReport", {
-          fq: queryString,
-        });
-        if (this.availableReports.length > 0 && !this.isPreview) {
-          this.sheet = true;
-        } else this.sheet = false;
-      }
-
       if (
         this.$auth.user.userType === "FACULTY" ||
         this.$auth.user.userType === "STUDENT"
       )
-        this.query += `&user.id=${this.$auth.user.id}`;
+        selectedQuery += `&user.id=${this.$auth.user.id}`;
 
       let queryString = "";
       queryString =
-        this.query +
+        selectedQuery +
         `&department.id=${this.$auth.user.department}&deleted_ne=true`;
 
       await this.$store.dispatch("program/setProgrammesData", {
@@ -765,34 +711,17 @@ export default {
       await this.$store.dispatch("assignment/setAssignmentsData", {
         qs: queryString,
       });
-      this.previewData =
-        this.step1Data +
-        this.step2Data +
-        this.step3Data +
-        this.step4Data +
-        this.step5Data +
-        this.step6Data;
+      // this.previewData =
+      //   this.step1Data +
+      //   this.step2Data +
+      //   this.step3Data +
+      //   this.step4Data +
+      //   this.step5Data +
+      //   this.step6Data;
       this.loading = false;
       this.dataLoaded = true;
     },
-    async resetFilter() {
-      this.isPreview = false;
-      this.range = {};
-      this.previewData = [];
-      this.range.start = null;
-      this.showAvailableReports = false;
-      this.range.end = null;
-      this.selectedYear = 0;
-      this.userType = null;
-      this.yearParam = null;
-      this.monthParam = null;
-      this.userTypeParam = null;
-      this.userParam = null;
-      this.query = null;
-      this.selectedUser = null;
-      this.assignedPeople = this.people;
-      this.dataLoaded = false;
-    },
+    
     async changeReportingYear() {
       await this.$store.dispatch("setReportingYear", this.selectedYear);
     },

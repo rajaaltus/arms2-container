@@ -170,7 +170,6 @@ export default {
       },
       menu: '',
       sheet: false,
-      previewData: [],
       dataLoaded: false,
       assignedPeople: [],
       loading: false,
@@ -180,6 +179,7 @@ export default {
       query: {
         year: '',
         range: '',
+        userType: '',
         selectedUser: ''
       },
       yearParam: '',
@@ -194,30 +194,40 @@ export default {
     //   this.reportStepper = val;
     // },
     selectedYear(val) {
-      this.yearParam = "annual_year=" + val;
-      this.query.year=this.yearParam;
+      if(val) {
+        this.yearParam = "annual_year=" + val;
+        this.query.year=this.yearParam;
+      }
+      
     },
     range(val) {
       console.log('Range Val: ', val);
       if(val) {
-       var range = Object.assign({}, {});
+       var range = Object.assign({}, val);
       this.monthParam = `&created_at_gt=${this.$moment(range.start).format(
         "YYYY-MM-DD"
       )}&created_at_lt=${this.$moment(range.end).format("YYYY-MM-DD")}`;
       }
       this.query.range = this.monthParam;
     },
-    selectedUser(val) {
-      this.userParam = `&user.id=${val}`;
-      this.query.selectedUser = this.userParam;
-    },
     userType(val) {
-      this.userParam = null;
-      this.userTypeParam = `&user.userType=${val}`;
-      if (val === "FACULTY") this.assignedPeople = this.faculties;
-      if (val === "STUDENT") this.assignedPeople = this.students;
-      if (val === "DEPARTMENT") this.assignedPeople = this.people;
+      this.userParam = '';
+      if(val) {
+        this.userTypeParam = `&user.userType=${val}`;
+        this.query.userType = this.userTypeParam;
+        if (val === "FACULTY") this.assignedPeople = this.faculties;
+        if (val === "STUDENT") this.assignedPeople = this.students;
+        if (val === "DEPARTMENT") this.assignedPeople = this.people;
+      }
     },
+    selectedUser(val) {
+      if(val) {
+        this.query.userType = '';
+        this.userParam = `&user.id=${val}`;
+        this.query.selectedUser = this.userParam;
+      }
+    },
+    
   },
   computed: {
     people() {
@@ -232,8 +242,8 @@ export default {
   },
   methods: {
     loader() {
-      // this.$emit()
-      this.selectedQuery = this.query.year + this.query.range + this.query.selectedUser;
+      this.selectedQuery = this.query.year + this.query.range + this.query.userType + this.query.selectedUser;
+      this.$emit('go', this.selectedQuery)
       console.log("Selected Query: ", this.selectedQuery);
     },
     resetFilter() {
@@ -252,6 +262,7 @@ export default {
       this.query = Object.assign({}, {
         year: '',
         range: '',
+        userType: '',
         selectedUser: ''
       });
       this.selectedUser = '';

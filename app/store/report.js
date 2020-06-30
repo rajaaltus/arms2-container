@@ -29,6 +29,8 @@ export const mutations = {
   },
   SET_AVAILABLE_REPORTS(state, response) {
     state.availableReports = response;
+    state.reportId = response[0].id;
+    console.log('From Mutation: ', response[0].id);
   },
   
 };

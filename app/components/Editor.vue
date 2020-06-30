@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <pre>{{selectedYear}}{{selectedUserType}}</pre> -->
+    <pre>{{selectedYear}}{{selectedUserType}}</pre>
     <ClientOnly>
       <tiptap-vuetify v-model="content" :extensions="extensions" />
       <template #placeholder>
@@ -101,11 +101,13 @@ export default {
       savedReports: state => state.reports.savedReports
     })
   },
-
+  mounted() {
+    console.log("From Editor: ", this.selectedYear, this.selectedUserType)
+  },
   methods: {
     async handleNext() {
     console.log('Response:', this.$store.state.report.savedReport);
-    console.log('Report Id: ',this.$store.state.report. reportId);
+    console.log('Report Id: ',this.$store.state.report.reportId);
     
       if (this.$store.state.report.reportId==0) {
         if (this.step == 1) {
