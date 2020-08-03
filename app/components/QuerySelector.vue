@@ -153,7 +153,7 @@
       </v-col>
     </v-row>
     <div>
-    <pre>{{query}}</pre>
+    <!-- <pre>{{query}}</pre> -->
     </div>
   </div>
 </template>
@@ -243,7 +243,7 @@ export default {
   methods: {
     loader() {
       this.selectedQuery = this.query.year + this.query.range + this.query.userType + this.query.selectedUser;
-      this.$emit('go', this.selectedQuery)
+      this.$emit('go', this.selectedQuery, this.selectedYear)
       console.log("Selected Query: ", this.selectedQuery);
     },
     resetFilter() {

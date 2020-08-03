@@ -669,7 +669,8 @@ export default {
     },
   },
   methods: {
-    async loader(selectedQuery) {
+    async loader(selectedQuery, selectedYear) {
+      this.selectedYear = selectedYear
       this.loading = true;
       if (
         this.$auth.user.userType === "FACULTY" ||
