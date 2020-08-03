@@ -155,7 +155,7 @@ export default {
     },
     mon(val) {
       if (val) {
-        this.monthParam = "&month=" + val.substr(-2);
+        this.monthParam = "&Month=" + val.substr(-2);
         this.querySavedReport.month = this.monthParam;
       }
     },
@@ -163,9 +163,9 @@ export default {
       console.log("Range Val: ", val);
       if (val) {
         var range = Object.assign({}, val);
-        this.monthParam = `&rangeFrom=${this.$moment(range.start).format(
+        this.monthParam = `&from=${this.$moment(range.start).format(
           "YYYY-MM-DD"
-        )}&rangeTo=${this.$moment(range.end).format("YYYY-MM-DD")}`;
+        )}&to=${this.$moment(range.end).format("YYYY-MM-DD")}`;
         this.querySavedReport.range = this.monthParam;
 
         this.queryFetch.range = `&created_at_gt=${this.$moment(
@@ -220,7 +220,10 @@ export default {
         this.selectedQuery,
         altQuery,
         this.selectedYear,
-        this.userType
+        this.userType,
+        this.mon,
+        this.$moment(this.range.start).format("YYYY-MM-DD"),
+        this.$moment(this.range.end).format("YYYY-MM-DD")
       );
       console.log("Selected Query: ", this.selectedQuery);
     },

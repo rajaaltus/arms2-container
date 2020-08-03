@@ -1,6 +1,6 @@
 <template>
   <div>
-    <pre>{{selectedYear}}{{selectedUserType}}</pre>
+    <!-- <pre>{{selectedYear}}{{selectedUserType}}{{selectedMonth}}{{from}}{{to}}</pre> -->
     <ClientOnly>
       <tiptap-vuetify v-model="content" :extensions="extensions" />
       <template #placeholder>
@@ -54,7 +54,7 @@ import {
 } from "tiptap-vuetify";
 import { mapState } from "vuex";
 export default {
-  props: ["content", "step", "selectedYear", "selectedUserType", "available"],
+  props: ["content", "step", "selectedYear", "selectedUserType", "available","selectedMonth", "from", "to"],
   components: { TiptapVuetify },
   data() {
     return {
@@ -116,6 +116,9 @@ export default {
             {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
+              Month: this.selectedMonth,
+              from: this.from,
+              to: this.to,
               department: this.$auth.user.department,
               section_a: this.content
             }
@@ -130,6 +133,9 @@ export default {
               id: this.$store.state.report.reportId,
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
+              Month: this.selectedMonth,
+              from: this.from,
+              to: this.to,
               department: this.$auth.user.department,
               section_a: this.content
             }

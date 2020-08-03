@@ -53,6 +53,9 @@
             @next="handleNext(1)"
             :available="showAvailableReports"
             :selectedYear="selectedYear"
+            :selectedMonth="selectedMonth"
+            :from="from"
+            :to="to"
             :selectedUserType="userType"
           />
         </v-stepper-content>
@@ -128,6 +131,9 @@ export default {
       showAvailableReports: false,
       previewData: [],
       selectedYear: 0,
+      selectedMonth: 0,
+      from: '',
+      to: '',
       userType: "",
       userTypes: [
         {
@@ -442,9 +448,12 @@ export default {
   },
 
   methods: {
-    async loader(selectedQuery, altQuery, selectedYear, userType) {
+    async loader(selectedQuery, altQuery, selectedYear, userType, month, from, to) {
       this.selectedYear = selectedYear;
       this.userType = userType;
+      this.selectedMonth = month.substr(-2);
+      this.from= from;
+      this.to=to;
       this.sheet = false;
       this.$store.dispatch("report/initializeReportId", 0);
 
@@ -495,13 +504,13 @@ export default {
         qs: queryString,
       });
 
-      this.previewData =
-        this.step1Data +
-        this.step2Data +
-        this.step3Data +
-        this.step4Data +
-        this.step5Data +
-        this.step6Data;
+      // this.previewData =
+      //   this.step1Data +
+      //   this.step2Data +
+      //   this.step3Data +
+      //   this.step4Data +
+      //   this.step5Data +
+      //   this.step6Data;
 
       this.loading = false;
       this.dataLoaded = true;
