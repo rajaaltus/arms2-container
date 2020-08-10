@@ -190,8 +190,6 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader";
-import YearDialog from "@/components/YearDialog";
 
 import { mapState } from "vuex";
 import Swal from "sweetalert2";
@@ -203,10 +201,6 @@ export default {
     return {
       title: "About the Department"
     };
-  },
-  components: {
-    PageHeader,
-    YearDialog
   },
   data: () => ({
     overlay: false,

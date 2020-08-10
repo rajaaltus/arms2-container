@@ -147,7 +147,6 @@
 <script>
 import { mapState } from "vuex";
 import wordcloud from "vue-wordcloud";
-import PageHeader from "@/components/PageHeader";
 import Swal from "sweetalert2";
 export default {
   head() {
@@ -156,7 +155,6 @@ export default {
     };
   },
   components: {
-    PageHeader,
     wordcloud
   },
   data: () => ({

@@ -50,24 +50,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import PageHeader from '@/components/PageHeader'
-import FacultyActivities from '@/components/FacultyActivities'
-import YearDialog from '@/components/YearDialog'
-import PublicForm from '@/components/forms/PublicForm'
-import PublicTable from '@/components/tables/activities/PublicTable'
 export default {
   head() {
     return {
       title: 'Public Engagement & Outreach Activities'
     }
   }, 
-  components: {
-    PageHeader,
-    FacultyActivities,
-    YearDialog,
-    PublicForm,
-    PublicTable
-  },
   data: () => ({
     selectedYear: 0,
   }),

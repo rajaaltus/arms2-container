@@ -192,31 +192,11 @@
 <script>
 import Swal from "sweetalert2";
 import { mapState } from "vuex";
-import PageHeader from "@/components/PageHeader";
-import ProfileCard from "@/components/profile/ProfileCard";
-import PublicationChart from "@/components/profile/PublicationChart";
-import WordCloud from "@/components/profile/WordCloud";
-import Qualification from "@/components/profile/Qualification";
-import Experience from "@/components/profile/Experience";
-import Expansion from "@/components/profile/Expansion";
-import SettingsForm from "@/components/profile/SettingsForm";
-import PasswordForm from "@/components/profile/PasswordForm";
 export default {
   head() {
     return {
       title: "User Profile"
     };
-  },
-  components: {
-    PageHeader,
-    ProfileCard,
-    PublicationChart,
-    WordCloud,
-    Qualification,
-    Experience,
-    Expansion,
-    SettingsForm,
-    PasswordForm
   },
   data: () => ({
     loading: false,

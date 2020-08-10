@@ -12,19 +12,11 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader"
-import ApprovalActivities from "@/components/ApprovalActivities"
-import Program from "@/components/approvals/Program"
 export default {
   head() {
     return {
       title: "Approvals"
     };
-  },
-  components: {
-    PageHeader,
-    ApprovalActivities,
-    Program
   },
   data() {
     return {

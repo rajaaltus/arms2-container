@@ -26,7 +26,7 @@
                 </v-card>
               </v-col>
               <v-col cols="12" md="9" lg="9">
-                <OTServiceForm />
+                <OtserviceForm />
               </v-col>
             </v-row>
           </v-card-text>
@@ -38,7 +38,7 @@
           <v-card-text class="px-0 py-1">
             <v-row>
               <v-col cols="12">
-                <OTServiceTable
+                <OtserviceTable
                   :reportYears="reportYears"
                 />
               </v-col>
@@ -51,23 +51,11 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader";
-import YearDialog from "@/components/YearDialog";
-import PatientCare from "@/components/PatienCare";
-import OTServiceForm from "@/components/forms/patient-care/OTServiceForm";
-import OTServiceTable from "@/components/tables/PatientCare/OTServiceTable";
 export default {
   head() {
     return {
       title: "OT & Other Procedures"
     };
-  },
-  components: {
-    PageHeader,
-    YearDialog,
-    PatientCare,
-    OTServiceForm,
-    OTServiceTable
   },
   data: () => ({
     selectedYear: 0

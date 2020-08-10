@@ -41,12 +41,8 @@
 
 <script>
 import { mapState } from "vuex";
-import DepartmentCard from "@/components/SuperAdmin/DepartmentCard";
 export default {
   layout: "super",
-  components: {
-    DepartmentCard,
-  },
   data() {
     return {
       selectedYear: 0,

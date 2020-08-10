@@ -18,6 +18,7 @@ export default {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
+  components: true,
   /*
   ** Customize the progress-bar color
   */
@@ -88,7 +89,7 @@ export default {
   */
 	axios: {
         // baseURL: 'http://armsbackend.localhost'
-		 baseURL: 'http://localhost:1338'
+		baseURL: 'http://localhost:1338'
 		//  baseURL: 'https://genie2.rotihouselao.com'
     // baseURL: 'http://14.139.159.112:1338'
 	},

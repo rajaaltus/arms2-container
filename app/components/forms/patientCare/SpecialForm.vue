@@ -89,6 +89,7 @@ export default {
       deleted: false,
       department: null
     },
+    valid: false,
     selectedYear: 0
   }),
   methods: {

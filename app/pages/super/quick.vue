@@ -1,11 +1,11 @@
 <template>
   <div>
-    <SettingsForm />
+    <h1>Quick Report</h1>
   </div>
 </template>
 
 <script>
 export default {
-  
+  layout: 'super'
 }
 </script>

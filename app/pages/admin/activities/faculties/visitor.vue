@@ -51,23 +51,11 @@
 
 <script>
 import {mapState} from 'vuex'
-import PageHeader from "@/components/PageHeader";
-import FacultyActivities from "@/components/FacultyActivities";
-import YearDialog from "@/components/YearDialog";
-import VisitorForm from "@/components/forms/VisitorForm";
-import VisitorTable from "@/components/tables/activities/VisitorTable";
 export default {
   head() {
     return {
       title: "Visitors to the Department"
     };
-  },
-  components: {
-    PageHeader,
-    FacultyActivities,
-    YearDialog,
-    VisitorForm,
-    VisitorTable
   },
   data: () => ({
   }),

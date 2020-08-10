@@ -50,24 +50,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import PageHeader from '@/components/PageHeader'
-import FacultyActivities from '@/components/FacultyActivities'
-import YearDialog from '@/components/YearDialog'
-import PatentForm from '@/components/forms/PatentForm'
-import PatentTable from '@/components/tables/activities/PatentTable'
 export default {
   head() {
     return {
       title: 'Patents'
     }
   }, 
-  components: {
-    PageHeader,
-    FacultyActivities,
-    YearDialog,
-    PatentForm,
-    PatentTable
-  },
   data: () => ({
     selectedYear: 0,
   }),

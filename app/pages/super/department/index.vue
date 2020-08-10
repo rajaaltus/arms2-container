@@ -26,14 +26,8 @@
 </template>
 
 <script>
-import CreateUser from "@/components/SuperAdmin/department/CreateUser"
-import ManageDepartment from "@/components/SuperAdmin/department/ManageDepartment"
 export default {
   layout: "super",
-  components: {
-    CreateUser,
-    ManageDepartment
-  },
   
 };
 </script>

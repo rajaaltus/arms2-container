@@ -50,24 +50,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import PageHeader from '@/components/PageHeader'
-import FacultyActivities from '@/components/FacultyActivities'
-import YearDialog from '@/components/YearDialog'
-import AssignmentForm from '@/components/forms/AssignmentForm'
-import AssignmentTable from '@/components/tables/activities/AssignmentTable'
 export default {
   head() {
     return {
       title: 'Key Assignments'
     }
   }, 
-  components: {
-    PageHeader,
-    FacultyActivities,
-    YearDialog,
-    AssignmentForm,
-    AssignmentTable
-  },
   data: () => ({
     selectedYear: 0,
   }),

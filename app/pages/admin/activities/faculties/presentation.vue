@@ -50,23 +50,11 @@
 
 <script>
 import {mapState} from 'vuex'
-import PageHeader from "@/components/PageHeader";
-import FacultyActivities from "@/components/FacultyActivities";
-import YearDialog from "@/components/YearDialog";
-import PresentationForm from "@/components/forms/PresentationForm";
-import PresentationTable from "@/components/tables/activities/PresentationTable"
 export default {
   head() {
     return {
       title: "Contribution To Scientific Deliberations - Presentations / Posters"
     };
-  },
-  components: {
-    PageHeader,
-    FacultyActivities,
-    YearDialog,
-    PresentationForm,
-    PresentationTable
   },
   data: () => ({
     selectedYear: 0
