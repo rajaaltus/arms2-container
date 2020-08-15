@@ -449,6 +449,7 @@ export default {
 
   methods: {
     async loader(selectedQuery, altQuery, selectedYear, userType, month, from, to) {
+      console.log("selectedQuery: ", selectedQuery);
       this.selectedYear = selectedYear;
       this.userType = userType;
       this.selectedMonth = month.substr(-2);

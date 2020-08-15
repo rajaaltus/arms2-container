@@ -19,8 +19,8 @@
         <v-menu
           ref="menu"
           v-model="menu"
-          :close-on-content-click="false"
-          :return-value.sync="mon"
+          :close-on-content-click="true"
+          
           transition="scale-transition"
           offset-y
           max-width="290px"
@@ -33,15 +33,16 @@
               label="Month"
               readonly
               outlined
+              :return-value.sync="mon"
               dense
               v-bind="attrs"
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="mon" type="month" no-title scrollable>
-            <v-spacer></v-spacer>
+          <v-date-picker v-model="mon" type="month" no-title scrollable @click="$refs.menu.save(mon)">
+            <!-- <v-spacer></v-spacer>
             <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-            <v-btn text color="primary" @click="$refs.menu.save(mon)">OK</v-btn>
+            <v-btn text color="primary" >OK</v-btn> -->
           </v-date-picker>
         </v-menu>
       </v-col>
@@ -211,10 +212,12 @@ export default {
         this.querySavedReport.year +
         this.querySavedReport.month +
         this.querySavedReport.userType +
-        this.querySavedReport.range;
+        this.range? this.querySavedReport.range: '';
 
       var altQuery = "";
-      altQuery = this.queryFetch.year + this.queryFetch.range + this.queryFetch.userType;
+      altQuery = this.queryFetch.year  + this.queryFetch.range + this.queryFetch.userType;
+      console.log("Selected Query: ", this.selectedQuery);
+      // console.log("Alt Query: ", altQuery);
       this.$emit(
         "goStepper",
         this.selectedQuery,
@@ -222,10 +225,10 @@ export default {
         this.selectedYear,
         this.userType,
         this.mon,
-        this.$moment(this.range.start).format("YYYY-MM-DD"),
-        this.$moment(this.range.end).format("YYYY-MM-DD")
+        this.range?this.$moment(this.range.start).format("YYYY-MM-DD"):'',
+        this.range?this.$moment(this.range.end).format("YYYY-MM-DD"):''
       );
-      console.log("Selected Query: ", this.selectedQuery);
+      
     },
     resetFilter() {
       // this.range = Object.assign({}, {
@@ -236,6 +239,7 @@ export default {
       this.range = null;
       this.selectedQuery = "";
       this.selectedYear = 0;
+      this.mon = "";
       this.userType = "";
       this.yearParam = "";
       this.monthParam = "";
