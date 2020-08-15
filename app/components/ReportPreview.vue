@@ -2,7 +2,7 @@
   <div>
     <v-card tile>
       <v-card-text class="px-0 py-0">
-        <QuerySelector :reportYears="reportYears" :userTypes="userTypes" @go="loader" />
+        <QuerySelector :reportYears="reportYears" :userTypes="userTypes" @go="loader" @resetFilters="dataLoaded = false" />
         <div class="preview">
           <v-sheet width="100%" height="210vh" v-if="dataLoaded">
             <v-toolbar color="blue-grey darken-3" dark>

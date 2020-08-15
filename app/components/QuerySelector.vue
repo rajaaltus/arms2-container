@@ -251,6 +251,7 @@ export default {
       //   start: '',
       //   end: ''
       // });
+      this.$emit("resetFilters");
       this.range = null;
       this.selectedQuery = '';
       this.selectedYear = 0;
