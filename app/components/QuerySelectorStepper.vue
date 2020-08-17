@@ -37,6 +37,7 @@
               dense
               v-bind="attrs"
               v-on="on"
+              color="success"
             ></v-text-field>
           </template>
           <v-date-picker v-model="mon" type="month" no-title scrollable @click="$refs.menu.save(mon)">
@@ -104,7 +105,7 @@
       </v-col>
     </v-row>
     <div>
-      <pre>{{ querySavedReport }}</pre>
+      <!-- <pre>{{ querySavedReport }}</pre> -->
     </div>
   </div>
 </template>
