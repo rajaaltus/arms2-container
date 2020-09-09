@@ -138,6 +138,8 @@ export default {
   data: () => ({
     duration_from: false,
     duration_to: false,
+    date: '',
+    date1: '',
     valid: false,
     trainings: {
       annual_year: 0,

@@ -309,7 +309,7 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader";
+// import PageHeader from "@/components/PageHeader";
 import { mapState } from "vuex";
 export default {
   head() {
@@ -317,9 +317,9 @@ export default {
       title: "ARMS Admin - " + this.$route.name,
     };
   },
-  components: {
-    PageHeader,
-  },
+  // components: {
+  //   PageHeader,
+  // },
   data() {
     return {
       drawer: true,

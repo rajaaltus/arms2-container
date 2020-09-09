@@ -37,7 +37,7 @@
           <v-col cols="3">
             <v-menu
               ref="menu1"
-              v-model="duration_to"
+              v-model="duration_from"
               :close-on-content-click="false"
               transition="scale-transition"
               offset-y
@@ -48,7 +48,7 @@
                   color="green"
                   v-model="faculty.leaving_date"
                   :rules="[v => !!v || 'Item is required']"
-                  :return-value.sync="duration_to"
+                  :return-value.sync="duration_from"
                   readonly
                   label="Leaving Date"
                   v-on="on"
@@ -56,10 +56,10 @@
               </template>
               <v-date-picker v-model="faculty.leaving_date" no-title scrollable>
                 <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="duration_to = false">
+                <v-btn text color="primary" @click="duration_from = false">
                   Cancel
                 </v-btn>
-                <v-btn text color="primary" @click="$refs.menu1.save(duration_to)">
+                <v-btn text color="primary" @click="$refs.menu1.save(duration_from)">
                   OK
                 </v-btn>
               </v-date-picker>

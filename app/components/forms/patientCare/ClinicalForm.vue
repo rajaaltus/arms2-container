@@ -113,6 +113,7 @@
 import Swal from 'sweetalert2'
 export default {
   data: () => ({
+    valid: true,
     pcClinical: 
     {
       annual_year: 0,

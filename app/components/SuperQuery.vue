@@ -240,8 +240,10 @@ export default {
       return this.people.filter((item) => item.userType === "STUDENT");
     },
   },
-  mounted() {
-    this.$store.dispatch('user/setActiveUserList');
+  async mounted() {
+    let querySelector = '';
+    querySelector = 'department.id='+`${this.$auth.user.department}`+'&blocked_ne=true';
+    this.$store.dispatch('user/setActiveUsersList', {qs: querySelector});
   },
   methods: {
     loader() {

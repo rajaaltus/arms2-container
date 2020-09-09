@@ -295,7 +295,7 @@
             />
           </div>
           <!-- Patent -->
-          <div v-if="(patent, index) in patents" :key="patent.id">
+          <div v-for="(patent, index) in patents" :key="patent.id">
             <p>
               <b>{{ index + 1 }}. {{ patent.registration_no }}:</b>
               {{ patent.title }}

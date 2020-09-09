@@ -102,7 +102,6 @@
 
 <script>
 import { mapState } from "vuex";
-import { state } from '../../store/recognition';
 export default {
   props: ['stats'],
   data() {
@@ -152,7 +151,7 @@ export default {
     })
   },
  
-  mounted() {
+  async mounted() {
     this.setPublicationData();
   },
   methods: {

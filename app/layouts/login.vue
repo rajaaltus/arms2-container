@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-content>
+    <v-main>
       <div class="backdrop">
         <div class="dark-overlay">
           <v-container fluid class="fill-height">
@@ -191,7 +191,7 @@
           </v-container>
         </div>
       </div>
-    </v-content>
+    </v-main>
     <v-snackbar
       v-for="(snackbar, index) in snackbars.filter(s => s.showing)"
       right
