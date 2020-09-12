@@ -65,16 +65,8 @@
 
 <script>
 import { mapState } from "vuex";
-import FacultyReport from "@/components/SuperAdmin/reports/FacultyReport";
-import StudentReport from "@/components/SuperAdmin/reports/StudentReport";
-import ReportDialog from "@/components/SuperAdmin/reports/ReportDialog";
 export default {
   props: ["selectedYear", "department"],
-  components: {
-    FacultyReport,
-    StudentReport,
-    ReportDialog,
-  },
   data() {
     return {
       report: null,

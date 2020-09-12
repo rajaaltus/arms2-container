@@ -20,7 +20,7 @@
 <script>
 import {mapState} from 'vuex'
 export default {
-  props: ['departmentId', 'selectedYear'],
+  props: ['departmentId', 'selectedYear','month'],
   data () {
     return {
       facultyData: null
@@ -34,7 +34,7 @@ export default {
   methods: {
     async downloadFaculty() {
       let queryString = '';
-      queryString = `department.id=${this.departmentId}&annual_year=${this.selectedYear}&userType=FACULTY`;
+      queryString = `department.id=${this.departmentId}&annual_year=${this.selectedYear}&userType=FACULTY${this.month>0?'&Month='+this.month:''}`;
       await this.$store.dispatch("report/setAvailableReports", {
           qs: queryString,
         });
