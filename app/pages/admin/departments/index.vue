@@ -105,7 +105,7 @@
                 ></v-progress-circular>
               </v-row>
             </template>
-            <template v-slot:placeholder>
+            <template v-slot:[placeholder]>
               <v-row class="fill-height ma-0" align="center" justify="center">
                 <v-progress-circular
                   indeterminate
