@@ -9,7 +9,7 @@
         </v-tab>
         <v-tab>
           <span class="mdi mdi-calendar-check cust-icon"></span>
-          Approve Monthly Report
+          Approve & Submit Monthly Report
         </v-tab>
         <v-tab>
           <span class="mdi mdi-file-word cust-icon"></span>

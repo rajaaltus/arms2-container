@@ -30,7 +30,7 @@
             <v-text-field
               v-model="mon"
               placeholder="Pick Month"
-              label="Month"
+              label="Report for the Month of"
               readonly
               outlined
               :return-value.sync="mon"
@@ -48,7 +48,7 @@
         </v-menu>
       </v-col>
       <v-col cols="12" lg="3">
-        <v-label><small>Months Range</small></v-label>
+        <v-label><small>Start Date - End Date</small></v-label>
         <vc-date-picker mode="range" v-model="range" ref="range" />
       </v-col>
       <v-col
@@ -62,8 +62,8 @@
           dense
           ref="user-type"
           v-model="userType"
-          label="User Type"
-          placeholder="I am a"
+          label="Report of the"
+          placeholder="Pick User Type"
           :items="userTypes"
           color="success"
         ></v-select>

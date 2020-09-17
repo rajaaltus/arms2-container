@@ -49,8 +49,7 @@
           </h1>
           <h3>
             <b
-              >1. CONFERENCES / WORKSHOPS / SEMINARS /SYMPOSIUM / SCIENTIFIC
-              PROGRAMMES</b
+              >1. CONFERENCES / WORKSHOPS / SEMINARS /SYMPOSIUM / SCIENTIFIC PROGRAMMES</b
             >
           </h3>
           <!-- Program -->

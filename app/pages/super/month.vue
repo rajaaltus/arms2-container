@@ -43,7 +43,7 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-simple-table fixed-header height="600">
+      <v-simple-table fixed-header >
         <template v-slot:default>
           <thead>
             <tr>
