@@ -19,7 +19,7 @@
             ></v-select>
           </v-col>
           <v-col cols="12" lg="3">
-            <v-label><small>Months Range</small></v-label>
+            <v-label><small>Start Date - End Date</small></v-label>
             <vc-date-picker
               mode="range"
               :class="$vuetify.theme.dark ? 'customMonth' : ''"
@@ -36,9 +36,9 @@
               ref="user-type"
               outlined
               dense
-              v-model="userType"
-              label="User Type"
-              placeholder="I am a"
+              v-model="Report"
+              label="Select User Type"
+              placeholder="Select"
               :items="userTypes"
               color="success"
             ></v-select>
@@ -56,7 +56,7 @@
               ref="user"
               :items="assignedPeople"
               color="blue-grey lighten-2"
-              label="Faculty / Staff / Student"
+              label="Select Individual"
               placeholder="My Name is"
               item-text="fullname"
               item-value="id"
