@@ -787,3 +787,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.bar-bg
+{
+  background-color: antiquewhite;
+}
+</style>

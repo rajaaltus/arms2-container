@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row class="px-5">
+    <v-row>
       <v-col cols="12" lg="2" class="mt-5">
         <v-select
           outlined
@@ -47,8 +47,8 @@
               </v-date-picker>
             </v-menu>
           </v-col> -->
-      <v-col cols="12" lg="3">
-        <v-label><small>Months Range</small></v-label>
+      <v-col cols="12" lg="2">
+        <v-label><small>Start Date - End Date</small></v-label>
         <vc-date-picker mode="range" v-model="range" ref="range" />
       </v-col>
       <v-col
@@ -62,8 +62,8 @@
           dense
           ref="user-type"
           v-model="userType"
-          label="User Type"
-          placeholder="I am a"
+          label="Report of the"
+          placeholder="Pick user type"
           :items="userTypes"
           color="success"
         ></v-select>
@@ -82,7 +82,7 @@
           ref="user"
           :items="assignedPeople"
           color="blue-grey lighten-2"
-          label="Faculty / Staff / Student"
+          label="Select individual (Faculty / Staff / Student)"
           placeholder="My Name is"
           item-text="fullname"
           item-value="id"
@@ -248,7 +248,7 @@ export default {
   methods: {
     loader() {
       this.selectedQuery = this.query.year + this.query.range + this.query.userType + this.query.selectedUser;
-      this.$emit('go', this.selectedQuery, this.selectedYear)
+      this.$emit('go', this.selectedQuery, this.selectedYear, this.range)
       console.log("Selected Query: ", this.selectedQuery);
     },
     resetFilter() {

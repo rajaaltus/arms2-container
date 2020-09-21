@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>Quick Report</h1>
-    <v-row class="px-5">
-      <v-col cols="12" lg="5" class="mt-5">
+    <h1>Generate Quick Reports</h1>
+    <v-row>
+      <v-col cols="12" lg="4" class="mt-5">
         <v-select
           outlined
           dense
@@ -28,14 +28,13 @@
       <v-sheet width="100%" height="210vh" v-if="dataLoaded">
         <v-toolbar color="blue-grey darken-3" dark>
           <v-toolbar-title class="white--text"
-            >Consolidated Report for the Year - {{ this.selectedYear }} -
-            {{ this.selectedYear + 1 }}
+            >{{reportTitle}}
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-tooltip left color="blue-grey darken-3">
             <template v-slot:activator="{ on }">
               <v-btn icon v-on="on">
-                <v-icon @click="exportToDoc(`Preview-${$auth.user.id}`)"
+                <v-icon @click="exportToDoc(`${formattedFileName}`)"
                   >mdi-download</v-icon
                 >
               </v-btn>
@@ -45,6 +44,7 @@
         </v-toolbar>
         <div id="download" elevation="6" class="mx-auto pa-4 doc" width="100%">
           <h1>
+            <h1>{{ reportTitle }}</h1>
             <b><u>Section B:</u></b>
           </h1>
           <h3>
@@ -347,7 +347,10 @@ export default {
   layout: "super",
   data() {
     return {
+      reportTitle: '',
+      formattedFileName: '',
       selectedDepartment: 0,
+      selectedRange: '',
       range: {
         start: null,
         end: null,
@@ -592,7 +595,21 @@ export default {
         qs: queryString1,
       });
     },
-    async loader(selectedQuery, selectedYear) {
+    async loader(selectedQuery, selectedYear, range) {
+      console.log(range);
+      if(range && range.start) {
+        this.reportTitle = 'Report for the period of ' + this.$moment(range.start).format('Do MMMM YYYY') + ' to ' + this.$moment(range.end).format('Do MMMM YYYY') + ', RY ('+ selectedYear + ' - '+ `${selectedYear+1}` + ')';
+        
+        this.formattedFileName = 'Report_for_the_period_of_' + this.$moment(range.start).format('Do_MMMM_YYYY') + ' to ' + this.$moment(range.end).format('Do_MMMM_YYYY') + ',_RY('+ selectedYear + ' - '+ `${selectedYear+1}` + ')';
+      }
+        
+      else {
+        this.reportTitle = 'Report for the period of RY ('+ selectedYear + ' - '+ `${selectedYear+1}` + ')';
+        this.formattedFileName = 'Report_for_the_period_of_RY ('+ selectedYear + ' - '+ `${selectedYear+1}` + ')';
+      }
+        
+
+      this.selectedRange = range;
       this.selectedYear = selectedYear
       this.loading = true;
       if (
