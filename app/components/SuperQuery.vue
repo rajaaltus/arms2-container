@@ -47,7 +47,7 @@
               </v-date-picker>
             </v-menu>
           </v-col> -->
-      <v-col cols="12" lg="2">
+      <v-col cols="12" lg="3">
         <v-label><small>Start Date - End Date</small></v-label>
         <vc-date-picker mode="range" v-model="range" ref="range" />
       </v-col>

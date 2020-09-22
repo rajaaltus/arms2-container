@@ -27,6 +27,9 @@
           </v-row>
           <v-row>
             <v-col cols="12">
+              <span style="color:red;">Note: Please fill this form <b>ONLY</b>, If you are a Principal Investigator</span>
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 v-model="research.faculty_name"
                 :rules="[(v) => !!v || 'Item is required']"
