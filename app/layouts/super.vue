@@ -98,7 +98,7 @@ export default {
       drawer: true,
       mini: true,
       items: [
-        { title: "Annual Reports", icon: "mdi-view-split-horizontal", to: '/super'},
+        // { title: "Annual Reports", icon: "mdi-view-split-horizontal", to: '/super'},
         { title: "Monthly Reports", icon: "mdi-chart-areaspline", to: '/super/month'},
         { title: "Generate Quick Reports", icon: "mdi-file-eye", to: '/super/quick'},
         { title: "Settings", icon: "mdi-shape-circle-plus", to: '/super/department' },
