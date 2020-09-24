@@ -125,10 +125,11 @@
               <v-text-field
                 v-model="journalArticle.epubdate"
                 label="Publication Date"
-                hint="Example: 2011 Jan 26"
+                hint="Format: YYYY-MM-DD"
                 persistent-hint
                 @blur="dateValidate(journalArticle.epubdate)"
                 color="success"
+                placeholder="YYYY-MM-DD"
               >
               </v-text-field>
             </v-col>

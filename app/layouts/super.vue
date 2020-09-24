@@ -27,7 +27,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>Super Admin</v-list-item-title>
+          <v-list-item-title>ARMS Administrator</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -58,11 +58,11 @@
       <v-app-bar-nav-icon @click.stop="mini = !mini" />
       <v-spacer></v-spacer>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
     <v-snackbar
       v-for="(snackbar, index) in snackbars.filter(s => s.showing)"
       right
@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader";
+
 import { mapState } from "vuex";
 export default {
   head() {
@@ -92,15 +92,15 @@ export default {
       title: "ARMS Admin - " + this.$route.name,
     };
   },
-  components: {
-    PageHeader,
-  },
+  
   data() {
     return {
       drawer: true,
       mini: true,
       items: [
-        { title: "Reports", icon: "mdi-chart-areaspline", to: '/super'},
+        // { title: "Annual Reports", icon: "mdi-view-split-horizontal", to: '/super'},
+        { title: "Monthly Reports", icon: "mdi-chart-areaspline", to: '/super/month'},
+        { title: "Generate Quick Reports", icon: "mdi-file-eye", to: '/super/quick'},
         { title: "Settings", icon: "mdi-shape-circle-plus", to: '/super/department' },
       ],
     };

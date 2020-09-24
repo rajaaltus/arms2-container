@@ -8,9 +8,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate",
-    "export": "nuxt export",
-    "serve": "nuxt serve"
+    "generate": "nuxt generate"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^16.0.0",

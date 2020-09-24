@@ -9,10 +9,10 @@
       :loading="loading"
       loading-text="Loading... Please wait"
     >
-      <template v-slot:item.updated_at="{ item }">
+      <template v-slot:[`item.updated_at`]="{ item }">
         {{ $moment(item.updated_at).fromNow() }}
       </template>
-      <template v-slot:item.publicationTypeId="{ item }">
+      <template v-slot:[`item.publicationTypeId`]="{ item }">
         {{ getPublicationType(item.publicationTypeId) }}
       </template>
       <template v-slot:top>
@@ -320,7 +320,7 @@ Cognition: The Fallacy of Drawing Conclusions from a Single Case. J ECT. 2018 Ju
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:item.action="{ item }">
+      <template v-slot:[`item.action`]="{ item }">
         <v-icon centre @click="editItem(item)" color="green"
           >mdi-pencil-box</v-icon
         >

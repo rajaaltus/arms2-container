@@ -255,7 +255,7 @@
             <v-icon color="white">mdi-apple-icloud</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title class="menu-title">Version 2.1</v-list-item-title>
+            <v-list-item-title class="menu-title">Version 2.0.2</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -281,12 +281,12 @@
         {{ $store.state.selectedYear }} - {{ $store.state.selectedYear + 1 }}
       </v-card>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <v-snackbar></v-snackbar>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
     <v-snackbar
       v-for="(snackbar, index) in snackbars.filter((s) => s.showing)"
       top
@@ -309,7 +309,7 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader";
+// import PageHeader from "@/components/PageHeader";
 import { mapState } from "vuex";
 export default {
   head() {
@@ -317,9 +317,9 @@ export default {
       title: "ARMS Admin - " + this.$route.name,
     };
   },
-  components: {
-    PageHeader,
-  },
+  // components: {
+  //   PageHeader,
+  // },
   data() {
     return {
       drawer: true,

@@ -86,6 +86,7 @@
 import Swal from 'sweetalert2'
 export default {
   data: () => ({
+    valid: false,
     hrd: 
 		{
 			annual_year: 0,

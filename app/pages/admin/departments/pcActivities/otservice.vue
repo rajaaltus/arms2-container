@@ -26,7 +26,7 @@
                 </v-card>
               </v-col>
               <v-col cols="12" md="9" lg="9">
-                <OTServiceForm />
+                <OtserviceForm />
               </v-col>
             </v-row>
           </v-card-text>
@@ -38,7 +38,7 @@
           <v-card-text class="px-0 py-1">
             <v-row>
               <v-col cols="12">
-                <OTServiceTable
+                <OtserviceTable
                   :reportYears="reportYears"
                 />
               </v-col>

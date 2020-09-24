@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-content>
+    <v-main>
       <div class="backdrop">
         <div class="dark-overlay">
           <v-container fluid class="fill-height">
@@ -191,7 +191,7 @@
           </v-container>
         </div>
       </div>
-    </v-content>
+    </v-main>
     <v-snackbar
       v-for="(snackbar, index) in snackbars.filter(s => s.showing)"
       right
@@ -283,6 +283,7 @@ export default {
 			})
 				.then(data => {
           console.log(data.data.user)
+          this.$store.dispatch('setDepartmentName',data.data.user.department.name);
           if(data.data.user.userType==='SUPER_ADMIN') {
             this.$store.dispatch('setUserData',data.data.user);
             this.$router.push('/super');

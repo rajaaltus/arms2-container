@@ -8,15 +8,18 @@
           Dashboard
         </v-tab>
         <v-tab>
-          <span class="mdi mdi-file-word cust-icon"></span>
-          Report Preview
+          <span class="mdi mdi-calendar-check cust-icon"></span>
+          Approve & Submit Monthly Report
         </v-tab>
         <v-tab>
           <span class="mdi mdi-file-word cust-icon"></span>
-          Generate / Edit Report
+          Generate Quick Report
         </v-tab>
         <v-tab-item>
           <DashboardCards />
+        </v-tab-item>
+        <v-tab-item>
+          <ReportStepper />
         </v-tab-item>
         <v-tab-item>
           <ReportPreview />
