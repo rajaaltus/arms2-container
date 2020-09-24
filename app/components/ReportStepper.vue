@@ -1,44 +1,25 @@
 <template>
   <div>
-    <QuerySelectorStepper
-      :reportYears="reportYears"
-      :userTypes="userTypes"
-      @goStepper="loader"
-      @resetFilters="dataLoaded = false"
-    />
-    <v-stepper
-      v-if="dataLoaded && $auth.user.userType === 'DEPARTMENT'"
-      v-model="report"
-      style="border-radius: 0;"
-    >
+    <QuerySelectorStepper :reportYears="reportYears" :userTypes="userTypes" @goStepper="loader" @resetFilters="dataLoaded = false" />
+    <v-stepper v-if="dataLoaded && $auth.user.userType === 'DEPARTMENT'" v-model="report" style="border-radius: 0;">
       <v-stepper-header>
-        <v-stepper-step :complete="report > 1" step="1"
-          >Programmes / Events</v-stepper-step
-        >
+        <v-stepper-step :complete="report > 1" step="1">Programmes / Events</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="report > 2" step="2"
-          >Contribution To Scientific Deliberations</v-stepper-step
-        >
+        <v-stepper-step :complete="report > 2" step="2">Contribution To Scientific Deliberations</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="report > 3" step="3"
-          >Public Engagement</v-stepper-step
-        >
+        <v-stepper-step :complete="report > 3" step="3">Public Engagement</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="report > 4" step="4"
-          >Research Activities</v-stepper-step
-        >
+        <v-stepper-step :complete="report > 4" step="4">Research Activities</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="report > 5" step="5"
-          >Publications</v-stepper-step
-        >
+        <v-stepper-step :complete="report > 5" step="5">Publications</v-stepper-step>
 
         <v-divider></v-divider>
 
@@ -47,72 +28,27 @@
 
       <v-stepper-items>
         <v-stepper-content step="1" style="padding: 0px;">
-          <Editor
-            :content="step1Data"
-            :step="1"
-            @next="handleNext(1)"
-            :available="showAvailableReports"
-            :selectedYear="selectedYear"
-            :selectedMonth="selectedMonth"
-            :from="from"
-            :to="to"
-            :selectedUserType="userType"
-          />
+          <Editor :content="step1Data" :step="1" @next="handleNext(1)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType" />
         </v-stepper-content>
 
         <v-stepper-content step="2" style="padding: 0px;">
-          <Editor
-            :content="step2Data"
-            :step="2"
-            @next="handleNext(2)"
-            :available="showAvailableReports"
-            :selectedYear="selectedYear"
-            :selectedUserType="userType"
-          />
+          <Editor :content="step2Data" :step="2" @next="handleNext(2)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedUserType="userType" />
         </v-stepper-content>
 
         <v-stepper-content step="3" style="padding: 0px;">
-          <Editor
-            :content="step3Data"
-            :step="3"
-            @next="handleNext(3)"
-            :available="showAvailableReports"
-            :selectedYear="selectedYear"
-            :selectedUserType="userType"
-          />
+          <Editor :content="step3Data" :step="3" @next="handleNext(3)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedUserType="userType" />
         </v-stepper-content>
 
         <v-stepper-content step="4" style="padding: 0px;">
-          <Editor
-            :content="step4Data"
-            :step="4"
-            @next="handleNext(4)"
-            :available="showAvailableReports"
-            :selectedYear="selectedYear"
-            :selectedUserType="userType"
-          />
+          <Editor :content="step4Data" :step="4" @next="handleNext(4)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedUserType="userType" />
         </v-stepper-content>
 
         <v-stepper-content step="5" style="padding: 0px;">
-          <Editor
-            :content="step5Data"
-            :step="5"
-            @next="handleNext(5)"
-            :available="showAvailableReports"
-            :selectedYear="selectedYear"
-            :selectedUserType="userType"
-          />
+          <Editor :content="step5Data" :step="5" @next="handleNext(5)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedUserType="userType" />
         </v-stepper-content>
 
         <v-stepper-content step="6" style="padding: 0px;">
-          <Editor
-            :content="step6Data"
-            :step="6"
-            @next="handleNext(6)"
-            :available="showAvailableReports"
-            :selectedYear="selectedYear"
-            :selectedUserType="userType"
-          />
+          <Editor :content="step6Data" :step="6" @next="handleNext(6)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedUserType="userType" />
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
@@ -132,8 +68,8 @@ export default {
       previewData: [],
       selectedYear: 0,
       selectedMonth: 0,
-      from: '',
-      to: '',
+      from: "",
+      to: "",
       userType: "",
       userTypes: [
         {
@@ -183,19 +119,13 @@ export default {
       return this.programmes
         .map(
           (program, index) =>
-            `
-            <p><b>${
-              index + 1
-            }. ${program.forum.toUpperCase()} ${program.type.toUpperCase()} on "${
-              program.name
-            }" at ${program.location}</b> from ${program.from_date} to ${
-              program.to_date
-            }, Coordinated by ${program.coordinators}.</p>
-            <p>Collaboration: ${program.colloborations}, Total Participants: ${
-              program.participants_count
-            }</p>
-           <p><img src="/image_placeholder.png" alt="program" width="300" height="auto"/></p>
-            <p><b><u>Brief Report:</u></b> ${program.brief_report}</p>`
+            `<p style="text-align: justify; font-family: Calibri;">
+      ${index + 1}. ${program.coordinators}. ${program.type.toUpperCase()}, ${program.name.toUpperCase()}, ${program.location}, ${this.$moment(program.from_date).format("Do MMMM YYYY")} to ${this.$moment(program.to_date).format(
+              "Do MMMM YYYY"
+            )}.
+      ${program.participants_count} members participated. (${program.forum})
+    </p>
+    `
         )
         .join("");
     },
@@ -204,14 +134,10 @@ export default {
         .map(
           (visitor, index) =>
             `
-            <p><b>${index + 1}. ${visitor.name}, ${
-              visitor.designation
-            }</b> from ${
-              visitor.institutional_affiliation
-            } visited to our department during ${visitor.from_date} - ${
-              visitor.to_date
-            }. He / She had given a lecture titled "${visitor.title}"</p>
-            <p><b><u>Brief Report:</u></b> ${visitor.brief_report}</p>
+            <p style="text-align: justify; font-family: Calibri;">
+      ${index + 1}. ${visitor.name}, ${visitor.designation}, ${visitor.institutional_affiliation}, visited the Dept. of ${this.$store.state.deptartmentName} and delivered a lecture on '${visitor.title}' from
+      ${this.$moment(visitor.from_date).format("Do MMMM YYYY")} to ${this.$moment(visitor.to_date).format("Do MMMM YYYY")}.
+    </p>
             `
         )
         .join("");
@@ -221,14 +147,10 @@ export default {
         .map(
           (training, index) =>
             `
-            <p><b>${index + 1}. ${
-              training.faculty_name
-            }</b> has attended a training programme on "${
-              training.program_name
-            }" at ${training.institutional_affiliation} from ${
-              training.from_date
-            } to ${training.to_date}, funded by ${training.funded_by}.</p>
-            <p><b><u>Brief Report:</u></b> ${training.brief_report}</p>
+            <p style="text-align: justify; font-family: Calibri;">
+      ${index + 1}. ${training.faculty_name}. ${training.program_name}, ${training.institutional_affiliation} from ${this.$moment(training.from_date).format("Do MMMM YYYY")} to
+      ${this.$moment(training.to_date).format("Do MMMM YYYY")}.
+    </p>
             `
         )
         .join("");
@@ -237,16 +159,7 @@ export default {
       return this.presentations
         .map(
           (presentation, index) =>
-            `
-            <p><b>${
-              index + 1
-            }. ${presentation.forum.toUpperCase()} ${presentation.type.toUpperCase()}</b> on "${
-              presentation.title
-            }" by ${presentation.faculty_name}. Co-authors: ${
-              presentation.coauthors
-            }</p>
-            <p><b><u>Reference:</u></b> ${presentation.reference}</p>
-            `
+            `<p style="text-align: justify; font-family: Calibri;">${ index + 1 }. ${ presentation.faculty_name }, ${ presentation.coauthors }. ${ presentation.title }. (${ presentation.forum })</p>`
         )
         .join("");
     },
@@ -255,13 +168,10 @@ export default {
         .map(
           (participation, index) =>
             `
-            <p><b>${index + 1}. ${participation.faculty_name}, ${
-              participation.designation
-            }</b> participated in ${participation.forum} programme titled "${
-              participation.program_name
-            }", from ${participation.from_date} to ${
-              participation.to_date
-            } at ${participation.place}.</p>
+            <p style="text-align: justify; font-family: Calibri;">
+      ${ index + 1 }. ${ participation.faculty_name }, ${ participation.designation }. ${ participation.program_name } from ${ this.$moment(participation.from_date).format("Do MMMM YYYY") } to
+      ${ this.$moment(participation.to_date).format("Do MMMM YYYY") }. (${ participation.forum })
+    </p>
             `
         )
         .join("");
@@ -271,14 +181,9 @@ export default {
         .map(
           (item, index) =>
             `
-            <p><b>${index + 1}. ${item.type.toUpperCase()}</b> titled "${
-              item.title
-            }" given by ${item.faculty_name} on ${item.date} at ${
-              item.place
-            }.</p>
-            <p><b>Program Name: </b>${
-              item.program_name
-            }, <b>Target Audience: </b>${item.target_audience}</p>
+            <p style="text-align: justify; font-family: Calibri;">
+      ${ index + 1 }. ${ item.faculty_name }. ${ item.title }, ${ item.program_name }, ${ item.place }, ${ this.$moment(item.date).format("Do MMMM YYYY") }. Target Group: ${ item.target_audience }.
+    </p>
             `
         )
         .join("");
@@ -288,22 +193,11 @@ export default {
         .map(
           (research, index) =>
             `
-            <p><b>${index + 1}. ${research.research_status.toUpperCase()}: ${
-              research.title
-            }</b></p>
-            <p>${research.investigator_type}: ${
-              research.investigator_name
-            }, Total Duration(in months): ${research.total_durations}</p>
-            <p>Source of Funding: ${
-              research.funding_source
-            }, Funding agency : ${research.funding_agency}, Total funding: ${
-              research.total_funds
-            }, Funding during the review period/year: ${
-              research.funding_on_review_period
-            }</p>
-            <p><b><u>Brief Report/Abstract: </u></b> ${
-              research.research_abstract
-            }</p>
+            <p style="text-align: justify; font-family: Calibri;">${ index + 1 }. ${ research.title }. Co-Investigators: ${ research.investigator_name }.</p>
+    <p style="font-family: Calibri;">(${ research.funding_source }, ${ research.funding_agency })</p>
+    <p style="text-align: justify; font-family: Calibri;">
+      ${ research.research_abstract }
+    </p>
             `
         )
         .join("");
@@ -313,10 +207,7 @@ export default {
         .map(
           (publication, index) =>
             `
-            <p><b>${
-              index + 1
-            }. ${publication.classification.toUpperCase()}, ${publication.publication_type.toUpperCase()}</b></p>
-            <p>${publication.reference}</p>
+            <p style="text-align: justify; font-family: Calibri;">${ index + 1 }. ${ publication.reference }</p>
             `
         )
         .join("");
@@ -326,11 +217,9 @@ export default {
         .map(
           (recognition, index) =>
             `
-            <p><b>${index + 1}. ${
-              recognition.faculty_name
-            }</b> has been awarded as "${recognition.award_title}" by ${
-              recognition.organization
-            },${recognition.place} on ${recognition.date}.</p>
+            <p style="text-align: justify; font-family: Calibri;">
+      ${ index + 1 }. ${ recognition.faculty_name }, ${ recognition.organization }. ${ recognition.award_title }, ${ recognition.place }, ${ this.$moment(recognition.date).format("Do MMMM YYYY") }.
+    </p>
             `
         )
         .join("");
@@ -340,10 +229,10 @@ export default {
         .map(
           (patent, index) =>
             `
-            <p><b>${index + 1}. ${patent.registration_no}:</b> ${
-              patent.title
-            }</p>
-            <p><b><u>Brief Report: </u></b> ${patent.brief_report}</p>
+             <p style="text-align: justify; font-family: Calibri;">
+      ${ index + 1 }. ${ patent.registration_no }: ${ patent.title }<br />
+      ${ patent.brief_report }
+    </p>
             `
         )
         .join("");
@@ -353,12 +242,10 @@ export default {
         .map(
           (assignment, index) =>
             `
-            <p><b>${
-              index + 1
-            }. ${assignment.classification.toUpperCase()}:</b> ${
-              assignment.faculty_name
-            }, ${assignment.designation}, ${assignment.roles}</p>
-            <p><b><u>Brief Report: </u></b> ${assignment.brief_report}</p>
+            <p style="font-family: Calibri;">${ index + 1 }. ${ assignment.faculty_name }, ${ assignment.designation }. ${ assignment.roles }</p>
+    <p style="text-align: justify; font-family: Calibri; font-style: normal;">
+      ${ assignment.brief_report }
+    </p>
             `
         )
         .join("");
@@ -367,76 +254,68 @@ export default {
     step1Data() {
       var html = "";
       if (this.formattedProgrammes.length > 0) {
-        html =
-          `<h1><b><u>Section B:</u></b></h1>` +
-          `<h3><b>1. CONFERENCES / WORKSHOPS / SEMINARS /SYMPOSIUM / SCIENTIFIC PROGRAMMES</b></h3>` +
-          this.formattedProgrammes;
+        // html = `<h1><b><u>Section B:</u></b></h1>` + `<h3><b>1. CONFERENCES / WORKSHOPS / SEMINARS /SYMPOSIUM / SCIENTIFIC PROGRAMMES</b></h3>` + this.formattedProgrammes;
+        html = this.formattedProgrammes;
       }
       if (this.formattedVisitors.length > 0) {
-        html +=
-          `<hr><h3><b>2. VISITORS TO THE DEPARTMENT</b></h3>` +
-          this.formattedVisitors;
+        // html += `<hr><h3><b>2. VISITORS TO THE DEPARTMENT</b></h3>` + this.formattedVisitors;
+        html += this.formattedVisitors;
       }
       if (this.formattedTrainings) {
-        html +=
-          `<hr><h3><b>3. SPECIFIC TRAINING UNDERWENT BY THE FACULTY / STAFF / STUDENTS OUTSIDE NIMHANS</b></h3>` +
-          this.formattedTrainings;
+        // html += `<hr><h3><b>3. SPECIFIC TRAINING UNDERWENT BY THE FACULTY / STAFF / STUDENTS OUTSIDE NIMHANS</b></h3>` + this.formattedTrainings;
+        html += this.formattedTrainings;
       }
       return html;
     },
     step2Data() {
       var html = "";
       if (this.formattedPresentations.length > 0) {
-        html =
-          `<h3><b>4. CONTRIBUTION TO SCIENTIFIC DELIBERATIONS</b></h3>` +
-          `<h3><b>A. PRESENTATIONS/ POSTERS</b></h3>` +
-          this.formattedPresentations;
+        // html = `<h3><b>4. CONTRIBUTION TO SCIENTIFIC DELIBERATIONS</b></h3>` + `<h3><b>A. PRESENTATIONS/ POSTERS</b></h3>` + this.formattedPresentations;
+        html = this.formattedPresentations;
       }
       if (this.formattedParticipations.length > 0) {
-        html +=
-          `<hr><h3><b>B. PARTICIPATIONS</b></h3>` +
-          this.formattedParticipations;
+        // html += `<hr><h3><b>B. PARTICIPATIONS</b></h3>` + this.formattedParticipations;
+        html += this.formattedParticipations;
       }
       return html;
     },
     step3Data() {
       var html = "";
       if (this.formattedPublics.length > 0) {
-        html =
-          `<h3><b>5. PUBLIC ENGAGEMENT & OUTREACH ACTIVITIES</b></h3>` +
-          this.formattedPublics;
+        // html = `<h3><b>5. PUBLIC ENGAGEMENT & OUTREACH ACTIVITIES</b></h3>` + this.formattedPublics;
+        html = this.formattedPublics;
       }
       return html;
     },
     step4Data() {
       var html = "";
       if (this.formattedResearch.length > 0) {
-        html =
-          `<h3><b>6. RESEARCH ACTIVITIES</b></h3>` + this.formattedResearch;
+        // html = `<h3><b>6. RESEARCH ACTIVITIES</b></h3>` + this.formattedResearch;
+        html = this.formattedResearch;
       }
       return html;
     },
     step5Data() {
       var html = "";
       if (this.formattedPublications.length > 0) {
-        html = `<h3><b>5. PUBLICATIONS</b></h3>` + this.formattedPublications;
+        // html = `<h3><b>5. PUBLICATIONS</b></h3>` + this.formattedPublications;
+        html = this.formattedPublications;
       }
       return html;
     },
     step6Data() {
       var html = "";
       if (this.formattedRecognitions.length > 0) {
-        html =
-          `<h3><b>5. RECOGNITION OF NIMHANS CONTRIBUTION </b></h3>` +
-          `<h3><b>A. AWARDS AND HONORS </b></h3>` +
-          this.formattedRecognitions;
+        // html = `<h3><b>5. RECOGNITION OF NIMHANS CONTRIBUTION </b></h3>` + `<h3><b>A. AWARDS AND HONORS </b></h3>` + this.formattedRecognitions;
+        html = this.formattedRecognitions;
       }
       if (this.formattedPatents.length > 0) {
-        html += `<hr><h3><b>B. PATENTS </b></h3>` + this.formattedPatents;
+        // html += `<hr><h3><b>B. PATENTS </b></h3>` + this.formattedPatents;
+        html +=  this.formattedPatents;
       }
       if (this.formattedAssignments.length > 0) {
-        html +=
-          `<hr><h3><b>C. KEY ASSIGNMENTS </b></h3>` + this.formattedAssignments;
+        // html += `<hr><h3><b>C. KEY ASSIGNMENTS </b></h3>` + this.formattedAssignments;
+        html += this.formattedAssignments;
       }
       return html;
     },
@@ -453,15 +332,13 @@ export default {
       this.selectedYear = selectedYear;
       this.userType = userType;
       this.selectedMonth = month.substr(-2);
-      this.from= from;
-      this.to=to;
+      this.from = from;
+      this.to = to;
       this.sheet = false;
       this.$store.dispatch("report/initializeReportId", 0);
 
       let findQuery = "";
-      findQuery =
-        selectedQuery +
-        `&department.id=${this.$store.state.auth.user.department}`;
+      findQuery = selectedQuery + `&department.id=${this.$store.state.auth.user.department}`;
 
       await this.$store.dispatch("report/setAvailableReports", {
         qs: findQuery,
@@ -471,9 +348,7 @@ export default {
       } else this.sheet = false;
 
       let queryString = "";
-      queryString =
-        altQuery +
-        `&department.id=${this.$auth.user.department}&deleted_ne=true`;
+      queryString = altQuery + `&department.id=${this.$auth.user.department}&deleted_ne=true`;
 
       await this.$store.dispatch("program/setProgrammesData", {
         qs: queryString,

@@ -55,20 +55,7 @@
           </h4>
           <!-- Program -->
           <div v-for="(program, index) in programmes" :key="program.id">
-            <ProgramFormat
-              :index="index"
-              :forum="program.forum"
-              :type="program.type"
-              :name="program.name"
-              :location="program.location"
-              :from_date="program.from_date"
-              :to_date="program.to_date"
-              :coordinators="program.coordinators"
-              :colloborations="program.colloborations"
-              :participants_count="program.participants_count"
-              :brief_report="program.brief_report"
-              :image="program.image"
-            />
+            <ProgramFormat :index="index" :program="program" />
           </div>
           <!-- Visitor -->
           <h4 style="font-family: Calibri; font-style: normal;">
@@ -359,7 +346,7 @@ export default {
   },
   methods: {
     getDepartmentName(id) {
-        return this.departments.find((dept) => dept.id == id);
+      return this.departments.find((dept) => dept.id == id);
     },
     async fetchUsers() {
       let queryString1 = "";
@@ -369,7 +356,7 @@ export default {
       });
     },
     async loader(selectedQuery, selectedYear, range) {
-      this.$nuxt.$loading.start()
+      this.$nuxt.$loading.start();
       if (range && range.start) {
         this.reportTitle = "Report for the period of " + this.$moment(range.start).format("Do MMMM YYYY") + " to " + this.$moment(range.end).format("Do MMMM YYYY") + ", RY (" + selectedYear + " - " + `${selectedYear + 1}` + ")";
 
@@ -428,7 +415,7 @@ export default {
       });
       this.loading = false;
       this.dataLoaded = true;
-      this.$nuxt.$loading.finish()
+      this.$nuxt.$loading.finish();
     },
     exportToDoc(filename = "") {
       var preHtml =
