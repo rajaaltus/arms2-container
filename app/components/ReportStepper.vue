@@ -32,23 +32,23 @@
         </v-stepper-content>
 
         <v-stepper-content step="2" style="padding: 0px;">
-          <Editor :content="step2Data" :step="2" @next="handleNext(2)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedUserType="userType" />
+          <Editor :content="step2Data" :step="2" @next="handleNext(2)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
         </v-stepper-content>
 
         <v-stepper-content step="3" style="padding: 0px;">
-          <Editor :content="step3Data" :step="3" @next="handleNext(3)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedUserType="userType" />
+          <Editor :content="step3Data" :step="3" @next="handleNext(3)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
         </v-stepper-content>
 
         <v-stepper-content step="4" style="padding: 0px;">
-          <Editor :content="step4Data" :step="4" @next="handleNext(4)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedUserType="userType" />
+          <Editor :content="step4Data" :step="4" @next="handleNext(4)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
         </v-stepper-content>
 
         <v-stepper-content step="5" style="padding: 0px;">
-          <Editor :content="step5Data" :step="5" @next="handleNext(5)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedUserType="userType" />
+          <Editor :content="step5Data" :step="5" @next="handleNext(5)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
         </v-stepper-content>
 
         <v-stepper-content step="6" style="padding: 0px;">
-          <Editor :content="step6Data" :step="6" @next="handleNext(6)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedUserType="userType" />
+          <Editor :content="step6Data" :step="6" @next="handleNext(6)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>

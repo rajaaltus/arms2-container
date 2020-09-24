@@ -73,7 +73,7 @@
         <v-row>
           <v-layout align-start justify-start>
             <v-btn
-              v-if="selectedYear"
+              v-if="selectedYear && mon && range && userType"
               :loading="loading"
               :disabled="loading"
               color="green"
