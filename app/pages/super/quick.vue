@@ -43,10 +43,10 @@
           </v-tooltip>
         </v-toolbar>
         <div id="download" elevation="6" class="mx-auto pa-4 doc" width="100%">
-          <h2 style="text-align:center; font-family: Calibri; font-style: normal; line-height:25px;">National Institute of Mental Health and NeuroSciences</h2>
-          <h3 style="text-align:center; font-family: Calibri; font-style: normal;">Depatment of {{ $store.state.departmentName }}</h3>
-          <h3 style="text-align:center; font-family: Calibri; font-style: normal;"> {{ reportTitle }}</h3>
-          <h6 style="text-align:right; font-family: Calibri; font-style: normal;"> Generated On: {{ $moment().format('Do MMMM YYYY, h:mm:ss a') }}</h6>
+          <h2 style="text-align:center; font-family: Calibri; font-style: normal; line-height:25px;">National Institute of Mental Health and Neurosciences</h2>
+          <h3 style="text-align:center; font-family: Calibri; font-style: normal;">Department of {{ getDepartmentName(selectedDepartment).name }}</h3>
+          <h4 style="text-align:center; font-family: Calibri; font-style: normal;"> {{ reportTitle }}</h4>
+          <h6 style="text-align:right; font-family: Calibri; font-style: normal; color:gray;"> Generated On: {{ $moment().format('Do MMMM YYYY, h:mm:ss a') }}</h6>
 
           <h2 style="font-family: Calibri; font-style: normal;">
             <b><u>Section B:</u></b>
@@ -57,7 +57,7 @@
           <!-- Program -->
           <div v-for="(program, index) in programmes" :key="program.id">
             <p style="text-align:justify; font-family: Calibri;">
-              {{ index + 1 }}. {{ program.coordinators }}. {{ program.type }}, {{ program.name }}, {{ program.location }}, {{ $moment(program.from_date).format('Do MMMM YYYY') }} to {{ $moment(program.to_date).format('Do MMMM YYYY') }}. {{ program.participants_count }} members participated.({{ program.forum}})
+              {{ index + 1 }}. {{ program.coordinators }}. {{ program.type }}, {{ program.name }}, {{ program.location }}, {{ $moment(program.from_date).format('Do MMMM YYYY') }} to {{ $moment(program.to_date).format('Do MMMM YYYY') }}. {{ program.participants_count }} members participated. ({{ program.forum}})
             </p>
             <!-- <u>Brief Report:</u></b> {{ program.brief_report }} -->
             <!-- <p>
@@ -78,7 +78,7 @@
           </h4>
           <div v-for="(visitor, index) in visitors" :key="visitor.id">
             <p style="text-align:justify; font-family: Calibri;">
-              {{ index + 1 }}. {{ visitor.name }}, {{ visitor.designation }}, {{ visitor.institutional_affiliation }}, visited the Dept. of {{ getDepartmentName(selectedDepartment) }}  and delivered a lecture on '{{ visitor.title }}' from {{ $moment(visitor.from_date).format('Do MMMM YYYY') }} to {{ $moment(visitor.to_date).format('Do MMMM YYYY') }}.  
+              {{ index + 1 }}. {{ visitor.name }}, {{ visitor.designation }}, {{ visitor.institutional_affiliation }}, visited the Dept. of {{ getDepartmentName(selectedDepartment).name }}  and delivered a lecture on '{{ visitor.title }}' from {{ $moment(visitor.from_date).format('Do MMMM YYYY') }} to {{ $moment(visitor.to_date).format('Do MMMM YYYY') }}.  
             </p>
             <!-- <p>
               <b><u>Brief Report:</u></b> {{ visitor.brief_report }}
@@ -217,6 +217,7 @@ export default {
   layout: "super",
   data() {
     return {
+      selectedDepartmentName:'',
       reportTitle: '',
       formattedFileName: '',
       selectedDepartment: 0,
@@ -473,12 +474,12 @@ export default {
       if(range && range.start) {
         this.reportTitle = 'Report for the period of ' + this.$moment(range.start).format('Do MMMM YYYY') + ' to ' + this.$moment(range.end).format('Do MMMM YYYY') + ', RY ('+ selectedYear + ' - '+ `${selectedYear+1}` + ')';
         
-        this.formattedFileName = 'Report_for_the_period_of_' + this.$moment(range.start).format('Do_MMMM_YYYY') + ' to ' + this.$moment(range.end).format('Do_MMMM_YYYY') + ',_RY('+ selectedYear + ' - '+ `${selectedYear+1}` + ')';
+        this.formattedFileName = this.getDepartmentName(this.selectedDepartment).name+'_Report_for_the_period_of_' + this.$moment(range.start).format('Do_MMMM_YYYY') + ' to ' + this.$moment(range.end).format('Do_MMMM_YYYY') + ',_RY('+ selectedYear + ' - '+ `${selectedYear+1}` + ')';
       }
         
       else {
         this.reportTitle = 'Report for the period of RY ('+ selectedYear + ' - '+ `${selectedYear+1}` + ')';
-        this.formattedFileName = 'Report_for_the_period_of_RY ('+ selectedYear + ' - '+ `${selectedYear+1}` + ')';
+        this.formattedFileName = this.getDepartmentName(this.selectedDepartment).name+'_Report_for_the_period_of_RY ('+ selectedYear + ' - '+ `${selectedYear+1}` + ')';
       }
         
 
