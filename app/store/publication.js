@@ -155,7 +155,7 @@ export const actions = {
 		 });
  },
 	async setPublicationsData ({commit}, {qs}) {
-		await this.$axios.$get(`/publications?${qs}`)
+		await this.$axios.$get(`/publications?_sort=publication_type:ASC&${qs}`)
 			.then(response =>  {
 			// handle success
 				commit("SET_PUBLICATIONSDATA", response);

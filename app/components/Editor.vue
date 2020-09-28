@@ -10,7 +10,7 @@
     <div class="my-8">
       <!-- {{ content }} -->
     </div>
-    <v-card flat class="mb-5" v-if="step == 6">
+    <v-card flat class="mb-5" v-if="step == 11">
       <v-layout align-center justify-center>
         <v-btn small id="submit" color="green darken-2" dark @click="save">
           Submit &amp; Generate Report
@@ -120,7 +120,7 @@ export default {
               from: this.from,
               to: this.to,
               department: this.$auth.user.department,
-              section_a: this.content
+              program: this.content
             }
           );
           await this.$store.dispatch("report/addReport", payload);
@@ -137,7 +137,7 @@ export default {
               from: this.from,
               to: this.to,
               department: this.$auth.user.department,
-              section_a: this.content
+              program: this.content
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -150,7 +150,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              section_b: this.content
+              visitor: this.content
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -164,7 +164,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              section_c: this.content
+              training: this.content
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -178,7 +178,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              section_d: this.content
+              presentation: this.content
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -192,11 +192,95 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              section_e: this.content
+              participation: this.content
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
         }
+
+        if (this.step == 6) {
+          var payload = Object.assign(
+            {},
+            {
+              id: this.$store.state.report.reportId,
+              annual_year: this.selectedYear,
+              userType: this.selectedUserType,
+              department: this.$auth.user.department,
+              publicEngagement: this.content
+            }
+          );
+          await this.$store.dispatch("report/updateReport", payload);
+        }
+
+        if (this.step == 7) {
+          var payload = Object.assign(
+            {},
+            {
+              id: this.$store.state.report.reportId,
+              annual_year: this.selectedYear,
+              userType: this.selectedUserType,
+              department: this.$auth.user.department,
+              research: this.content
+            }
+          );
+          await this.$store.dispatch("report/updateReport", payload);
+        }
+
+        if (this.step == 8) {
+          var payload = Object.assign(
+            {},
+            {
+              id: this.$store.state.report.reportId,
+              annual_year: this.selectedYear,
+              userType: this.selectedUserType,
+              department: this.$auth.user.department,
+              publication: this.content
+            }
+          );
+          await this.$store.dispatch("report/updateReport", payload);
+        }
+
+        if (this.step == 9) {
+          var payload = Object.assign(
+            {},
+            {
+              id: this.$store.state.report.reportId,
+              annual_year: this.selectedYear,
+              userType: this.selectedUserType,
+              department: this.$auth.user.department,
+              recognition: this.content
+            }
+          );
+          await this.$store.dispatch("report/updateReport", payload);
+        }
+
+        if (this.step == 10) {
+          var payload = Object.assign(
+            {},
+            {
+              id: this.$store.state.report.reportId,
+              annual_year: this.selectedYear,
+              userType: this.selectedUserType,
+              department: this.$auth.user.department,
+              patent: this.content
+            }
+          );
+          await this.$store.dispatch("report/updateReport", payload);
+        }
+
+        // if (this.step == 11) {
+        //   var payload = Object.assign(
+        //     {},
+        //     {
+        //       id: this.$store.state.report.reportId,
+        //       annual_year: this.selectedYear,
+        //       userType: this.selectedUserType,
+        //       department: this.$auth.user.department,
+        //       assignment: this.content
+        //     }
+        //   );
+        //   await this.$store.dispatch("report/updateReport", payload);
+        // }
       }
       this.$emit("next", this.step);
     },
@@ -208,7 +292,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              section_f: this.content
+              assignment: this.content
             }
           );
       let rid = 0;

@@ -4,52 +4,90 @@
     <v-stepper v-if="dataLoaded && $auth.user.userType === 'DEPARTMENT'" v-model="report" style="border-radius: 0;">
       <v-stepper-header>
         <v-stepper-step :complete="report > 1" step="1">Programmes / Events</v-stepper-step>
-
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="report > 2" step="2">Contribution To Scientific Deliberations</v-stepper-step>
-
+        <v-stepper-step :complete="report > 2" step="2">Visitors</v-stepper-step>
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="report > 3" step="3">Public Engagement</v-stepper-step>
-
+        <v-stepper-step :complete="report > 3" step="3">Trainings</v-stepper-step>
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="report > 4" step="4">Research Activities</v-stepper-step>
-
+        <v-stepper-step :complete="report > 4" step="4">Presentaions / Posters</v-stepper-step>
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="report > 5" step="5">Publications</v-stepper-step>
-
+        <v-stepper-step :complete="report > 5" step="5">Participations</v-stepper-step>
         <v-divider></v-divider>
 
-        <v-stepper-step step="6">Recogntions</v-stepper-step>
+        <v-stepper-step :complete="report > 6" step="6">Public Engagement</v-stepper-step>
+        <v-divider></v-divider>
+
+        <v-stepper-step :complete="report > 7" step="7">Research Activities</v-stepper-step>
+        <v-divider></v-divider>
+
+        <v-stepper-step :complete="report > 8" step="8">Publications</v-stepper-step>
+        <v-divider></v-divider>
+
+        <v-stepper-step :complete="report > 9" step="9">Recogntions</v-stepper-step>
+        <v-divider></v-divider>
+
+        <v-stepper-step :complete="report > 10" step="10">Patents</v-stepper-step>
+        <v-divider></v-divider>
+
+        <v-stepper-step step="11">Key Assignments</v-stepper-step>
+        <v-divider></v-divider>
+
+        <!-- <v-stepper-step step="12">Theses / Dissertions</v-stepper-step>
+        <v-divider></v-divider> -->
       </v-stepper-header>
 
       <v-stepper-items>
         <v-stepper-content step="1" style="padding: 0px;">
-          <Editor :content="step1Data" :step="1" @next="handleNext(1)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType" />
+          <Editor :content="formattedProgrammes" :step="1" @next="handleNext(1)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType" />
         </v-stepper-content>
 
         <v-stepper-content step="2" style="padding: 0px;">
-          <Editor :content="step2Data" :step="2" @next="handleNext(2)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
+          <Editor :content="formattedVisitors" :step="2" @next="handleNext(2)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
         </v-stepper-content>
 
         <v-stepper-content step="3" style="padding: 0px;">
-          <Editor :content="step3Data" :step="3" @next="handleNext(3)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
+          <Editor :content="formattedTrainings" :step="3" @next="handleNext(3)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
         </v-stepper-content>
 
         <v-stepper-content step="4" style="padding: 0px;">
-          <Editor :content="step4Data" :step="4" @next="handleNext(4)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
+          <Editor :content="formattedPresentations" :step="4" @next="handleNext(4)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
         </v-stepper-content>
 
         <v-stepper-content step="5" style="padding: 0px;">
-          <Editor :content="step5Data" :step="5" @next="handleNext(5)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
+          <Editor :content="formattedParticipations" :step="5" @next="handleNext(5)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
         </v-stepper-content>
 
         <v-stepper-content step="6" style="padding: 0px;">
-          <Editor :content="step6Data" :step="6" @next="handleNext(6)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
+          <Editor :content="formattedPublics" :step="6" @next="handleNext(6)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
         </v-stepper-content>
+
+        <v-stepper-content step="7" style="padding: 0px;">
+          <Editor :content="formattedResearch" :step="7" @next="handleNext(7)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
+        </v-stepper-content>
+
+        <v-stepper-content step="8" style="padding: 0px;">
+          <Editor :content="formattedPublications" :step="8" @next="handleNext(8)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
+        </v-stepper-content>
+
+        <v-stepper-content step="9" style="padding: 0px;">
+          <Editor :content="formattedRecognitions" :step="9" @next="handleNext(9)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
+        </v-stepper-content>
+
+        <v-stepper-content step="10" style="padding: 0px;">
+          <Editor :content="formattedPatents" :step="10" @next="handleNext(10)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
+        </v-stepper-content>
+
+        <v-stepper-content step="11" style="padding: 0px;">
+          <Editor :content="formattedAssignments" :step="11" @next="handleNext(11)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
+        </v-stepper-content>
+
+        <!-- <v-stepper-content step="12" style="padding: 0px;">
+          <Editor :content="formattedTheses" :step="12" @next="handleNext(12)" :available="showAvailableReports" :selectedYear="selectedYear" :selectedMonth="selectedMonth" :from="from" :to="to" :selectedUserType="userType"  />
+        </v-stepper-content> -->
       </v-stepper-items>
     </v-stepper>
     <AvailableReports :availableReports="availableReports" v-if="sheet" />
@@ -251,74 +289,74 @@ export default {
         .join("");
     },
 
-    step1Data() {
-      var html = "";
-      if (this.formattedProgrammes.length > 0) {
-        // html = `<h1><b><u>Section B:</u></b></h1>` + `<h3><b>1. CONFERENCES / WORKSHOPS / SEMINARS /SYMPOSIUM / SCIENTIFIC PROGRAMMES</b></h3>` + this.formattedProgrammes;
-        html = this.formattedProgrammes;
-      }
-      if (this.formattedVisitors.length > 0) {
-        // html += `<hr><h3><b>2. VISITORS TO THE DEPARTMENT</b></h3>` + this.formattedVisitors;
-        html += this.formattedVisitors;
-      }
-      if (this.formattedTrainings) {
-        // html += `<hr><h3><b>3. SPECIFIC TRAINING UNDERWENT BY THE FACULTY / STAFF / STUDENTS OUTSIDE NIMHANS</b></h3>` + this.formattedTrainings;
-        html += this.formattedTrainings;
-      }
-      return html;
-    },
-    step2Data() {
-      var html = "";
-      if (this.formattedPresentations.length > 0) {
-        // html = `<h3><b>4. CONTRIBUTION TO SCIENTIFIC DELIBERATIONS</b></h3>` + `<h3><b>A. PRESENTATIONS/ POSTERS</b></h3>` + this.formattedPresentations;
-        html = this.formattedPresentations;
-      }
-      if (this.formattedParticipations.length > 0) {
-        // html += `<hr><h3><b>B. PARTICIPATIONS</b></h3>` + this.formattedParticipations;
-        html += this.formattedParticipations;
-      }
-      return html;
-    },
-    step3Data() {
-      var html = "";
-      if (this.formattedPublics.length > 0) {
-        // html = `<h3><b>5. PUBLIC ENGAGEMENT & OUTREACH ACTIVITIES</b></h3>` + this.formattedPublics;
-        html = this.formattedPublics;
-      }
-      return html;
-    },
-    step4Data() {
-      var html = "";
-      if (this.formattedResearch.length > 0) {
-        // html = `<h3><b>6. RESEARCH ACTIVITIES</b></h3>` + this.formattedResearch;
-        html = this.formattedResearch;
-      }
-      return html;
-    },
-    step5Data() {
-      var html = "";
-      if (this.formattedPublications.length > 0) {
-        // html = `<h3><b>5. PUBLICATIONS</b></h3>` + this.formattedPublications;
-        html = this.formattedPublications;
-      }
-      return html;
-    },
-    step6Data() {
-      var html = "";
-      if (this.formattedRecognitions.length > 0) {
-        // html = `<h3><b>5. RECOGNITION OF NIMHANS CONTRIBUTION </b></h3>` + `<h3><b>A. AWARDS AND HONORS </b></h3>` + this.formattedRecognitions;
-        html = this.formattedRecognitions;
-      }
-      if (this.formattedPatents.length > 0) {
-        // html += `<hr><h3><b>B. PATENTS </b></h3>` + this.formattedPatents;
-        html +=  this.formattedPatents;
-      }
-      if (this.formattedAssignments.length > 0) {
-        // html += `<hr><h3><b>C. KEY ASSIGNMENTS </b></h3>` + this.formattedAssignments;
-        html += this.formattedAssignments;
-      }
-      return html;
-    },
+    // step1Data() {
+    //   var html = "";
+    //   if (this.formattedProgrammes.length > 0) {
+    //     // html = `<h1><b><u>Section B:</u></b></h1>` + `<h3><b>1. CONFERENCES / WORKSHOPS / SEMINARS /SYMPOSIUM / SCIENTIFIC PROGRAMMES</b></h3>` + this.formattedProgrammes;
+    //     html = this.formattedProgrammes;
+    //   }
+    //   if (this.formattedVisitors.length > 0) {
+    //     // html += `<hr><h3><b>2. VISITORS TO THE DEPARTMENT</b></h3>` + this.formattedVisitors;
+    //     html += this.formattedVisitors;
+    //   }
+    //   if (this.formattedTrainings) {
+    //     // html += `<hr><h3><b>3. SPECIFIC TRAINING UNDERWENT BY THE FACULTY / STAFF / STUDENTS OUTSIDE NIMHANS</b></h3>` + this.formattedTrainings;
+    //     html += this.formattedTrainings;
+    //   }
+    //   return html;
+    // },
+    // step2Data() {
+    //   var html = "";
+    //   if (this.formattedPresentations.length > 0) {
+    //     // html = `<h3><b>4. CONTRIBUTION TO SCIENTIFIC DELIBERATIONS</b></h3>` + `<h3><b>A. PRESENTATIONS/ POSTERS</b></h3>` + this.formattedPresentations;
+    //     html = this.formattedPresentations;
+    //   }
+    //   if (this.formattedParticipations.length > 0) {
+    //     // html += `<hr><h3><b>B. PARTICIPATIONS</b></h3>` + this.formattedParticipations;
+    //     html += this.formattedParticipations;
+    //   }
+    //   return html;
+    // },
+    // step3Data() {
+    //   var html = "";
+    //   if (this.formattedPublics.length > 0) {
+    //     // html = `<h3><b>5. PUBLIC ENGAGEMENT & OUTREACH ACTIVITIES</b></h3>` + this.formattedPublics;
+    //     html = this.formattedPublics;
+    //   }
+    //   return html;
+    // },
+    // step4Data() {
+    //   var html = "";
+    //   if (this.formattedResearch.length > 0) {
+    //     // html = `<h3><b>6. RESEARCH ACTIVITIES</b></h3>` + this.formattedResearch;
+    //     html = this.formattedResearch;
+    //   }
+    //   return html;
+    // },
+    // step5Data() {
+    //   var html = "";
+    //   if (this.formattedPublications.length > 0) {
+    //     // html = `<h3><b>5. PUBLICATIONS</b></h3>` + this.formattedPublications;
+    //     html = this.formattedPublications;
+    //   }
+    //   return html;
+    // },
+    // step6Data() {
+    //   var html = "";
+    //   if (this.formattedRecognitions.length > 0) {
+    //     // html = `<h3><b>5. RECOGNITION OF NIMHANS CONTRIBUTION </b></h3>` + `<h3><b>A. AWARDS AND HONORS </b></h3>` + this.formattedRecognitions;
+    //     html = this.formattedRecognitions;
+    //   }
+    //   if (this.formattedPatents.length > 0) {
+    //     // html += `<hr><h3><b>B. PATENTS </b></h3>` + this.formattedPatents;
+    //     html +=  this.formattedPatents;
+    //   }
+    //   if (this.formattedAssignments.length > 0) {
+    //     // html += `<hr><h3><b>C. KEY ASSIGNMENTS </b></h3>` + this.formattedAssignments;
+    //     html += this.formattedAssignments;
+    //   }
+    //   return html;
+    // },
   },
   watch: {
     report(val) {

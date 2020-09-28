@@ -390,9 +390,12 @@ export const mutations = {
 };
 
 export const actions = {
-  async setDepartmentName({commit}, name)
-  {
-    commit("SET_DEPARTMENT_NAME", name)
+  async setDepartmentName({commit}, id) {
+    await this.$axios.$get(`/departments/${id}`).then(resp => {
+      commit("SET_DEPARTMENT_NAME", resp.name);
+    }).catch((e)=> {
+      console.log(e);
+    });
   },
   async setUserData({commit}, data) {
     commit("SET_USER_DATA", data);

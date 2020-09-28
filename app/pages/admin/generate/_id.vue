@@ -3,7 +3,7 @@
     <!-- <pre>{{ item }}</pre> -->
     <!-- <pre>{{content}}</pre> -->
     <!-- <pre>{{ formattedDiagnostics }}</pre> -->
-    <div class="preview">
+    <!-- <div class="preview">
       <v-sheet  color="blue-grey darken-3" width="100%" height="200vh">
         <v-toolbar color="blue-grey darken-3" dark>
           <v-toolbar-title class="white--text"
@@ -32,6 +32,131 @@
         >
         </v-sheet>
       </v-sheet>
+    </div> -->
+    <div class="preview">
+      <v-sheet width="100%" height="210vh">
+        <v-toolbar color="blue-grey darken-3" dark>
+          <v-toolbar-title class="white--text">{{ reportTitle }} </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-tooltip left color="blue-grey darken-3">
+            <template v-slot:activator="{ on }">
+              <v-btn icon v-on="on">
+                <v-icon @click="exportToDoc(`${formattedFileName}`)">mdi-download</v-icon>
+              </v-btn>
+            </template>
+            <span>Download Report</span>
+          </v-tooltip>
+        </v-toolbar>
+        <div id="download" elevation="6" class="mx-auto pa-4 doc" width="100%">
+          <div style="margin: 0 auto; width: 600px; line-height: 5px; text-align: center;">
+            <div style="margin-right: 10px; float: left;"><img style="width: 140px;" src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Nimhans_logo.png/230px-Nimhans_logo.png" alt="logo" /></div>
+            <div style="line-height: normal; padding-top: 20px;">
+              <p style="text-align: center; font-family: Calibri; line-height: 5px; font-style: normal; font-size: 1rem; font-weight: bold;">National Institute of Mental Health and Neurosciences</p>
+              <p style="text-align: center; font-family: Calibri; line-height: 5px; font-style: normal;"><i>(An institute of national importance)</i></p>
+              <p style="text-align: center; font-family: Calibri; line-height: 5px; font-style: normal;">Bangalore - 560 029, India.</p>
+              <p style="text-align: center; font-family: Calibri; line-height: 5px; font-style: normal; font-size: 1rem; font-weight: bold;">DEPARTMENT OF {{ $store.state.departmentName.toUpperCase() }}</p>
+              <p style="text-align: center; font-family: Calibri; line-height: 5px; font-style: normal;">{{ reportTitle }}</p>
+            </div>
+          </div>
+          <h6 style="text-align: right; font-family: Calibri; font-style: normal; color: gray;">Generated On: {{ $moment().format("Do MMMM YYYY, h:mm:ss a") }}</h6>
+
+          <h2 style="font-family: Calibri; font-style: normal;">
+            <b><u>Section B:</u></b>
+          </h2>
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>1. CONFERENCES / WORKSHOPS / SEMINARS /SYMPOSIUM / SCIENTIFIC PROGRAMMES</b>
+          </h4>
+          <!-- Program -->
+          <div>
+            <v-sheet v-html="savedData.program"></v-sheet>
+          </div>
+          <!-- Visitor -->
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>2. VISITORS TO THE DEPARTMENT</b>
+          </h4>
+          <div>
+            <v-sheet v-html="savedData.visitor"></v-sheet>
+          </div>
+
+          <!-- Training -->
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>3. SPECIFIC TRAINING UNDERWENT BY THE FACULTY /STAFF /STUDENTS OUTSIDE NIMHANS</b>
+          </h4>
+         <div>
+            <v-sheet v-html="savedData.training"></v-sheet>
+          </div>
+
+          <!-- Presentation -->
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>4. CONTRIBUTION TO SCIENTIFIC DELIBERATIONS</b>
+          </h4>
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>A. PRESENTATIONS/ POSTERS</b>
+          </h4>
+         <div>
+            <v-sheet v-html="savedData.presentation"></v-sheet>
+          </div>
+
+          <!-- Participation -->
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>B. PARTICIPATION</b>
+          </h4>
+          <div>
+            <v-sheet v-html="savedData.participation"></v-sheet>
+          </div>
+
+          <!-- Public Engagement -->
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>5. PUBLIC ENGAGEMENT &amp; OUTREACH ACTIVITIES</b>
+          </h4>
+          <div>
+            <v-sheet v-html="savedData.publicEngagement"></v-sheet>
+          </div>
+
+          <!-- Research Activities -->
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>6. RESEARCH ACTIVITIES</b>
+          </h4>
+          <div>
+            <v-sheet v-html="savedData.research"></v-sheet>
+          </div>
+
+          <!-- Publications -->
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>7. PUBLICATIONS</b>
+          </h4>
+          <div>
+            <v-sheet v-html="savedData.publication"></v-sheet>
+          </div>
+
+          <!-- Recognition -->
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>8. RECOGNITION OF NIMHANS CONTRIBUTION</b>
+          </h4>
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>A. AWARDS AND HONORS</b>
+          </h4>
+          <div>
+            <v-sheet v-html="savedData.recognition"></v-sheet>
+          </div>
+
+          <!-- Patents -->
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>B. PATENTS</b>
+          </h4>
+          <div>
+            <v-sheet v-html="savedData.patent"></v-sheet>
+          </div>
+
+          <!-- Key Assignments -->
+          <h4 style="font-family: Calibri; font-style: normal;">
+            <b>C. KEY ASSIGNMENTS </b>
+          </h4>
+          <div>
+            <v-sheet v-html="savedData.assignment"></v-sheet>
+          </div>
+        </div>
+      </v-sheet>
     </div>
     <!-- <FinalEditor id="content" :content="content" />
     <div id="download" style="display:none" v-html="content"></div> -->
@@ -47,9 +172,37 @@ export default {
     };
   },
   data() {
-    return {};
+    return {
+      
+    };
   },
   computed: {
+    formattedFileName() {
+      console.log(this.$store.state.departmentName +
+          "_Report_for_the_period_of_" +
+          this.$moment(this.savedData.from).format("Do_MMMM_YYYY") +
+          " to " +
+          this.$moment(this.savedData.to).format("Do_MMMM_YYYY") +
+          ",_RY(" +
+          this.savedData.annual_year +
+          " - " +
+          `${this.savedData.annual_year + 1}` +
+          ")");
+      return 
+          this.$store.state.departmentName +
+          "_Report_for_the_period_of_" +
+          this.$moment(this.savedData.from).format("Do_MMMM_YYYY") +
+          " to " +
+          this.$moment(this.savedData.to).format("Do_MMMM_YYYY") +
+          ",_RY(" +
+          this.savedData.annual_year +
+          " - " +
+          `${this.savedData.annual_year + 1}` +
+          ")";
+    },
+    reportTitle() {
+      return "Report for the period of " + this.$moment(this.savedData.from).format("Do MMMM YYYY") + " to " + this.$moment(this.savedData.to).format("Do MMMM YYYY") + ", RY (" + this.savedData.annual_year + " - " + `${this.savedData.annual_year + 1}` + ")";
+    },
     ...mapState({
       savedData: (state) => state.report.generatedReport,
       aboutData: (state) => state.about.newAbout[0],
@@ -62,25 +215,25 @@ export default {
       hrdTrainings: (state) => state.hrdTraining.hrdTrainings.result,
       retaired: (state) => state.faculty.facultyData.result,
     }),
-    content() {
-      return (
-        this.formattedAbout +
-        this.formattedClinical +
-        this.formattedEmergency +
-        this.formattedDiagnostics +
-        this.formattedSpecial +
-        this.formattedOT +
-        this.formattedHRD +
-        this.formattedTrainings +
-        this.formattedRetaired +
-        this.sectionA +
-        this.sectionB +
-        this.sectionC +
-        this.sectionD +
-        this.sectionE +
-        this.sectionF
-      );
-    },
+    // content() {
+    //   return (
+    //     this.formattedAbout +
+    //     this.formattedClinical +
+    //     this.formattedEmergency +
+    //     this.formattedDiagnostics +
+    //     this.formattedSpecial +
+    //     this.formattedOT +
+    //     this.formattedHRD +
+    //     this.formattedTrainings +
+    //     this.formattedRetaired +
+    //     this.sectionA +
+    //     this.sectionB +
+    //     this.sectionC +
+    //     this.sectionD +
+    //     this.sectionE +
+    //     this.sectionF
+    //   );
+    // },
     formattedAbout() {
       if(this.aboutData){
       return `
@@ -408,38 +561,44 @@ export default {
       }
       else { return ''; }
     },
-    sectionA() {
-      if (this.savedData.section_a) return this.savedData.section_a;
-    },
-    sectionB() {
-      if (this.savedData.section_a) return this.savedData.section_b;
-    },
-    sectionC() {
-      if (this.savedData.section_c) return this.savedData.section_c;
-    },
-    sectionD() {
-      if (this.savedData.section_d) return this.savedData.section_d;
-    },
-    sectionE() {
-      if (this.savedData.section_e) return this.savedData.section_e;
-    },
-    sectionF() {
-      if (this.savedData.section_f) return this.savedData.section_f;
-    },
+    // sectionA() {
+    //   if (this.savedData.section_a) return this.savedData.section_a;
+    // },
+    // sectionB() {
+    //   if (this.savedData.section_a) return this.savedData.section_b;
+    // },
+    // sectionC() {
+    //   if (this.savedData.section_c) return this.savedData.section_c;
+    // },
+    // sectionD() {
+    //   if (this.savedData.section_d) return this.savedData.section_d;
+    // },
+    // sectionE() {
+    //   if (this.savedData.section_e) return this.savedData.section_e;
+    // },
+    // sectionF() {
+    //   if (this.savedData.section_f) return this.savedData.section_f;
+    // },
   },
   async fetch({ store, params }) {
     await store.dispatch("report/getById", { id: params.id });
-    let queryString = "";
-    queryString = `department.id=${store.state.auth.user.department}&annual_year=${store.state.report.generatedReport.annual_year}`;
-    await store.dispatch("about/setAboutData", { query: queryString });
-    await store.dispatch("clinical/setClinicalData", { qs: queryString });
-    await store.dispatch("emergency/setEmergencyData", { qs: queryString });
-    await store.dispatch("diagnostic/setDiagnosticData", { qs: queryString });
-    await store.dispatch("special/setSpecialData", { qs: queryString });
-    await store.dispatch("otservice/setOTServicesData", { qs: queryString });
-    await store.dispatch("hrdCourse/setHRDCourses", { qs: queryString });
-    await store.dispatch("hrdTraining/setHRDTrainings", { qs: queryString });
-    await store.dispatch("faculty/setFacultyData", { qs: queryString });
+    // let queryString = "";
+    // queryString = `department.id=${store.state.auth.user.department}&annual_year=${store.state.report.generatedReport.annual_year}`;
+    // await store.dispatch("about/setAboutData", { query: queryString });
+    // await store.dispatch("clinical/setClinicalData", { qs: queryString });
+    // await store.dispatch("emergency/setEmergencyData", { qs: queryString });
+    // await store.dispatch("diagnostic/setDiagnosticData", { qs: queryString });
+    // await store.dispatch("special/setSpecialData", { qs: queryString });
+    // await store.dispatch("otservice/setOTServicesData", { qs: queryString });
+    // await store.dispatch("hrdCourse/setHRDCourses", { qs: queryString });
+    // await store.dispatch("hrdTraining/setHRDTrainings", { qs: queryString });
+    // await store.dispatch("faculty/setFacultyData", { qs: queryString });
+  },
+  async mounted() {
+    if (this.$store.state.departmentName=='') {
+      console.log('im in')
+      await this.$store.dispatch('setDepartmentName', this.$auth.user.department)
+    }
   },
   methods: {
     copyReport() {
@@ -489,28 +648,4 @@ export default {
 };
 </script>
 
-<style scoped>
 
-
-.preview {
-  max-width: 100%;
-}
-.doc {
-  overflow: scroll;
-}
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
