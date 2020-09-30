@@ -67,56 +67,45 @@
             <tr v-for="department in populateDepartments" :key="department.id">
               <td>{{ department.name }}</td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="4" :selectedYear="selectedYear" :userType="userType" />
               </td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="5" :selectedYear="selectedYear" :userType="userType" />
               </td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="6" :selectedYear="selectedYear" :userType="userType" />
               </td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="7" :selectedYear="selectedYear" :userType="userType" />
               </td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="8" :selectedYear="selectedYear" :userType="userType" />
               </td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="9" :selectedYear="selectedYear" :userType="userType" />
               </td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="10" :selectedYear="selectedYear" :userType="userType"  />
               </td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="11" :selectedYear="selectedYear" :userType="userType"  />
               </td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="12" :selectedYear="selectedYear" :userType="userType"  />
               </td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="1" :selectedYear="selectedYear" :userType="userType" />
               </td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="2" :selectedYear="selectedYear" :userType="userType" />
               </td>
               <td class="text-center">
-                <!-- <v-skeleton-loader v-if="loading" height="auto" type="avatar"></v-skeleton-loader> -->
                 <ReportButton  :department="department" :month="3" :selectedYear="selectedYear" :userType="userType" />
               </td>
               <td class="text-center">
                 <v-btn fab x-small>
                   <v-icon color="grey">mdi-download</v-icon>
+                  <!-- <ReportButton  :department="department" :selectedYear="selectedYear" :userType="userType" /> -->
                 </v-btn>
               </td>
             </tr>
@@ -149,6 +138,8 @@ export default {
     departments() {
       return this.$store.state.department.departments;
     },
+    
+    
   },
   async fetch({ store }) {
     // await store.dispatch("department/getDepartments");

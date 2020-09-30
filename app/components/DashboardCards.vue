@@ -36,7 +36,7 @@
               ref="user-type"
               outlined
               dense
-              v-model="Report"
+              v-model="userType"
               label="Select User Type"
               placeholder="Select"
               :items="userTypes"

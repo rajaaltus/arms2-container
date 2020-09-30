@@ -342,6 +342,7 @@ export default {
     loading: false,
     valid: false,
     dialog: false,
+    publication_type: 0,
     annualYear: 0,
     headers: [
 			{
@@ -462,6 +463,7 @@ export default {
   mounted() {
     this.annualYear = this.$store.state.selectedYear;
     this.reloadData();
+    this.$store.dispatch('publication/setPublicationTypes');
   },
   methods: {
     handleclick(item)

@@ -64,7 +64,8 @@ export default {
     await store.dispatch("user/getAllDepartment");
   },
   mounted() {
-    // this.$store.dispatch('snackbar/setSnackbar', {text: "Successfully logged In."})
+    // this.$store.dispatch('snackbar/setSnackbar', {text: "Welcome Admin."})
+    this.$router.push('/super/month')
   },
   methods: {
      fetchData() {
