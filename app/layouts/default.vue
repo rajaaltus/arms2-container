@@ -255,7 +255,7 @@
             <v-icon color="white">mdi-apple-icloud</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title class="menu-title">Version 2.0.2</v-list-item-title>
+            <v-list-item-title class="menu-title">Version 2.1.0</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>

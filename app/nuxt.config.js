@@ -27,7 +27,8 @@ export default {
   ** Global CSS
   */
   css: [
-    '@/assets/style.css'
+    '@/assets/style.css',
+    "@/assets/vuetify/overrides.scss"
   ],
   router: {
     middleware: ['auth']
@@ -99,6 +100,7 @@ export default {
   */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
     theme: {
       dark: false,
       default: 'light',

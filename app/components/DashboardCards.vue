@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card flat>
-      <v-card-text class="px-0 py-2">
+      <v-card-text class="px-4 py-2">
         <v-row class="pr-4">
           <v-col cols="12" lg="2" class="my-5">
             <v-select
