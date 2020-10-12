@@ -71,8 +71,9 @@
           <ReportButton :department="item" :month="3" :selectedYear="selectedYear" :userType="userType" :available="checkReport(item, 3)" />
         </template>
         <template v-slot:no-data>
-          <img class="pa-4" src="/counting_stars.svg" alt="counting_stars" width="300" />
-          <h2 class="pa-4">Please choose Reporting Year &amp; User type</h2>
+          <img class="stars py-12" src="/counting_stars.svg" alt="counting_stars" width="300" />
+          <h2 class="pb-2">No Data</h2>
+          <span class="pb-4">Please choose Reporting Year &amp; User type</span>
         </template>
       </v-data-table>
     </v-container>
@@ -80,6 +81,7 @@
 </template>
 
 <script>
+import gsap from "gsap";
 import { mapState } from "vuex";
 export default {
   layout: "super",
@@ -136,6 +138,9 @@ export default {
       });
     console.log(this.submitted);
   },
+  mounted() {
+    gsap.fromTo(".stars", { scale: 0.95, ease: "power.3" }, { scale: 1, ease: "power.3", duration: 1, repeat: 4, yoyo: true });
+  },
   methods: {
     async loader() {
       this.loading = true;
@@ -147,7 +152,7 @@ export default {
       this.loading = false;
     },
     checkReport(dept, month) {
-      console.log("Checking Report:" + dept.id);
+      // console.log("Checking Report:" + dept.id);
       return this.monthlyAvailableReports.find((item) => item.department.id === dept.id && item.month == month);
     },
 

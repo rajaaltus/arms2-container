@@ -35,6 +35,9 @@ export const mutations = {
   SET_MONTHLY_AVAILABLE_REPORTS(state, response) {
     state.monthlyAvailableReports = response;
   },
+  UPDATE_SUBMITTED_STATUS(state, resp) {
+    console.log(resp);
+  },
 };
 
 export const actions = {
@@ -83,11 +86,20 @@ export const actions = {
         console.log("finally!");
       });
   },
-  async addReport({ commit }, payload) {
+  async addReport({ commit, dispatch }, payload) {
     await this.$axios
       .$post("/saved-reports", payload)
       .then((response) => {
         commit("SET_POST_REPORTS", response);
+        var payload2 = {};
+        Object.assign(payload2, {
+          year: payload.annual_year,
+          month: payload.Month,
+          userType: payload.userType,
+          department: payload.department,
+          submitStatus: true,
+        });
+        dispatch("addSubmittedStatus", payload2);
       })
       .catch((e) => {
         commit("SET_REPORT_ERRORS", e.response);
@@ -108,5 +120,13 @@ export const actions = {
       .finally(function () {
         console.log("finally!");
       });
+  },
+  async addSubmittedStatus({ commit }, payload2) {
+    await this.$axios
+      .$post(`/report-submit-statuses`, payload2)
+      .then((resp) => {
+        commit("UPDATE_SUBMITTED_STATUS", resp);
+      })
+      .catch((e) => {});
   },
 };

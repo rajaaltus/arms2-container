@@ -332,7 +332,7 @@ export default {
       // console.log("ReportButton: " + this.available);
     },
     async handleClick(dept, year, month, userType) {
-      console.log("Handling: " + dept.id, year, month, userType);
+      // console.log("Handling: " + dept.id, year, month, userType);
       let queryString = "";
       if (month) queryString = `department.id=${dept.id}&annual_year=${year}&Month=${month}&userType=${userType}`;
       else queryString = `department.id=${id}&annual_year=${year}&userType=${userType}`;
@@ -355,7 +355,7 @@ export default {
       // console.log('clicked')
     },
     exportToDoc(filename = "", content) {
-      console.log("i came in");
+      // console.log("i came in");
       var preHtml =
         "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
       var postHtml = "</body></html>";

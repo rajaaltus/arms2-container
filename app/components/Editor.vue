@@ -19,13 +19,7 @@
     </v-card>
     <v-card flat class="mb-5" v-else>
       <v-layout align-center justify-center>
-        <v-btn
-          small
-          id="submit"
-          color="green darken-2"
-          dark
-          @click="handleNext(step)"
-        >
+        <v-btn small id="submit" color="green darken-2" dark @click="handleNext(step)">
           Approve &amp; Next
         </v-btn>
       </v-layout>
@@ -34,27 +28,10 @@
 </template>
 
 <script>
-import {
-  TiptapVuetify,
-  Heading,
-  Bold,
-  Italic,
-  Strike,
-  Underline,
-  Code,
-  Paragraph,
-  BulletList,
-  OrderedList,
-  ListItem,
-  Link,
-  Blockquote,
-  HardBreak,
-  HorizontalRule,
-  History
-} from "tiptap-vuetify";
+import { TiptapVuetify, Heading, Bold, Italic, Strike, Underline, Code, Paragraph, BulletList, OrderedList, ListItem, Link, Blockquote, HardBreak, HorizontalRule, History } from "tiptap-vuetify";
 import { mapState } from "vuex";
 export default {
-  props: ["content", "step", "selectedYear", "selectedUserType", "available","selectedMonth", "from", "to"],
+  props: ["content", "step", "selectedYear", "selectedUserType", "available", "selectedMonth", "from", "to"],
   components: { TiptapVuetify },
   data() {
     return {
@@ -67,7 +44,7 @@ export default {
         section_c: null,
         section_d: null,
         section_e: null,
-        section_f: null
+        section_f: null,
       },
       extensions: [
         History,
@@ -83,33 +60,33 @@ export default {
           Heading,
           {
             options: {
-              levels: [1, 2, 3]
-            }
-          }
+              levels: [1, 2, 3],
+            },
+          },
         ],
         Bold,
         Link,
         Code,
         HorizontalRule,
         Paragraph,
-        HardBreak
-      ]
+        HardBreak,
+      ],
     };
   },
   computed: {
     ...mapState({
-      savedReports: state => state.reports.savedReports
-    })
+      savedReports: (state) => state.reports.savedReports,
+    }),
   },
   mounted() {
-    console.log("From Editor: ", this.selectedYear, this.selectedUserType)
+    console.log("From Editor: ", this.selectedYear, this.selectedUserType);
   },
   methods: {
     async handleNext() {
-    console.log('Response:', this.$store.state.report.savedReport);
-    console.log('Report Id: ',this.$store.state.report.reportId);
-    
-      if (this.$store.state.report.reportId==0) {
+      console.log("Response:", this.$store.state.report.savedReport);
+      console.log("Report Id: ", this.$store.state.report.reportId);
+
+      if (this.$store.state.report.reportId == 0) {
         if (this.step == 1) {
           var payload = Object.assign(
             {},
@@ -120,7 +97,7 @@ export default {
               from: this.from,
               to: this.to,
               department: this.$auth.user.department,
-              program: this.content
+              program: this.content,
             }
           );
           await this.$store.dispatch("report/addReport", payload);
@@ -137,7 +114,7 @@ export default {
               from: this.from,
               to: this.to,
               department: this.$auth.user.department,
-              program: this.content
+              program: this.content,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -150,7 +127,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              visitor: this.content
+              visitor: this.content,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -164,7 +141,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              training: this.content
+              training: this.content,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -178,7 +155,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              presentation: this.content
+              presentation: this.content,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -192,7 +169,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              participation: this.content
+              participation: this.content,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -206,7 +183,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              publicEngagement: this.content
+              publicEngagement: this.content,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -220,7 +197,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              research: this.content
+              research: this.content,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -234,7 +211,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              publication: this.content
+              publication: this.content,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -248,7 +225,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              recognition: this.content
+              recognition: this.content,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -262,7 +239,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              patent: this.content
+              patent: this.content,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -286,22 +263,21 @@ export default {
     },
     async save() {
       var payload = Object.assign(
-            {},
-            {
-              id: this.$store.state.report.reportId,
-              annual_year: this.selectedYear,
-              userType: this.selectedUserType,
-              department: this.$auth.user.department,
-              assignment: this.content
-            }
-          );
+        {},
+        {
+          id: this.$store.state.report.reportId,
+          annual_year: this.selectedYear,
+          userType: this.selectedUserType,
+          department: this.$auth.user.department,
+          assignment: this.content,
+        }
+      );
       let rid = 0;
       rid = payload.id;
       console.log(rid);
       await this.$store.dispatch("report/updateReport", payload);
       this.$router.push(`/admin/generate/${rid}`);
-    }
-    
-  }
+    },
+  },
 };
 </script>
