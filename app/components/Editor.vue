@@ -90,6 +90,7 @@ export default {
 
       if (this.$store.state.report.reportId == 0) {
         if (this.step == 1) {
+          console.log(this.$content);
           var payload = Object.assign(
             {},
             {
