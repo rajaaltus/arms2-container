@@ -7,6 +7,7 @@ const srcs = {
 };
 export const state = () => ({
   selectedYear: 0,
+  departmentName: '',
   reportStepper: 0,
   userData: {},
   reportYears: [
@@ -154,6 +155,10 @@ export const getters = {
   },
 };
 export const mutations = {
+  SET_DEPARTMENT_NAME(state,name)
+  {
+    state.departmentName = name;
+  },
   SET_USER_DATA(state, userData) {
     state.userData = userData;
   },
@@ -385,6 +390,13 @@ export const mutations = {
 };
 
 export const actions = {
+  async setDepartmentName({commit}, id) {
+    await this.$axios.$get(`/departments/${id}`).then(resp => {
+      commit("SET_DEPARTMENT_NAME", resp.name);
+    }).catch((e)=> {
+      console.log(e);
+    });
+  },
   async setUserData({commit}, data) {
     commit("SET_USER_DATA", data);
   },

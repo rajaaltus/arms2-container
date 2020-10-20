@@ -50,24 +50,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import PageHeader from '@/components/PageHeader'
-import FacultyActivities from '@/components/FacultyActivities'
-import YearDialog from '@/components/YearDialog'
-import ParticipationForm from '@/components/forms/ParticipationForm'
-import ParticipationTable from '@/components/tables/activities/ParticipationTable'
 export default {
   head() {
     return {
       title: 'Contribution To Scientific Deliberations - Participation'
     }
   }, 
-  components: {
-    PageHeader,
-    FacultyActivities,
-    YearDialog,
-    ParticipationForm,
-    ParticipationTable
-  },
   data: () => ({
     selectedYear: 0,
   }),

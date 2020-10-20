@@ -35,6 +35,7 @@
                   <v-select
                     color="green"
                     v-model="newUser.userType"
+                    dense
                     label="User Type"
                     required
                     outlined
@@ -115,13 +116,13 @@
               :loading="loading"
               loading-text="Loading... Please wait"
             >
-              <template v-slot:item.userType="{ item }">
+              <template v-slot:[`item.userType`]="{ item }">
                 <v-chip :color="getColor(item.userType)" dark>{{
                   item.userType
                 }}</v-chip>
               </template>
 
-              <template v-slot:item.blocked="{ item }">
+              <template v-slot:[`item.blocked`]="{ item }">
                 <v-switch
                   color="red"
                   class="pl-2"
@@ -146,8 +147,7 @@
 
 <script>
 import { mapState } from "vuex";
-import wordcloud from "vue-wordcloud";
-import PageHeader from "@/components/PageHeader";
+// import wordcloud from "vue-wordcloud";
 import Swal from "sweetalert2";
 export default {
   head() {
@@ -155,10 +155,9 @@ export default {
       title: "Settings"
     };
   },
-  components: {
-    PageHeader,
-    wordcloud
-  },
+  // components: {
+  //   wordcloud
+  // },
   data: () => ({
     blocked: false,
     loading: true,
@@ -300,9 +299,9 @@ export default {
     getColor(userType) {
       return userType === "FACULTY" ? "green" : "orange";
     },
-    wordClickHandler(name, value, vm) {
-      console.log("wordClickHandler", name, value, vm);
-    }
+    // wordClickHandler(name, value, vm) {
+    //   console.log("wordClickHandler", name, value, vm);
+    // }
   }
 };
 </script>

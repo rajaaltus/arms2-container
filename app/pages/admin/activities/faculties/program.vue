@@ -56,24 +56,12 @@
 
 <script>
 import { mapState } from "vuex";
-import PageHeader from "@/components/PageHeader";
-import FacultyActivities from "@/components/FacultyActivities";
-import YearDialog from "@/components/YearDialog";
-import ProgramForm from "@/components/forms/ProgramForm";
-import ProgramTable from "@/components/tables/activities/ProgramTable";
 import Swal from "sweetalert2";
 export default {
   head() {
     return {
       title: "Programmes & Events"
     };
-  },
-  components: {
-    PageHeader,
-    FacultyActivities,
-    YearDialog,
-    ProgramForm,
-    ProgramTable
   },
   data: () => ({
   }),

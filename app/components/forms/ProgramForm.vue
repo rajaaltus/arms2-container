@@ -3,28 +3,33 @@
     <v-row>
       <v-col cols="12" md="12">
         <v-form ref="form" v-model="valid" lazy-validation @submit.prevent>
-          <v-row no-gutters v-if="$auth.user.userType==='DEPARTMENT'">
-          <v-col cols="11" lg="11">
-            <v-select
-              v-model="program.user"
-              :items="dataFrom"
-              item-value="id"
-              item-text="fullname"
-              label="Data received from?"
-              placeholder="Select Faculty / Staff from the List"
-              color="success"
-              :rules="[v => !!v || 'Selecting the Faculty / Staff is Required']"
-            ></v-select>
-          </v-col>
-          <v-col cols="1" lg="1" sm="1">
-            <AddUser @new-user="getLatestUsers()" @new-student="getLatestStudents()" />
-          </v-col>
+          <v-row no-gutters v-if="$auth.user.userType === 'DEPARTMENT'">
+            <v-col cols="11" lg="11">
+              <v-select
+                v-model="program.user"
+                :items="dataFrom"
+                item-value="id"
+                item-text="fullname"
+                label="Data received from?"
+                placeholder="Select Faculty / Staff from the List"
+                color="success"
+                :rules="[
+                  (v) => !!v || 'Selecting the Faculty / Staff is Required',
+                ]"
+              ></v-select>
+            </v-col>
+            <v-col cols="1" lg="1" sm="1">
+              <AddUser
+                @new-user="getLatestUsers()"
+                @new-student="getLatestStudents()"
+              />
+            </v-col>
           </v-row>
           <v-row>
             <v-col cols="4">
               <v-select
                 v-model="program.type"
-                :rules="[v => !!v || 'Item is required']"
+                :rules="[(v) => !!v || 'Item is required']"
                 :items="programTypes"
                 label="Program Type "
                 color="success"
@@ -33,7 +38,7 @@
             <v-col cols="4">
               <v-select
                 v-model="program.forum"
-                :rules="[v => !!v || 'Item is required']"
+                :rules="[(v) => !!v || 'Item is required']"
                 :items="programLevels"
                 label="Forum "
                 color="success"
@@ -42,7 +47,7 @@
             <v-col cols="4">
               <v-select
                 v-model="program.colloborations"
-                :rules="[v => !!v || 'Item is required']"
+                :rules="[(v) => !!v || 'Item is required']"
                 :items="colloborations"
                 label="Colloborations "
                 color="success"
@@ -53,7 +58,7 @@
             <v-col cols="8">
               <v-combobox
                 v-model="program.name"
-                :rules="[v => !!v || 'Item is required']"
+                :rules="[(v) => !!v || 'Item is required']"
                 :items="programNames"
                 item-text="name"
                 item-value="name"
@@ -65,7 +70,7 @@
             <v-col cols="4">
               <v-text-field
                 v-model="program.participants_count"
-                :rules="[v => !!v || 'Item is required']"
+                :rules="[(v) => !!v || 'Item is required']"
                 type="number"
                 label="Participants Count "
                 color="success"
@@ -87,7 +92,7 @@
                   <v-text-field
                     v-model="program.from_date"
                     :return-value.sync="duration_from"
-                    :rules="[v => !!v || 'Item is required']"
+                    :rules="[(v) => !!v || 'Item is required']"
                     readonly
                     color="success"
                     label="From Date "
@@ -126,7 +131,7 @@
                 <template v-slot:activator="{ on }">
                   <v-text-field
                     v-model="program.to_date"
-                    :rules="[v => !!v || 'Item is required']"
+                    :rules="[(v) => !!v || 'Item is required']"
                     :return-value.sync="duration_to"
                     readonly
                     color="success"
@@ -152,20 +157,27 @@
             <v-col cols="4">
               <v-select
                 v-model="program.location"
-                :rules="[v => !!v || 'Item is required']"
+                :rules="[(v) => !!v || 'Item is required']"
                 :items="locations"
                 label="Location "
                 color="success"
               ></v-select>
             </v-col>
-            
+            <v-col v-if="program.location === 'OUTSIDE_NIMHANS'" cols="12">
+              <v-text-field
+                v-model="program.outsidelocation"
+                :rules="[(v) => !!v || 'Item is required']"
+                label="Specify the place where the program happened"
+                color="success"
+              ></v-text-field>
+            </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
               <v-text-field
                 v-model="program.coordinators"
                 label="Co-ordinators"
-                :rules="[v => !!v || 'Item is required']"
+                :rules="[(v) => !!v || 'Item is required']"
                 color="success"
               ></v-text-field>
             </v-col>
@@ -185,20 +197,23 @@
               <!-- <input type="file" style="display:none;" label="File input" ref="image"  @change="handleFileUpload"> -->
               <v-hover>
                 <template v-slot:default="{ hover }">
-                 
                   <v-img
-                    :src="image_url?`${$axios.defaults.baseURL}${image_url}`:'/image_placeholder.png'"
+                    :src="
+                      image_url
+                        ? `${$axios.defaults.baseURL}${image_url}`
+                        : '/image_placeholder.png'
+                    "
                     class="mt-3"
                     max-width="100%"
                     max-height="175"
                   >
-                   <v-progress-linear
-                    :active="imgLoader"
-                    :indeterminate="imgLoader"
-                    absolute
-                    bottom
-                    color="deep-purple accent-4"
-                  ></v-progress-linear>
+                    <v-progress-linear
+                      :active="imgLoader"
+                      :indeterminate="imgLoader"
+                      absolute
+                      bottom
+                      color="deep-purple accent-4"
+                    ></v-progress-linear>
                     <v-fade-transition>
                       <v-overlay v-if="hover" absolute color="#00564c">
                         <v-btn @click="$refs.image.click()">
@@ -212,7 +227,7 @@
               <input
                 ref="image"
                 type="file"
-                style="display:none;"
+                style="display: none"
                 label="File input"
                 @change="handleFileUpload"
               />
@@ -237,11 +252,11 @@
 <script>
 import Swal from "sweetalert2";
 import { mapState } from "vuex";
-import AddUser from '@/components/forms/AddUser'
+import AddUser from "@/components/forms/AddUser";
 export default {
   props: ["programNames", "dataFrom"],
   components: {
-    AddUser
+    AddUser,
   },
   data() {
     return {
@@ -270,7 +285,7 @@ export default {
         rejected_reason: null,
         image: null,
         department: 0,
-        user: 0
+        user: 0,
       },
       selectedFile: null,
       image_url: null,
@@ -279,30 +294,30 @@ export default {
         "Workshop",
         "Seminar",
         "Symposium",
-        "Scientific"
+        "Scientific",
       ],
       programLevels: [
         "International",
         "National",
         "Regional",
         "State",
-        "Local"
+        "Local",
       ],
       locations: ["NIMHANS", "OUTSIDE_NIMHANS"],
       colloborations: ["Departmental", "Interdepartmental"],
-      approvals: ["Pending", "Rejected", "Approved"]
+      approvals: ["Pending", "Rejected", "Approved"],
     };
   },
-  
+
   methods: {
     getLatestUsers() {
-      console.log('recieving....');
-      let queryString = ''
+      console.log("recieving....");
+      let queryString = "";
       queryString = `department.id=${this.$store.state.auth.user.department}&userType=FACULTY&blocked_ne=true`;
-        this.$store.dispatch('setStaffs', {qs: queryString})
-         this.dataFrom = this.$store.state.staffs;
+      this.$store.dispatch("setStaffs", { qs: queryString });
+      this.dataFrom = this.$store.state.staffs;
     },
-     getLatestStudents() {
+    getLatestStudents() {
       console.log("recieving...");
       let queryString = "";
       queryString = `department.id=${this.$store.state.auth.user.department}&userType=STUDENT&blocked_ne=true`;
@@ -323,11 +338,10 @@ export default {
           this.program.name = this.program.name.name;
         var payload = this.program;
         // console.log(payload);
-        let res = this.$store.dispatch("program/addProgram", payload)
-        res.then(data => {
-          if (data)
-            this.reset();
-        })
+        let res = this.$store.dispatch("program/addProgram", payload);
+        res.then((data) => {
+          if (data) this.reset();
+        });
       }
     },
     async reloadData() {
@@ -342,18 +356,18 @@ export default {
       ) {
         queryString = `department.id=${deptId}&user.id=${userId}&deleted_ne=true&annual_year=${this.$store.state.selectedYear}`;
         await this.$store.dispatch("program/setProgrammesData", {
-          qs: queryString
+          qs: queryString,
         });
       } else {
         queryString = `department.id=${deptId}&annual_year=${this.$store.state.selectedYear}&deleted_ne=true`;
         await this.$store.dispatch("program/setProgrammesData", {
-          qs: queryString
+          qs: queryString,
         });
       }
       this.loading = false;
     },
     async handleFileUpload(event) {
-      this.imgLoader=true;
+      this.imgLoader = true;
       this.selectedFile = event.target.files[0];
       // console.log(this.selectedFile);
       const data = new FormData();
@@ -361,13 +375,13 @@ export default {
       const uploadRes = await this.$axios({
         method: "POST",
         url: "/upload",
-        data
+        data,
       });
       this.image_url = uploadRes.data[0].url;
       this.program.image = uploadRes.data[0].id;
-      this.imgLoader=false;
-    }
-  }
+      this.imgLoader = false;
+    },
+  },
 };
 </script>
 

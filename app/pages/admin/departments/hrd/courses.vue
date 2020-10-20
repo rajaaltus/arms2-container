@@ -74,21 +74,11 @@
 </template>
 
 <script>
-import PageHeader from "@/components/PageHeader";
-import YearDialog from "@/components/YearDialog";
-import CoursesForm from "@/components/forms/hrd/CoursesForm";
-import CoursesTable from "@/components/tables/hrd/CoursesTable";
 export default {
   head() {
     return {
       title: "Regular Courses"
     };
-  },
-  components: {
-    PageHeader,
-    YearDialog,
-    CoursesForm,
-    CoursesTable
   },
   data: () => ({
     selectedYear: 0

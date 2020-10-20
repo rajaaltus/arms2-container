@@ -50,23 +50,11 @@
 
 <script>
 import {mapState} from 'vuex'
-import PageHeader from "@/components/PageHeader";
-import FacultyActivities from "@/components/FacultyActivities";
-import YearDialog from "@/components/YearDialog";
-import TrainingForm from "@/components/forms/TrainingForm";
-import TrainingTable from "@/components/tables/activities/TrainingTable"
 export default {
   head() {
     return {
       title: "Specific training underwent by the Faculty/Staff/Students outside NIMHANS"
     };
-  },
-  components: {
-    PageHeader,
-    FacultyActivities,
-    YearDialog,
-    TrainingForm,
-    TrainingTable
   },
   data: () => ({
   }),

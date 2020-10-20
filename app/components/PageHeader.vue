@@ -27,13 +27,9 @@
 
 <script>
 import { mapState } from "vuex";
-import YearDialog from '@/components/YearDialog'
 import Swal from 'sweetalert2'
 export default {
   props: ["title", "reportYears"],
-  components: {
-    YearDialog
-  },
   data () {
     return {
       year: 0

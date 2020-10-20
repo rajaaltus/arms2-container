@@ -33,7 +33,7 @@
           />
         </v-col>
       </v-row>
-       <TheSnackbar />
+       <!-- <TheSnackbar /> -->
     </v-container>
    
   </div>
@@ -41,12 +41,8 @@
 
 <script>
 import { mapState } from "vuex";
-import DepartmentCard from "@/components/SuperAdmin/DepartmentCard";
 export default {
   layout: "super",
-  components: {
-    DepartmentCard,
-  },
   data() {
     return {
       selectedYear: 0,
@@ -68,7 +64,8 @@ export default {
     await store.dispatch("user/getAllDepartment");
   },
   mounted() {
-    // this.$store.dispatch('snackbar/setSnackbar', {text: "Successfully logged In."})
+    // this.$store.dispatch('snackbar/setSnackbar', {text: "Welcome Admin."})
+    this.$router.push('/super/month')
   },
   methods: {
      fetchData() {

@@ -101,15 +101,11 @@ import Swal from "sweetalert2";
 if (process.client) {
   require("~/plugins/ckeditor");
 }
-import PageHeader from "@/components/PageHeader";
 export default {
   head() {
     return {
       title: "Testing Reporting"
     };
-  },
-  components: {
-    PageHeader
   },
   data: () => ({
     loading: false,

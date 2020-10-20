@@ -51,24 +51,12 @@
 
 <script>
 import {mapState} from 'vuex'
-import PageHeader from '@/components/PageHeader'
-import StudentActivities from '@/components/StudentActivities'
-import YearDialog from "@/components/YearDialog"
-import ThesesForm from '@/components/forms/ThesesForm'
-import ThesesTable from '@/components/tables/activities/ThesesTable'
 export default {
   head() {
     return {
       title: 'Theses / Dissertations'
     }
   }, 
-  components: {
-    PageHeader,
-    StudentActivities,
-    YearDialog,
-    ThesesForm,
-    ThesesTable
-  },
   data: () => ({
     selectedYear: 0
   }),
