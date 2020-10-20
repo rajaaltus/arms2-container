@@ -153,7 +153,9 @@ export default {
     },
     checkReport(dept, month) {
       // console.log("Checking Report:" + dept.id);
-      return this.monthlyAvailableReports.find((item) => item.department.id === dept.id && item.month == month);
+      // return this.monthlyAvailableReports.find((item) => item.department.id === dept.id && item.month == month);
+      return this.monthlyAvailableReports.filter((item) => item.department.id === dept.id && item.month == month);
+      console.log(this.monthlyAvailableReports.filter((item) => item.department.id === dept.id && item.month == month));
     },
 
     resetFilter() {

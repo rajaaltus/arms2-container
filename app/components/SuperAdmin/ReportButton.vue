@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- <v-skeleton-loader v-if="loading" height="5" type="avatar" width="5"></v-skeleton-loader> -->
-    <v-btn :disabled="!available" fab x-small :class="available ? 'green' : 'white'" @click="handleClick(department, selectedYear, month, userType)">
-      <v-icon :color="available ? 'white' : 'grey'">mdi-file-word</v-icon>
+    <v-btn :disabled="!available && available.length > 0" fab x-small :class="available && available.length > 0 ? 'green' : 'white'" @click="handleClick(available[0].saved_report)">
+      <v-icon :color="available && available.length > 0 ? 'white' : 'grey'">mdi-file-word</v-icon>
     </v-btn>
   </div>
 </template>
@@ -13,7 +13,7 @@ export default {
   props: ["department", "month", "selectedYear", "userType", "available"],
   data() {
     return {
-      // available: 0
+      report: {},
     };
   },
   computed: {
@@ -324,6 +324,8 @@ export default {
     },
   },
   async mounted() {
+    this.report = this.available && this.available.length > 0 ? this.available[0].saved_report : "";
+    // console.log("from mounted: ", this.report);
     // await this.checkReport(this.department.id, this.month, this.selectedYear, this.userType);
   },
   methods: {
@@ -331,28 +333,24 @@ export default {
       // this.available = await this.$axios.$get(`${this.$axios.defaults.baseURL}/saved-reports/count?annual_year=${selectedYear}&userType=${userType}&department.id=${id}&Month=${month}`);
       // console.log("ReportButton: " + this.available);
     },
-    async handleClick(dept, year, month, userType) {
-      // console.log("Handling: " + dept.id, year, month, userType);
-      let queryString = "";
-      if (month) queryString = `department.id=${dept.id}&annual_year=${year}&Month=${month}&userType=${userType}`;
-      else queryString = `department.id=${id}&annual_year=${year}&userType=${userType}`;
-
-      await this.$axios
-        .$get(`/saved-reports?${queryString}`)
-        .then((resp) => {
-          console.log(resp);
-          this.$store.dispatch("snackbar/setSnackbar", { text: "Report Id: " + resp[0].id });
-          let reportTitle = "";
-          reportTitle = "Report for the month of " + this.$moment(month).format("MMMM") + ", RY(" + year + " - " + `${year + 1}` + ")";
-          this.exportToDoc(
-            reportTitle,
-            resp[0].program + resp[0].visitor + resp[0].training + resp[0].presentation + resp[0].participation + resp[0].publicEngagement + resp[0].research + resp[0].publication + resp[0].recognition + resp[0].patent + resp[0].assignment
-          );
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      // console.log('clicked')
+    async handleClick() {
+      this.$store.dispatch("snackbar/setSnackbar", { text: "Report Id: " + this.report.id });
+      let reportTitle = "";
+      reportTitle = "Report for the month of " + this.$moment(this.month).format("MMMM") + ", RY(" + this.selectedYear + " - " + `${this.selectedYear + 1}` + ")";
+      this.exportToDoc(
+        reportTitle,
+        this.report.program +
+          this.report.visitor +
+          this.report.training +
+          this.report.presentation +
+          this.report.participation +
+          this.report.publicEngagement +
+          this.report.research +
+          this.report.publication +
+          this.report.recognition +
+          this.report.patent +
+          this.report.assignment
+      );
     },
     exportToDoc(filename = "", content) {
       // console.log("i came in");

@@ -2,7 +2,7 @@
   <div>
     <!-- <pre>{{selectedYear}}{{selectedUserType}}{{selectedMonth}}{{from}}{{to}}</pre> -->
     <ClientOnly>
-      <tiptap-vuetify v-model="content" :extensions="extensions" />
+      <tiptap-vuetify v-model="newContent" :extensions="extensions" />
       <template #placeholder>
         Loading...
       </template>
@@ -35,17 +35,18 @@ export default {
   components: { TiptapVuetify },
   data() {
     return {
-      saveReport: {
-        annual_year: null,
-        userType: null,
-        department: null,
-        section_a: null,
-        section_b: null,
-        section_c: null,
-        section_d: null,
-        section_e: null,
-        section_f: null,
-      },
+      // saveReport: {
+      //   annual_year: null,
+      //   userType: null,
+      //   department: null,
+      //   section_a: null,
+      //   section_b: null,
+      //   section_c: null,
+      //   section_d: null,
+      //   section_e: null,
+      //   section_f: null,
+      // },
+      newContent: null,
       extensions: [
         History,
         Blockquote,
@@ -80,6 +81,7 @@ export default {
   },
   mounted() {
     console.log("From Editor: ", this.selectedYear, this.selectedUserType);
+    this.newContent = this.content;
   },
   methods: {
     async handleNext() {
@@ -97,7 +99,7 @@ export default {
               from: this.from,
               to: this.to,
               department: this.$auth.user.department,
-              program: this.content,
+              program: this.newContent,
             }
           );
           await this.$store.dispatch("report/addReport", payload);
@@ -114,7 +116,7 @@ export default {
               from: this.from,
               to: this.to,
               department: this.$auth.user.department,
-              program: this.content,
+              program: this.newContent,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -127,7 +129,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              visitor: this.content,
+              visitor: this.newContent,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -141,7 +143,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              training: this.content,
+              training: this.newContent,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -155,7 +157,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              presentation: this.content,
+              presentation: this.newContent,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -169,7 +171,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              participation: this.content,
+              participation: this.newContent,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -183,7 +185,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              publicEngagement: this.content,
+              publicEngagement: this.newContent,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -197,7 +199,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              research: this.content,
+              research: this.newContent,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -211,7 +213,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              publication: this.content,
+              publication: this.newContent,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -225,7 +227,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              recognition: this.content,
+              recognition: this.newContent,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -239,7 +241,7 @@ export default {
               annual_year: this.selectedYear,
               userType: this.selectedUserType,
               department: this.$auth.user.department,
-              patent: this.content,
+              patent: this.newContent,
             }
           );
           await this.$store.dispatch("report/updateReport", payload);
@@ -269,7 +271,7 @@ export default {
           annual_year: this.selectedYear,
           userType: this.selectedUserType,
           department: this.$auth.user.department,
-          assignment: this.content,
+          assignment: this.newContent,
         }
       );
       let rid = 0;
