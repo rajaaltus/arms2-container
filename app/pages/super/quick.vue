@@ -75,7 +75,7 @@
             <b>2. VISITORS TO THE DEPARTMENT</b>
           </h4>
           <div v-for="(visitor, index) in visitors" :key="visitor.id">
-            <VisitorFormat :visitor="visitor" :index="index" :deptartmentName="selectedDepartmentName" />
+            <VisitorFormat :visitor="visitor" :index="index" :departmentName="selectedDepartmentName" />
           </div>
 
           <!-- Training -->
