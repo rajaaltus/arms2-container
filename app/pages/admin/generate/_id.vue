@@ -469,38 +469,9 @@ export default {
         return "";
       }
     },
-    // sectionA() {
-    //   if (this.savedData.section_a) return this.savedData.section_a;
-    // },
-    // sectionB() {
-    //   if (this.savedData.section_a) return this.savedData.section_b;
-    // },
-    // sectionC() {
-    //   if (this.savedData.section_c) return this.savedData.section_c;
-    // },
-    // sectionD() {
-    //   if (this.savedData.section_d) return this.savedData.section_d;
-    // },
-    // sectionE() {
-    //   if (this.savedData.section_e) return this.savedData.section_e;
-    // },
-    // sectionF() {
-    //   if (this.savedData.section_f) return this.savedData.section_f;
-    // },
   },
   async fetch({ store, params }) {
     await store.dispatch("report/getById", { id: params.id });
-    // let queryString = "";
-    // queryString = `department.id=${store.state.auth.user.department}&annual_year=${store.state.report.generatedReport.annual_year}`;
-    // await store.dispatch("about/setAboutData", { query: queryString });
-    // await store.dispatch("clinical/setClinicalData", { qs: queryString });
-    // await store.dispatch("emergency/setEmergencyData", { qs: queryString });
-    // await store.dispatch("diagnostic/setDiagnosticData", { qs: queryString });
-    // await store.dispatch("special/setSpecialData", { qs: queryString });
-    // await store.dispatch("otservice/setOTServicesData", { qs: queryString });
-    // await store.dispatch("hrdCourse/setHRDCourses", { qs: queryString });
-    // await store.dispatch("hrdTraining/setHRDTrainings", { qs: queryString });
-    // await store.dispatch("faculty/setFacultyData", { qs: queryString });
   },
   async mounted() {
     if (this.$store.state.departmentName == "") {
@@ -508,6 +479,9 @@ export default {
       await this.$store.dispatch("setDepartmentName", this.$auth.user.department);
       this.formattedFileName =
         this.$store.state.departmentName +
+        "_" +
+        this.savedData.userType +
+        "_" +
         "_Report_for_the_period_of_" +
         this.$moment(this.savedData.from).format("Do_MMMM_YYYY") +
         " to " +
