@@ -3,9 +3,7 @@
     <!-- <pre>{{selectedYear}}{{selectedUserType}}{{selectedMonth}}{{from}}{{to}}</pre> -->
     <ClientOnly>
       <tiptap-vuetify v-model="content" :extensions="extensions" />
-      <template #placeholder>
-        Loading...
-      </template>
+      <template #placeholder> Loading... </template>
     </ClientOnly>
     <div class="my-8">
       <!-- {{ content }} -->
@@ -19,7 +17,13 @@
     </v-card>
     <v-card flat class="mb-5" v-else>
       <v-layout align-center justify-center>
-        <v-btn small id="submit" color="green darken-2" dark @click="handleNext(step)">
+        <v-btn
+          small
+          id="submit"
+          color="green darken-2"
+          dark
+          @click="handleNext(step)"
+        >
           Approve &amp; Next
         </v-btn>
       </v-layout>
@@ -28,10 +32,36 @@
 </template>
 
 <script>
-import { TiptapVuetify, Heading, Bold, Italic, Strike, Underline, Code, Paragraph, BulletList, OrderedList, ListItem, Link, Blockquote, HardBreak, HorizontalRule, History } from "tiptap-vuetify";
+import {
+  TiptapVuetify,
+  Heading,
+  Bold,
+  Italic,
+  Strike,
+  Underline,
+  Code,
+  Paragraph,
+  BulletList,
+  OrderedList,
+  ListItem,
+  Link,
+  Blockquote,
+  HardBreak,
+  HorizontalRule,
+  History,
+} from "tiptap-vuetify";
 import { mapState } from "vuex";
 export default {
-  props: ["content", "step", "selectedYear", "selectedUserType", "available", "selectedMonth", "from", "to"],
+  props: [
+    "content",
+    "step",
+    "selectedYear",
+    "selectedUserType",
+    "available",
+    "selectedMonth",
+    "from",
+    "to",
+  ],
   components: { TiptapVuetify },
   data() {
     return {
@@ -88,6 +118,7 @@ export default {
 
       if (this.$store.state.report.reportId == 0) {
         if (this.step == 1) {
+          console.log(this.$content);
           var payload = Object.assign(
             {},
             {

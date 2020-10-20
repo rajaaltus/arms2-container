@@ -2,94 +2,189 @@
   <div>
     <v-card tile>
       <v-card-text class="px-0 py-0">
-        <QuerySelector :reportYears="reportYears" :userTypes="userTypes" @go="loader" @resetFilters="dataLoaded = false" />
+        <QuerySelector
+          :reportYears="reportYears"
+          :userTypes="userTypes"
+          @go="loader"
+          @resetFilters="dataLoaded = false"
+        />
         <div class="preview">
-          <v-sheet width="100%" height="210vh" v-if="dataLoaded">
+          <v-sheet width="100%" v-if="dataLoaded">
             <v-toolbar color="blue-grey darken-3" dark>
-              <v-toolbar-title class="white--text">{{ reportTitle }} </v-toolbar-title>
+              <v-toolbar-title class="white--text"
+                >{{ reportTitle }}
+              </v-toolbar-title>
               <v-spacer></v-spacer>
               <v-tooltip left color="blue-grey darken-3">
                 <template v-slot:activator="{ on }">
                   <v-btn icon v-on="on">
-                    <v-icon @click="exportToDoc(`${formattedFileName}`)">mdi-download</v-icon>
+                    <v-icon @click="exportToDoc(`${formattedFileName}`)"
+                      >mdi-download</v-icon
+                    >
                   </v-btn>
                 </template>
                 <span>Download Report</span>
               </v-tooltip>
             </v-toolbar>
-            <div id="download" elevation="6" class="mx-auto pa-4 doc" width="100%">
-              <div style="margin: 0 auto; width: 800px; line-height: 5px; text-align: center;">
-                <div style="margin-right: 10px; float: left;">
-                  <img style="width: 140px;" src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Nimhans_logo.png/230px-Nimhans_logo.png" alt="logo" />
+            <div
+              id="download"
+              elevation="6"
+              class="mx-auto pa-4 doc"
+              width="100%"
+            >
+              <div
+                style="
+                  margin: 0 auto;
+                  width: 800px;
+                  line-height: 5px;
+                  text-align: center;
+                "
+              >
+                <div style="margin-right: 10px; float: left">
+                  <img
+                    style="width: 140px"
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Nimhans_logo.png/230px-Nimhans_logo.png"
+                    alt="logo"
+                  />
                 </div>
-                <div style="line-height: normal; padding-top: 20px;">
-                  <p style="text-align: center; font-family: Calibri; line-height: 5px; font-style: normal; font-size: 1rem; font-weight: bold;">
+                <div style="line-height: normal; padding-top: 20px">
+                  <p
+                    style="
+                      text-align: center;
+                      font-family: Calibri;
+                      line-height: 5px;
+                      font-style: normal;
+                      font-size: 1rem;
+                      font-weight: bold;
+                    "
+                  >
                     National Institute of Mental Health and Neurosciences
                   </p>
-                  <p style="text-align: center; font-family: Calibri; line-height: 5px; font-style: normal;">
+                  <p
+                    style="
+                      text-align: center;
+                      font-family: Calibri;
+                      line-height: 5px;
+                      font-style: normal;
+                    "
+                  >
                     <i>(An institute of national importance)</i>
                   </p>
-                  <p style="text-align: center; font-family: Calibri; line-height: 5px; font-style: normal;">
+                  <p
+                    style="
+                      text-align: center;
+                      font-family: Calibri;
+                      line-height: 5px;
+                      font-style: normal;
+                    "
+                  >
                     Bangalore - 560 029, India.
                   </p>
-                  <p style="text-align: center; font-family: Calibri; line-height: 5px; font-style: normal; font-size: 1rem; font-weight: bold;">
+                  <p
+                    style="
+                      text-align: center;
+                      font-family: Calibri;
+                      line-height: 5px;
+                      font-style: normal;
+                      font-size: 1rem;
+                      font-weight: bold;
+                    "
+                  >
                     DEPARTMENT OF
                     {{ $store.state.departmentName.toUpperCase() }}
                   </p>
-                  <p style="text-align: center; font-family: Calibri; line-height: 5px; font-style: normal;">
+                  <p
+                    style="
+                      text-align: center;
+                      font-family: Calibri;
+                      line-height: 5px;
+                      font-style: normal;
+                    "
+                  >
                     {{ reportTitle }}
                   </p>
                 </div>
               </div>
-              <h6 style="text-align: right; font-family: Calibri; font-style: normal; color: gray;">Generated On: {{ $moment().format("Do MMMM YYYY, h:mm:ss a") }}</h6>
+              <h6
+                style="
+                  text-align: right;
+                  font-family: Calibri;
+                  font-style: normal;
+                  color: gray;
+                "
+              >
+                Generated On: {{ $moment().format("Do MMMM YYYY, h:mm:ss a") }}
+              </h6>
 
-              <h2 style="font-family: Calibri; font-style: normal;">
+              <h2 style="font-family: Calibri; font-style: normal">
                 <b><u>Section B:</u></b>
               </h2>
-              <h4 style="font-family: Calibri; font-style: normal;">
-                <b>1. CONFERENCES / WORKSHOPS / SEMINARS /SYMPOSIUM / SCIENTIFIC PROGRAMMES</b>
+              <h4 style="font-family: Calibri; font-style: normal">
+                <b
+                  >1. CONFERENCES / WORKSHOPS / SEMINARS /SYMPOSIUM / SCIENTIFIC
+                  PROGRAMMES</b
+                >
               </h4>
               <!-- Program -->
               <div v-for="(program, index) in programmes" :key="program.id">
                 <ProgramFormat :index="index" :program="program" />
               </div>
               <!-- Visitor -->
-              <h4 style="font-family: Calibri; font-style: normal;">
+              <h4 style="font-family: Calibri; font-style: normal">
                 <b>2. VISITORS TO THE DEPARTMENT</b>
               </h4>
               <div v-for="(visitor, index) in visitors" :key="visitor.id">
-                <VisitorFormat :visitor="visitor" :index="index" :departmentName="$store.state.departmentName" />
+                <VisitorFormat
+                  :visitor="visitor"
+                  :index="index"
+                  :departmentName="$store.state.departmentName"
+                />
               </div>
 
               <!-- Training -->
-              <h4 style="font-family: Calibri; font-style: normal;">
-                <b>3. SPECIFIC TRAINING UNDERWENT BY THE FACULTY /STAFF /STUDENTS OUTSIDE NIMHANS</b>
+              <h4 style="font-family: Calibri; font-style: normal">
+                <b
+                  >3. SPECIFIC TRAINING UNDERWENT BY THE FACULTY /STAFF
+                  /STUDENTS OUTSIDE NIMHANS</b
+                >
               </h4>
               <div v-for="(training, index) in trainings" :key="training.id">
                 <TrainingFormat :index="index" :training="training" />
               </div>
 
               <!-- Presentation -->
-              <h4 style="font-family: Calibri; font-style: normal;">
+              <h4 style="font-family: Calibri; font-style: normal">
                 <b>4. CONTRIBUTION TO SCIENTIFIC DELIBERATIONS</b>
               </h4>
-              <h4 style="font-family: Calibri; font-style: normal;">
+              <h4 style="font-family: Calibri; font-style: normal">
                 <b>A. PRESENTATIONS/ POSTERS</b>
               </h4>
-              <div v-for="(presentation, index) in presentations" :key="presentation.id">
-                <PresentationFormat :index="index" :presentation="presentation" />
+              <div
+                v-for="(presentation, index) in presentations"
+                :key="presentation.id"
+              >
+                <PresentationFormat
+                  :index="index"
+                  :presentation="presentation"
+                />
               </div>
 
               <!-- Participation -->
-              <h4 style="font-family: Calibri; font-style: normal;">
+              <h4 style="font-family: Calibri; font-style: normal">
                 <b>B. PARTICIPATION</b>
               </h4>
-              <div v-for="(participation, index) in participations" :key="participation.id">
-                <ParticipationFormat :index="index" :participation="participation" />
+              <div
+                v-for="(participation, index) in participations"
+                :key="participation.id"
+              >
+                <ParticipationFormat
+                  :index="index"
+                  :participation="participation"
+                />
               </div>
 
               <!-- Public Engagement -->
-              <h4 style="font-family: Calibri; font-style: normal;">
+              <h4 style="font-family: Calibri; font-style: normal">
                 <b>5. PUBLIC ENGAGEMENT &amp; OUTREACH ACTIVITIES</b>
               </h4>
               <div v-for="(publicE, index) in publics" :key="publicE.id">
@@ -97,7 +192,7 @@
               </div>
 
               <!-- Research Activities -->
-              <h4 style="font-family: Calibri; font-style: normal;">
+              <h4 style="font-family: Calibri; font-style: normal">
                 <b>6. RESEARCH ACTIVITIES</b>
               </h4>
               <div v-for="(research, index) in researchData" :key="research.id">
@@ -105,7 +200,7 @@
               </div>
 
               <!-- Publications -->
-              <h4 style="font-family: Calibri; font-style: normal;">
+              <h4 style="font-family: Calibri; font-style: normal">
                 <b>7. PUBLICATIONS</b>
               </h4>
               <div v-for="(item, index) in publications" :key="item.id">
@@ -113,18 +208,21 @@
               </div>
 
               <!-- Recognition -->
-              <h4 style="font-family: Calibri; font-style: normal;">
+              <h4 style="font-family: Calibri; font-style: normal">
                 <b>8. RECOGNITION OF NIMHANS CONTRIBUTION</b>
               </h4>
-              <h4 style="font-family: Calibri; font-style: normal;">
+              <h4 style="font-family: Calibri; font-style: normal">
                 <b>A. AWARDS AND HONORS</b>
               </h4>
-              <div v-for="(recognition, index) in recognitions" :key="recognition.id">
+              <div
+                v-for="(recognition, index) in recognitions"
+                :key="recognition.id"
+              >
                 <RecognitionFormat :index="index" :recognition="recognition" />
               </div>
 
               <!-- Patents -->
-              <h4 style="font-family: Calibri; font-style: normal;">
+              <h4 style="font-family: Calibri; font-style: normal">
                 <b>B. PATENTS</b>
               </h4>
               <div v-for="(patent, index) in patents" :key="patent.id">
@@ -132,10 +230,13 @@
               </div>
 
               <!-- Key Assignments -->
-              <h4 style="font-family: Calibri; font-style: normal;">
+              <h4 style="font-family: Calibri; font-style: normal">
                 <b>C. KEY ASSIGNMENTS </b>
               </h4>
-              <div v-for="(assignment, index) in assignments" :key="assignment.id">
+              <div
+                v-for="(assignment, index) in assignments"
+                :key="assignment.id"
+              >
                 <AssignmentFormat :index="index" :assignment="assignment" />
               </div>
             </div>
@@ -220,7 +321,16 @@ export default {
     async loader(selectedQuery, selectedYear, range, selectedUser) {
       console.log(selectedUser);
       if (range && range.start) {
-        this.reportTitle = "Report for the period of " + this.$moment(range.start).format("Do MMMM YYYY") + " to " + this.$moment(range.end).format("Do MMMM YYYY") + ", RY (" + selectedYear + " - " + `${selectedYear + 1}` + ")";
+        this.reportTitle =
+          "Report for the period of " +
+          this.$moment(range.start).format("Do MMMM YYYY") +
+          " to " +
+          this.$moment(range.end).format("Do MMMM YYYY") +
+          ", RY (" +
+          selectedYear +
+          " - " +
+          `${selectedYear + 1}` +
+          ")";
 
         this.formattedFileName =
           this.$store.state.departmentName +
@@ -236,16 +346,35 @@ export default {
           `${selectedYear + 1}` +
           ")";
       } else {
-        this.reportTitle = "Report for the period of RY (" + selectedYear + " - " + `${selectedYear + 1}` + ")";
-        this.formattedFileName = this.$store.state.departmentName + "_" + selectedUser + "_Report_for_the_period_of_RY (" + selectedYear + " - " + `${selectedYear + 1}` + ")";
+        this.reportTitle =
+          "Report for the period of RY (" +
+          selectedYear +
+          " - " +
+          `${selectedYear + 1}` +
+          ")";
+        this.formattedFileName =
+          this.$store.state.departmentName +
+          "_" +
+          selectedUser +
+          "_Report_for_the_period_of_RY (" +
+          selectedYear +
+          " - " +
+          `${selectedYear + 1}` +
+          ")";
       }
 
       this.selectedYear = selectedYear;
       this.loading = true;
-      if (this.$auth.user.userType === "FACULTY" || this.$auth.user.userType === "STUDENT") selectedQuery += `&user.id=${this.$auth.user.id}`;
+      if (
+        this.$auth.user.userType === "FACULTY" ||
+        this.$auth.user.userType === "STUDENT"
+      )
+        selectedQuery += `&user.id=${this.$auth.user.id}`;
 
       let queryString = "";
-      queryString = selectedQuery + `&department.id=${this.$auth.user.department}&deleted_ne=true`;
+      queryString =
+        selectedQuery +
+        `&department.id=${this.$auth.user.department}&deleted_ne=true`;
 
       await this.$store.dispatch("program/setProgrammesData", {
         qs: queryString,
@@ -308,7 +437,9 @@ export default {
       });
 
       // Specify link url
-      var url = "data:application/vnd.ms-word;charset=utf-8," + encodeURIComponent(html);
+      var url =
+        "data:application/vnd.ms-word;charset=utf-8," +
+        encodeURIComponent(html);
 
       // Specify file name
       filename = filename ? filename + ".doc" : "document.doc";
@@ -340,8 +471,5 @@ export default {
 <style scoped>
 .preview {
   max-width: 100%;
-}
-.doc {
-  overflow: scroll;
 }
 </style>

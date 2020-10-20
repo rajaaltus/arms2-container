@@ -18,6 +18,8 @@
       <v-col cols="12" lg="3" class="mt-5">
         <v-select
           :items="months"
+          item-text="text"
+          item-value="val"
           v-model="mon"
           outlined
           dense
