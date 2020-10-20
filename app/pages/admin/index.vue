@@ -7,7 +7,7 @@
           <span class="mdi mdi-view-dashboard cust-icon"></span>
           Dashboard
         </v-tab>
-        <v-tab>
+        <v-tab v-if="$auth.user.userType==='DEPARTMENT'">
           <span class="mdi mdi-calendar-check cust-icon"></span>
           Approve & Submit Monthly Report
         </v-tab>
@@ -18,7 +18,7 @@
         <v-tab-item>
           <DashboardCards />
         </v-tab-item>
-        <v-tab-item>
+        <v-tab-item v-if="$auth.user.userType==='DEPARTMENT'" >
           <ReportStepper />
         </v-tab-item>
         <v-tab-item>

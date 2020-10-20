@@ -16,36 +16,16 @@
         ></v-select>
       </v-col>
       <v-col cols="12" lg="3" class="mt-5">
-        <v-menu
-          ref="menu"
-          v-model="menu"
-          :close-on-content-click="true"
-          
-          transition="scale-transition"
-          offset-y
-          max-width="290px"
-          min-width="290px"
+        <v-select
+          :items="months"
+          v-model="mon"
+          outlined
+          dense
+          label="Month"
+          placeholder="Select Month"
+          color="success"
         >
-          <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-              v-model="mon"
-              placeholder="Pick Month"
-              label="Report for the Month of"
-              readonly
-              outlined
-              :return-value.sync="mon"
-              dense
-              v-bind="attrs"
-              v-on="on"
-              color="success"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="mon" type="month" no-title scrollable @click="$refs.menu.save(mon)">
-            <!-- <v-spacer></v-spacer>
-            <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-            <v-btn text color="primary" >OK</v-btn> -->
-          </v-date-picker>
-        </v-menu>
+        </v-select>
       </v-col>
       <v-col cols="12" lg="3">
         <v-label><small>Start Date - End Date</small></v-label>
@@ -122,6 +102,56 @@ export default {
       },
       menu: "",
       mon: "",
+      months: [
+        {
+          text: "April",
+          val: "4",
+        },
+        {
+          text: "May",
+          val: "5",
+        },
+        {
+          text: "June",
+          val: "6",
+        },
+        {
+          text: "July",
+          val: "7",
+        },
+        {
+          text: "August",
+          val: "8",
+        },
+        {
+          text: "September",
+          val: "9",
+        },
+        {
+          text: "October",
+          val: "10",
+        },
+        {
+          text: "November",
+          val: "11",
+        },
+        {
+          text: "December",
+          val: "12",
+        },
+        {
+          text: "January",
+          val: "1",
+        },
+        {
+          text: "February",
+          val: "2",
+        },
+        {
+          text: "March",
+          val: "3",
+        },
+      ],
       sheet: false,
       dataLoaded: false,
       assignedPeople: [],
@@ -213,10 +243,13 @@ export default {
         this.querySavedReport.year +
         this.querySavedReport.month +
         this.querySavedReport.userType +
-        this.range? this.querySavedReport.range: '';
+        this.range
+          ? this.querySavedReport.range
+          : "";
 
       var altQuery = "";
-      altQuery = this.queryFetch.year  + this.queryFetch.range + this.queryFetch.userType;
+      altQuery =
+        this.queryFetch.year + this.queryFetch.range + this.queryFetch.userType;
       console.log("Selected Query: ", this.selectedQuery);
       // console.log("Alt Query: ", altQuery);
       this.$emit(
@@ -226,10 +259,9 @@ export default {
         this.selectedYear,
         this.userType,
         this.mon,
-        this.range?this.$moment(this.range.start).format("YYYY-MM-DD"):'',
-        this.range?this.$moment(this.range.end).format("YYYY-MM-DD"):''
+        this.range ? this.$moment(this.range.start).format("YYYY-MM-DD") : "",
+        this.range ? this.$moment(this.range.end).format("YYYY-MM-DD") : ""
       );
-      
     },
     resetFilter() {
       // this.range = Object.assign({}, {

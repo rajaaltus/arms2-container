@@ -3,7 +3,7 @@
     <v-card flat>
       <v-card-text class="px-4 py-2">
         <v-row class="pr-4">
-          <v-col cols="12" lg="2" class="my-5">
+          <v-col cols="12" :lg="$auth.user.userType==='DEPARTMENT'?'2':'3'" class="my-5">
             <v-select
               v-model="selectedYear"
               outlined
@@ -18,7 +18,7 @@
               class="disp"
             ></v-select>
           </v-col>
-          <v-col cols="12" lg="3">
+          <v-col cols="12" :lg="$auth.user.userType==='DEPARTMENT'?'3':'4'">
             <v-label><small>Start Date - End Date</small></v-label>
             <vc-date-picker
               mode="range"

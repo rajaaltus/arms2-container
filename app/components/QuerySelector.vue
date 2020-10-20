@@ -1,7 +1,11 @@
 <template>
   <div>
     <v-row class="px-5">
-      <v-col cols="12" lg="2" class="mt-5">
+      <v-col
+        cols="12"
+        :lg="$auth.user.userType === 'DEPARTMENT' ? '2' : '3'"
+        class="mt-5"
+      >
         <v-select
           outlined
           dense
@@ -47,15 +51,18 @@
               </v-date-picker>
             </v-menu>
           </v-col> -->
-      <v-col cols="12" lg="3">
-        <v-label><small>Months Range</small></v-label>
-        <vc-date-picker mode="range" v-model="range" ref="range" />
+      <v-col cols="12" :lg="$auth.user.userType === 'DEPARTMENT' ? '3' : '4'">
+        <v-label><small>Start Date - End Date</small></v-label>
+        <vc-date-picker mode="range" v-model="range" ref="range" is-expanded />
       </v-col>
       <v-col
         cols="12"
         lg="2"
         class="mt-5"
-        v-if="$auth.user.userType === 'DEPARTMENT' || $auth.user.userType==='SUPER_ADMIN'"
+        v-if="
+          $auth.user.userType === 'DEPARTMENT' ||
+          $auth.user.userType === 'SUPER_ADMIN'
+        "
       >
         <v-select
           outlined
@@ -73,7 +80,10 @@
         cols="12"
         lg="3"
         class="mt-5"
-        v-if="$auth.user.userType === 'DEPARTMENT' || $auth.user.userType==='SUPER_ADMIN'"
+        v-if="
+          $auth.user.userType === 'DEPARTMENT' ||
+          $auth.user.userType === 'SUPER_ADMIN'
+        "
       >
         <v-autocomplete
           outlined
@@ -153,66 +163,65 @@
       </v-col>
     </v-row>
     <div>
-    <!-- <pre>{{query}}</pre> -->
+      <!-- <pre>{{query}}</pre> -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['reportYears', 'userTypes'],
+  props: ["reportYears", "userTypes"],
   data() {
     return {
       report: 1,
       range: {
-        start: '',
-        end: '',
+        start: "",
+        end: "",
       },
-      menu: '',
+      menu: "",
       sheet: false,
       dataLoaded: false,
       assignedPeople: [],
       loading: false,
-      selectedUser: '',
+      selectedUser: "",
       selectedYear: 0,
-      selectedQuery: '',
+      selectedQuery: "",
       query: {
-        year: '',
-        range: '',
-        userType: '',
-        selectedUser: ''
+        year: "",
+        range: "",
+        userType: "",
+        selectedUser: "",
       },
-      yearParam: '',
-      userTypeParam: '',
-      monthParam: '',
-      userParam: '',
-      userType: '',
-    }
+      yearParam: "",
+      userTypeParam: "",
+      monthParam: "",
+      userParam: "",
+      userType: "",
+    };
   },
   watch: {
     // report(val) {
     //   this.reportStepper = val;
     // },
     selectedYear(val) {
-      if(val) {
+      if (val) {
         this.yearParam = "annual_year=" + val;
-        this.query.year=this.yearParam;
+        this.query.year = this.yearParam;
       }
-      
     },
     range(val) {
-      console.log('Range Val: ', val);
-      if(val) {
-       var range = Object.assign({}, val);
-      this.monthParam = `&created_at_gt=${this.$moment(range.start).format(
-        "YYYY-MM-DD"
-      )}&created_at_lt=${this.$moment(range.end).format("YYYY-MM-DD")}`;
+      console.log("Range Val: ", val);
+      if (val) {
+        var range = Object.assign({}, val);
+        this.monthParam = `&created_at_gt=${this.$moment(range.start).format(
+          "YYYY-MM-DD"
+        )}&created_at_lt=${this.$moment(range.end).format("YYYY-MM-DD")}`;
       }
       this.query.range = this.monthParam;
     },
     userType(val) {
-      this.userParam = '';
-      if(val) {
+      this.userParam = "";
+      if (val) {
         this.userTypeParam = `&user.userType=${val}`;
         this.query.userType = this.userTypeParam;
         if (val === "FACULTY") this.assignedPeople = this.faculties;
@@ -221,13 +230,12 @@ export default {
       }
     },
     selectedUser(val) {
-      if(val) {
-        this.query.userType = '';
+      if (val) {
+        this.query.userType = "";
         this.userParam = `&user.id=${val}`;
         this.query.selectedUser = this.userParam;
       }
     },
-    
   },
   computed: {
     people() {
@@ -241,36 +249,49 @@ export default {
     },
   },
   async mounted() {
-    let querySelector = '';
-    querySelector = 'department.id='+`${this.$auth.user.department}`+'&blocked_ne=true';
-    this.$store.dispatch('user/setActiveUsersList', {qs: querySelector});
+    let querySelector = "";
+    querySelector =
+      "department.id=" + `${this.$auth.user.department}` + "&blocked_ne=true";
+    this.$store.dispatch("user/setActiveUsersList", { qs: querySelector });
   },
   methods: {
     loader() {
-      this.selectedQuery = this.query.year + this.query.range + this.query.userType + this.query.selectedUser;
-      this.$emit('go', this.selectedQuery, this.selectedYear)
+      this.selectedQuery =
+        this.query.year +
+        this.query.range +
+        this.query.userType +
+        this.query.selectedUser;
+      this.$emit(
+        "go",
+        this.selectedQuery,
+        this.selectedYear,
+        this.range,
+        this.userType
+      );
       console.log("Selected Query: ", this.selectedQuery);
     },
     resetFilter() {
-     
       this.$emit("resetFilters");
       this.range = null;
-      this.selectedQuery = '';
+      this.selectedQuery = "";
       this.selectedYear = 0;
-      this.userType = '';
-      this.yearParam = '';
-      this.monthParam = '';
-      this.userTypeParam = '';
-      this.userParam = '';
-      this.query = Object.assign({}, {
-        year: '',
-        range: '',
-        userType: '',
-        selectedUser: ''
-      });
-      this.selectedUser = '';
+      this.userType = "";
+      this.yearParam = "";
+      this.monthParam = "";
+      this.userTypeParam = "";
+      this.userParam = "";
+      this.query = Object.assign(
+        {},
+        {
+          year: "",
+          range: "",
+          userType: "",
+          selectedUser: "",
+        }
+      );
+      this.selectedUser = "";
       this.assignedPeople = this.people;
-    }
-  }
-}
+    },
+  },
+};
 </script>

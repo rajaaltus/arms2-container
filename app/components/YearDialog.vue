@@ -4,6 +4,17 @@
       <v-card tile>
         <v-card-title>
           <span class="text-center">Select the Reporting Year</span>
+          <!-- <v-col>
+              <v-btn
+                x-small
+                fab
+                color="red darken-3"
+                dark
+                @click="Ydialog = false"
+              >
+                <v-icon small fab>mdi-close</v-icon>
+              </v-btn>
+            </v-col> -->
         </v-card-title>
         <v-card-text>
           <v-row>
@@ -17,28 +28,19 @@
                 required
                 outlined
                 class="text-center"
-				color="success"
+                color="success"
               ></v-select>
             </v-col>
             <v-col cols="12">
-              
-                <v-btn
-                  x-small
-                  fab
-                  color="red darken-3"
-                  dark
-                  @click="Ydialog = false"
-                >
-                  <v-icon small fab>mdi-close</v-icon>
-                </v-btn>
-                <v-btn
-                  small
-                  color="green darken-3"
-                  dark
-                  @click="setReportingYear"
-                >
-				        <v-icon small class="pr-2">mdi-gesture-tap</v-icon> Set Year
-                </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn
+                small
+                color="green darken-3"
+                dark
+                @click="setReportingYear"
+              >
+                <v-icon small class="pr-2">mdi-gesture-tap</v-icon> Set Year
+              </v-btn>
             </v-col>
           </v-row>
         </v-card-text>

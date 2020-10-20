@@ -48,7 +48,7 @@
           </v-tooltip>
         </v-toolbar>
         <div id="download" elevation="6" class="mx-auto pa-4 doc" width="100%">
-          <div style="margin: 0 auto; width: 600px; line-height: 5px; text-align: center;">
+          <div style="margin: 0 auto; width: 800px; line-height: 5px; text-align: center;">
             <div style="margin-right: 10px; float: left;"><img style="width: 140px;" src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Nimhans_logo.png/230px-Nimhans_logo.png" alt="logo" /></div>
             <div style="line-height: normal; padding-top: 20px;">
               <p style="text-align: center; font-family: Calibri; line-height: 5px; font-style: normal; font-size: 1rem; font-weight: bold;">National Institute of Mental Health and Neurosciences</p>
@@ -189,7 +189,7 @@ export default {
           `${this.savedData.annual_year + 1}` +
           ")");
       return 
-          this.$store.state.departmentName +
+         this.$store.state.departmentName +
           "_Report_for_the_period_of_" +
           this.$moment(this.savedData.from).format("Do_MMMM_YYYY") +
           " to " +
