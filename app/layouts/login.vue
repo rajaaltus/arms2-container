@@ -6,15 +6,13 @@
           <v-container fluid class="fill-height">
             <v-row align="center" justify="center">
               <v-col cols="12" sm="8" md="4">
-                <v-card v-if="!registerForm" tile color="rgba(255,255,255,1)" style="border-bottom: 3px solid #43a047;">
+                <v-card v-if="!registerForm && !forgotForm" tile color="rgba(255,255,255,1)" style="border-bottom: 3px solid #43a047;">
                   <v-toolbar flat tile color="rgba(255,255,255,0.1)">
                     <v-toolbar-title><img src="/text-logo.png" alt="" width="100%" class="pt-2" /></v-toolbar-title>
                   </v-toolbar>
-
                   <v-card-text>
                     <v-form ref="login">
                       <v-text-field color="green darken-1" dense outlined v-model="loginData.login" prepend-inner-icon="mdi-account-box-outline" label="Email / Employee ID / Student ID" type="text" />
-
                       <v-text-field
                         dense
                         outlined
@@ -29,6 +27,7 @@
                         @click:append="show1 = !show1"
                         @keypress.enter="signIn"
                       />
+                      <v-btn text dense small @click="gotoForgotPassword">forgot Password?</v-btn>
                     </v-form>
                   </v-card-text>
                   <v-card-actions>
@@ -46,7 +45,44 @@
                     </v-col>
                   </v-card-actions>
                 </v-card>
-
+                <!-- forgot password form -->
+                <v-card v-if="forgotForm">
+                  <v-toolbar flat tile color="rgba(255,255,255,0.1)">
+                    <v-toolbar-title><img src="/text-logo.png" alt="" width="100%" class="pt-2" /></v-toolbar-title>
+                  </v-toolbar>
+                  <v-card-text>
+                    <v-form>
+                      <v-row class="px-4">
+                        <p class="text-center">Enter your registered Email to recover your password</p>
+                        <v-text-field
+                          outlined
+                          dense
+                          v-model="forgotMail.email"
+                          :rules="[(v) => !!v || 'E-mail is required', (v) => /.+@.+\..+/.test(v) || 'Enter your valid Email ID']"
+                          label="Email Address"
+                          placeholder="Also your primary Login ID"
+                          type="email"
+                          color="green darken-3"
+                        />
+                      </v-row>
+                    </v-form>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-col cols="8">
+                      <v-btn color="blue-grey darken-3" small text @click="loginForm">
+                        <v-icon small class="pr-2">mdi-login-variant</v-icon>
+                        Login
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="4">
+                      <v-btn color="success" small @click="handleForgotPassword">
+                        <v-icon small class="pr-2">mdi-mail</v-icon>
+                        Send Me
+                      </v-btn>
+                    </v-col>
+                  </v-card-actions>
+                </v-card>
+                <!-- end of forgot password form -->
                 <!-- register Form -->
                 <!-- <pre>{{ register }}</pre> -->
                 <v-card v-if="registerForm" tile color="rgba(255,255,255,1)">
@@ -158,19 +194,19 @@ export default {
     };
   },
   data: () => ({
+    forgotMail: {
+      email: "",
+    },
+    available: [],
     show1: false,
     password: "Password",
     registerForm: false,
+    forgotForm: false,
     loginData: {
       login: "",
       password: "",
     },
     departments: [],
-    // registerData: {
-    //   name: "",
-    //   email: "",
-    //   password: ""
-    // },
     recoverPassEmail: "",
     roles: [
       {
@@ -197,6 +233,7 @@ export default {
   computed: {
     ...mapState({
       snackbars: (state) => state.snackbar.snackbars,
+      activeUsers: (state) => state.user.activeUsersList.result,
     }),
   },
   async fetch({ store }) {
@@ -208,6 +245,25 @@ export default {
   methods: {
     removeSnackbar(snackbar) {
       this.$store.dispatch("snackbar/remove", snackbar);
+    },
+    handleForgotPassword() {
+      let queryString = "";
+      queryString = "department=33";
+      this.$store.dispatch("user/setActiveUsersList", { qs: queryString });
+      //  check given Email id exist or not
+      // this.available = this.activeUsers.filter((user) => user.email === this.forgotMail);
+      const result = this.activeUsers.filter((user) => user.email === this.forgotMail.email).length;
+      if (result) {
+        var payload = this.forgotMail;
+        this.$store.dispatch("user/forgotPassword", payload).then((resp) => {
+          if (resp) {
+            this.$store.dispatch("snackbar/setSnackbar", { color: "green", text: "Email Sent!", timeout: 2000 });
+            this.forgotForm = false;
+            this.forgotMail.email.reset();
+          }
+        });
+      } else console.log("Email id not found!");
+      // if available call POST:'/forgot-password/email' with params: 'email', 'password'
     },
     async signIn() {
       await this.$auth
@@ -254,21 +310,6 @@ export default {
             // console.log('Reg Failure:', data.response.data.message[0].messages[0].message)
           }
         });
-        // this.$axios
-        //   .$post("/auth/local/register", regPayload)
-        //   .then(resp => {
-
-        //   .catch(err => {
-        //     Swal.fire({
-        //       title: "Oops!",
-        //       text: err.response.data.data[0].messages[0].message,
-        //       icon: "error",
-        //       showConfirmButton: false,
-        //       timer: 3000,
-        //       timerProgressBar: true
-        //     });
-        //     this.reset();
-        //   });
       }
     },
 
@@ -278,8 +319,14 @@ export default {
     resetLogin() {
       this.$refs.login.reset();
     },
+    gotoForgotPassword() {
+      this.registerForm = false;
+      this.forgotForm = true;
+      console.log("Handling forgot password!");
+    },
     gotoRegister() {
       this.show1 = false;
+      this.forgotForm = false;
       this.registerForm = true;
       this.$axios
         .$get("/departments")
@@ -290,6 +337,7 @@ export default {
     },
     loginForm() {
       this.show1 = false;
+      this.forgotForm = false;
       this.registerForm = false;
     },
   },
