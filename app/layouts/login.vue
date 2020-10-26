@@ -3,164 +3,9 @@
     <v-main>
       <div class="backdrop">
         <div class="dark-overlay">
-          <v-container fluid class="fill-height">
-            <v-row align="center" justify="center">
-              <v-col cols="12" sm="8" md="4">
-                <v-card v-if="!registerForm && !forgotForm" tile color="rgba(255,255,255,1)" style="border-bottom: 3px solid #43a047;">
-                  <v-toolbar flat tile color="rgba(255,255,255,0.1)">
-                    <v-toolbar-title><img src="/text-logo.png" alt="" width="100%" class="pt-2" /></v-toolbar-title>
-                  </v-toolbar>
-                  <v-card-text>
-                    <v-form ref="login">
-                      <v-text-field color="green darken-1" dense outlined v-model="loginData.login" prepend-inner-icon="mdi-account-box-outline" label="Email / Employee ID / Student ID" type="text" />
-                      <v-text-field
-                        dense
-                        outlined
-                        prepend-inner-icon="mdi-account-key"
-                        id="password"
-                        v-model="loginData.password"
-                        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                        :type="show1 ? 'text' : 'password'"
-                        label="Password"
-                        name="password"
-                        color="green darken-1"
-                        @click:append="show1 = !show1"
-                        @keypress.enter="signIn"
-                      />
-                      <v-btn text dense small @click="gotoForgotPassword">forgot Password?</v-btn>
-                    </v-form>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-col cols="8">
-                      <v-btn color="blue-grey darken-3" small text @click="gotoRegister">
-                        <v-icon small class="pr-2">mdi-account-plus</v-icon>
-                        Create Account
-                      </v-btn>
-                    </v-col>
-                    <v-col cols="4">
-                      <v-btn color="success" small class="float-right" @click="signIn">
-                        <v-icon small class="pr-2">mdi-login-variant</v-icon>
-                        Login
-                      </v-btn>
-                    </v-col>
-                  </v-card-actions>
-                </v-card>
-                <!-- forgot password form -->
-                <v-card v-if="forgotForm">
-                  <v-toolbar flat tile color="rgba(255,255,255,0.1)">
-                    <v-toolbar-title><img src="/text-logo.png" alt="" width="100%" class="pt-2" /></v-toolbar-title>
-                  </v-toolbar>
-                  <v-card-text>
-                    <v-form>
-                      <v-row class="px-4">
-                        <p class="text-center">Enter your registered Email to recover your password</p>
-                        <v-text-field
-                          outlined
-                          dense
-                          v-model="forgotMail.email"
-                          :rules="[(v) => !!v || 'E-mail is required', (v) => /.+@.+\..+/.test(v) || 'Enter your valid Email ID']"
-                          label="Email Address"
-                          placeholder="Also your primary Login ID"
-                          type="email"
-                          color="green darken-3"
-                        />
-                      </v-row>
-                    </v-form>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-col cols="8">
-                      <v-btn color="blue-grey darken-3" small text @click="loginForm">
-                        <v-icon small class="pr-2">mdi-login-variant</v-icon>
-                        Login
-                      </v-btn>
-                    </v-col>
-                    <v-col cols="4">
-                      <v-btn color="success" small @click="handleForgotPassword">
-                        <v-icon small class="pr-2">mdi-mail</v-icon>
-                        Send Me
-                      </v-btn>
-                    </v-col>
-                  </v-card-actions>
-                </v-card>
-                <!-- end of forgot password form -->
-                <!-- register Form -->
-                <!-- <pre>{{ register }}</pre> -->
-                <v-card v-if="registerForm" tile color="rgba(255,255,255,1)">
-                  <v-toolbar flat tile color="rgba(255,255,255,0.1)">
-                    <v-toolbar-title><img src="/text-logo.png" alt="" width="100%" class="pt-2" /></v-toolbar-title>
-                  </v-toolbar>
-                  <v-card-text>
-                    <v-form ref="regForm" lazy-validation @submit.prevent>
-                      <v-row>
-                        <v-col cols="6" md="6" lg="6">
-                          <v-select dense outlined v-model="register.department" :rules="[(v) => !!v || 'Please select your Department']" label="Your Department" :items="departments" item-text="name" item-value="id" color="green darken-3">
-                          </v-select>
-                        </v-col>
-                        <v-col cols="6" md="6" lg="6">
-                          <v-select dense outlined v-model="register.userType" :rules="[(v) => !!v || 'Please select your Role']" label="Your Role" :items="roles" item-text="text" item-value="value" color="green darken-3"> </v-select>
-                        </v-col>
-
-                        <v-col cols="12" md="12" lg="12">
-                          <v-text-field color="green darken-3" v-model="register.fullname" :rules="[(v) => !!v || 'Enter your Full Name']" label="Full Name" type="text" outlined dense />
-                        </v-col>
-
-                        <v-col cols="12" md="12" lg="12">
-                          <v-text-field
-                            outlined
-                            v-model="register.email"
-                            :rules="[(v) => !!v || 'E-mail is required', (v) => /.+@.+\..+/.test(v) || 'Enter your valid Email ID']"
-                            label="Email Address"
-                            placeholder="Also your primary Login ID"
-                            type="email"
-                            color="green darken-3"
-                          />
-                        </v-col>
-
-                        <v-col cols="12" md="12" lg="12">
-                          <v-text-field
-                            outlined
-                            v-model="register.username"
-                            :rules="[(v) => !!v || 'Enter your Identification No']"
-                            label="Login ID (Employee / Student ID)"
-                            placeholder="Also your alternative Login ID"
-                            type="text"
-                            color="green darken-3"
-                          />
-                        </v-col>
-
-                        <v-col cols="12" md="12" lg="12">
-                          <v-text-field
-                            dense
-                            outlined
-                            v-model="register.password"
-                            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :type="show1 ? 'text' : 'password'"
-                            label="Password"
-                            color="green darken-3"
-                            @click:append="show1 = !show1"
-                          />
-                        </v-col>
-                      </v-row>
-                    </v-form>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-col cols="8">
-                      <v-btn color="blue-grey darken-3" small text @click="loginForm">
-                        <v-icon small class="pr-2">mdi-login-variant</v-icon>
-                        Login
-                      </v-btn>
-                    </v-col>
-                    <v-col cols="4">
-                      <v-btn color="green darken-3" small class="float-right" @click="registerMe" dark>
-                        <v-icon small class="pr-2">mdi-account-plus</v-icon>
-                        Create Account
-                      </v-btn>
-                    </v-col>
-                  </v-card-actions>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-container>
+          <div class="main-layout ma-auto">
+            <nuxt />
+          </div>
         </div>
       </div>
     </v-main>
@@ -194,174 +39,44 @@ export default {
     };
   },
   data: () => ({
-    forgotMail: {
-      email: "",
-    },
-    available: [],
-    show1: false,
     password: "Password",
     registerForm: false,
     forgotForm: false,
-    loginData: {
-      login: "",
-      password: "",
-    },
-    departments: [],
     recoverPassEmail: "",
-    roles: [
-      {
-        text: "Faculty / Staff",
-        value: "FACULTY",
-      },
-      {
-        text: "Student",
-        value: "STUDENT",
-      },
-    ],
-    register: {
-      username: "",
-      email: "",
-      password: "",
-      confirmed: true,
-      fullname: "",
-      userType: "",
-      blocked: true,
-      role: 1,
-      department: 0,
-    },
   }),
   computed: {
     ...mapState({
       snackbars: (state) => state.snackbar.snackbars,
-      activeUsers: (state) => state.user.activeUsersList.result,
     }),
   },
-  async fetch({ store }) {
-    await store.dispatch("user/getAllDepartment");
-  },
-  mounted() {
-    this.departments = this.$store.state.user.departments.result;
-  },
+
   methods: {
     removeSnackbar(snackbar) {
       this.$store.dispatch("snackbar/remove", snackbar);
-    },
-    handleForgotPassword() {
-      let queryString = "";
-      queryString = "department=33";
-      this.$store.dispatch("user/setActiveUsersList", { qs: queryString });
-      //  check given Email id exist or not
-      // this.available = this.activeUsers.filter((user) => user.email === this.forgotMail);
-      const result = this.activeUsers.filter((user) => user.email === this.forgotMail.email).length;
-      if (result) {
-        var payload = this.forgotMail;
-        this.$store.dispatch("user/forgotPassword", payload).then((resp) => {
-          if (resp) {
-            this.$store.dispatch("snackbar/setSnackbar", { color: "green", text: "Email Sent!", timeout: 2000 });
-            this.forgotForm = false;
-            this.forgotMail.email.reset();
-          }
-        });
-      } else console.log("Email id not found!");
-      // if available call POST:'/forgot-password/email' with params: 'email', 'password'
-    },
-    async signIn() {
-      await this.$auth
-        .loginWith("local", {
-          data: {
-            identifier: this.loginData.login,
-            password: this.loginData.password,
-            rememberMe: true,
-          },
-        })
-        .then((data) => {
-          console.log(data.data.user);
-          // this.$store.dispatch('setDepartmentName',data.data.user.department.name);
-          if (data.data.user.userType === "SUPER_ADMIN") {
-            this.$store.dispatch("setUserData", data.data.user);
-            this.$router.push("/super");
-          } else this.$router.push("/admin");
-        })
-        .catch((err) => {
-          this.$store.dispatch("snackbar/setSnackbar", { color: "red", text: err.response.data.data[0].messages[0].message, timeout: 2000 });
-          this.resetLogin();
-        });
-    },
-    async registerMe() {
-      if (this.$refs.regForm.validate()) {
-        var regPayload = this.register;
-        let res = this.$store.dispatch("user/addUser", regPayload);
-        res.then((data) => {
-          console.log("Result:", data);
-          if (data == true) {
-            Swal.fire({
-              title: "Successfully Registered your Account.",
-              text: "Please contact to your department to activate your account.",
-              icon: "info",
-            });
-            this.reset();
-            this.loginForm();
-          } else {
-            Swal.fire({
-              title: "Failure!",
-              text: data.response.data.message ? data.response.data.message[0].messages[0].message : "Something Wrong! Please try again.",
-              icon: "error",
-            });
-            // console.log('Reg Failure:', data.response.data.message[0].messages[0].message)
-          }
-        });
-      }
-    },
-
-    reset() {
-      this.$refs.regForm.reset();
-    },
-    resetLogin() {
-      this.$refs.login.reset();
-    },
-    gotoForgotPassword() {
-      this.registerForm = false;
-      this.forgotForm = true;
-      console.log("Handling forgot password!");
-    },
-    gotoRegister() {
-      this.show1 = false;
-      this.forgotForm = false;
-      this.registerForm = true;
-      this.$axios
-        .$get("/departments")
-        .then((response) => {
-          return (this.departments = response);
-        })
-        .catch((e) => {});
-    },
-    loginForm() {
-      this.show1 = false;
-      this.forgotForm = false;
-      this.registerForm = false;
     },
   },
 };
 </script>
 
-<style scoped>
+<style>
 .backdrop {
   background-image: url("/bg-3.jpg");
   background-size: cover;
   background-position: center center;
-  width: 100vw;
+  display: flex;
+  flex-basis: 100%;
   height: 100%;
-  vertical-align: middle;
 }
 
 .dark-overlay {
-  width: 100vw;
-  height: 100vh !important;
-  vertical-align: middle;
   overflow: auto;
+  margin: auto;
 }
 
 .text-input-style {
   border: none;
+}
+.main-layout {
+  max-width: 960px;
 }
 </style>
