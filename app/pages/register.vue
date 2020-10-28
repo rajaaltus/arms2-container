@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <v-card tile width="600" class="mt-10 mb-10" color="rgba(255,255,255,1)" style="border-bottom: 3px solid #43a047;">
+    <v-card tile class="mt-10 mb-10" color="rgba(255,255,255,1)" style="border-bottom: 3px solid #43a047;">
       <v-toolbar flat tile color="rgba(255,255,255,0.1)">
         <v-toolbar-title><img src="/text-logo.png" alt="" width="100%" class="pt-2" /></v-toolbar-title>
       </v-toolbar>
@@ -119,7 +119,7 @@ export default {
               icon: "info",
             });
             this.reset();
-            this.loginForm();
+            this.$router.push("/login");
           } else {
             Swal.fire({
               title: "Failure!",

@@ -26,13 +26,13 @@
       <v-card-actions>
         <v-col cols="2">
           <v-tooltip top color="red darken-3">
-          <template v-slot:activator="{ on, attrs }">
-            <nuxt-link to="/forgot-password">
+            <template v-slot:activator="{ on, attrs }">
+              <nuxt-link to="/forgot-password">
                 <v-btn text dense v-bind="attrs" v-on="on" small><v-icon color="red darken-3" small>mdi-lock</v-icon></v-btn>
               </nuxt-link>
-          </template>
-          <span>Forgot Password?</span>
-        </v-tooltip>
+            </template>
+            <span>Forgot Password?</span>
+          </v-tooltip>
         </v-col>
         <v-col cols="6">
           <nuxt-link to="/register">

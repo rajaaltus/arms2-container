@@ -5,7 +5,7 @@
         <v-toolbar-title><img src="/text-logo.png" alt="" width="100%" class="pt-2" /></v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        <v-form>
+        <v-form ref="passwordReset">
           <v-select dense outlined v-model="department" :rules="[(v) => !!v || 'Please select your Department']" label="Your Department" :items="departments" item-text="name" item-value="id" color="green darken-3"> </v-select>
           <v-text-field
             outlined
@@ -54,6 +54,14 @@ export default {
       department: 0,
     };
   },
+  watch: {
+    department(val) {
+      this.forgotMail.email = "";
+      let queryString = "";
+      queryString = "department=" + this.department;
+      this.$store.dispatch("user/setActiveUsersList", { qs: queryString });
+    },
+  },
   computed: {
     ...mapState({
       activeUsers: (state) => state.user.activeUsersList.result,
@@ -67,20 +75,20 @@ export default {
   },
   methods: {
     handleForgotPassword() {
-      let queryString = "";
-      queryString = "department=33";
-      this.$store.dispatch("user/setActiveUsersList", { qs: queryString });
       const result = this.activeUsers.filter((user) => user.email === this.forgotMail.email).length;
       if (result) {
         var payload = this.forgotMail;
         this.$store.dispatch("user/forgotPassword", payload).then((resp) => {
           if (resp) {
-            this.$store.dispatch("snackbar/setSnackbar", { color: "green", text: "Email Sent!", timeout: 2000 });
+            this.$store.dispatch("snackbar/setSnackbar", { color: "green", text: "Please check you mail and click the link to update your password!", timeout: 3000 });
             this.forgotForm = false;
-            this.forgotMail.email.reset();
+            this.$refs.passwordReset.reset();
           }
         });
-      } else console.log("Email id not found!");
+      } else {
+        this.$store.dispatch("snackbar/setSnackbar", { color: "red", text: "Email not found!", timeout: 3000 });
+        console.log("Email id not found!");
+      }
     },
   },
 };

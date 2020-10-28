@@ -1,30 +1,25 @@
 <template>
-  <v-app class="full-page">
-    <div class="container">
-      <h1 class="black--text">Password Reset</h1>
-      Reset Key: {{ resetKey }}
-      <div class="content">
-        <v-form ref="resetForm">
-          <v-row>
-            <v-col cols="12">
-              <v-text-field v-model="userData.newPassword" required dense outlined placeholder="Enter new password" label="New Password"></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field v-model="userData.confirmPassword" required dense outlined placeholder="Re-Type password" label="Re-Type Password"></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
-              <v-spacer></v-spacer>
-              <v-btn small class="success">Update Password</v-btn>
-            </v-col>
-          </v-row>
+  <div class="app">
+    <v-card tile width="400" class="mt-10 mb-10" color="rgba(255,255,255,1)" style="border-bottom: 3px solid #43a047;">
+      <v-toolbar flat tile color="rgba(255,255,255,0.1)">
+        <v-toolbar-title><img src="/text-logo.png" alt="" width="100%" class="pt-2" /> </v-toolbar-title>
+      </v-toolbar>
+      <v-card-text>
+        <v-form ref="resetForm" @submit.prevent="">
+          <v-col cols="12">
+            <v-text-field v-model="userData.password" required dense outlined placeholder="Enter new password" label="New Password"></v-text-field>
+
+            <v-text-field v-model="confirmPassword" required dense outlined placeholder="Re-Type password" label="Re-Type Password"></v-text-field>
+          </v-col>
         </v-form>
-      </div>
-    </div>
-  </v-app>
+      </v-card-text>
+      <v-card-actions>
+        <v-col cols="12">
+          <v-btn small class="success" @click="updatePassword">Update Password</v-btn>
+        </v-col>
+      </v-card-actions>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -33,35 +28,57 @@ export default {
   auth: false,
   data() {
     return {
+      confirmPassword: "",
       userData: {
-        newPassword: "",
-        confirmPassword: "",
+        id: 0,
+        password: "",
+        resetPasswordToken: "",
       },
+      userId: 0,
       resetKey: "",
     };
   },
   mounted() {
     this.resetKey = this.$route.query.code;
+    this.getUser();
+  },
+  methods: {
+    async getUser() {
+      await this.$axios
+        .$get(`/users?resetPasswordToken=${this.resetKey}`)
+        .then((resp) => {
+          if (resp.length > 0) {
+            this.userData.id = resp[0].id;
+            console.log(this.userData.id);
+          } else {
+            this.$store.dispatch("snackbar/setSnackbar", { color: "red", text: "Token Expired! Please try resetting the password!", timeout: 3000 });
+            this.$router.push("/admin");
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+    validateRetype() {
+      return this.confirmPassword === this.userData.password ? true : false;
+    },
+    updatePassword() {
+      if (this.validateRetype()) {
+        var payload = this.userData;
+        console.log(payload);
+        this.$axios
+          .$put(`/users/${payload.id}`, payload)
+          .then((resp) => {
+            this.$router.push("/login");
+            this.$store.dispatch("snackbar/setSnackbar", { color: "green", text: "Password updated! Login with your new password", timeout: 3000 });
+          })
+          .catch((e) => {
+            this.$store.dispatch("snackbar/setSnackbar", { color: "red", text: e.message, timeout: 3000 });
+          });
+      } else {
+        this.$store.dispatch("snackbar/setSnackbar", { color: "red", text: "Password doesn't match", timeout: 3000 });
+      }
+    },
   },
 };
 </script>
-
-<style scoped>
-.full-page {
-  margin: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: bisque;
-  color: aliceblue;
-}
-.content {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  align-self: center;
-  color: darkgray;
-}
-.h1 {
-  align-self: center;
-}
-</style>

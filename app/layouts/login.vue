@@ -11,7 +11,7 @@
     </v-main>
     <v-snackbar
       v-for="(snackbar, index) in snackbars.filter((s) => s.showing)"
-      right
+      center
       top
       :key="snackbar.text + Math.random()"
       :value="snackbar.showing"
@@ -20,8 +20,10 @@
       :color="snackbar.color"
       :style="`top: ${index * 60 + 8}px`"
     >
+      <v-icon dark right class="mr-2">
+        {{ snackbar.color === "green" ? "mdi-checkbox-marked-circle" : "info" }}
+      </v-icon>
       {{ snackbar.text }}
-
       <v-btn text @click="removeSnackbar(snackbar)">
         Close
       </v-btn>
@@ -59,6 +61,9 @@ export default {
 </script>
 
 <style>
+.v-snack__content {
+  padding: 0 10px !important;
+}
 .backdrop {
   background-image: url("/bg-3.jpg");
   background-size: cover;
