@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <v-card tile color="rgba(255,255,255,1)" style="border-bottom: 3px solid #43a047;">
+    <v-card width="400" tile color="rgba(255,255,255,1)" style="border-bottom: 3px solid #43a047;">
       <v-toolbar flat tile color="rgba(255,255,255,0.1)">
         <v-toolbar-title><img src="/text-logo.png" alt="" width="100%" class="pt-2" /></v-toolbar-title>
       </v-toolbar>
@@ -21,13 +21,20 @@
             @click:append="show1 = !show1"
             @keypress.enter="signIn"
           />
-          <nuxt-link to="/forgot-password">
-            <v-btn text dense small>forgot Password?</v-btn>
-          </nuxt-link>
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-col cols="8">
+        <v-col cols="2">
+          <v-tooltip top color="red darken-3">
+          <template v-slot:activator="{ on, attrs }">
+            <nuxt-link to="/forgot-password">
+                <v-btn text dense v-bind="attrs" v-on="on" small><v-icon color="red darken-3" small>mdi-lock</v-icon></v-btn>
+              </nuxt-link>
+          </template>
+          <span>Forgot Password?</span>
+        </v-tooltip>
+        </v-col>
+        <v-col cols="6">
           <nuxt-link to="/register">
             <v-btn color="blue-grey darken-3" small text>
               <v-icon small class="pr-2">mdi-account-plus</v-icon>

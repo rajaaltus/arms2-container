@@ -74,8 +74,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: "http://localhost:1337",
-    // baseURL: "http://51.79.160.53:1338",
+    // baseURL: "http://localhost:1337",
+     baseURL: "http://51.79.160.53:1338",
     //  baseURL: 'https://genie2.rotihouselao.com'
     // baseURL: "http://14.139.159.112:1338",
   },
