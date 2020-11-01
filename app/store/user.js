@@ -99,7 +99,7 @@ export const mutations = {
 export const actions = {
   async updatePassword({ commit }, payload) {
     return await this.$axios
-      .$put(`/users/${payload.id}`)
+      .$put(`/users/${payload.id}`, payload)
       .then((response) => {
         return true;
       })

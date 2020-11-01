@@ -56,7 +56,7 @@ export default {
       userData: {
         id: 0,
         password: "",
-        resetPasswordToken: "",
+        resetPasswordToken: null,
       },
       userId: 0,
       resetKey: "",
