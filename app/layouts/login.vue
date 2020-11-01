@@ -40,12 +40,14 @@ export default {
       title: "ARMS Admin Login Page",
     };
   },
-  data: () => ({
-    password: "Password",
-    registerForm: false,
-    forgotForm: false,
-    recoverPassEmail: "",
-  }),
+  data() {
+    return {
+      password: "Password",
+      registerForm: false,
+      forgotForm: false,
+      recoverPassEmail: "",
+    };
+  },
   computed: {
     ...mapState({
       snackbars: (state) => state.snackbar.snackbars,

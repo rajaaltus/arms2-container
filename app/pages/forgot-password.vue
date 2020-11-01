@@ -83,6 +83,7 @@ export default {
             this.$store.dispatch("snackbar/setSnackbar", { color: "green", text: "Please check you mail and click the link to update your password!", timeout: 3000 });
             this.forgotForm = false;
             this.$refs.passwordReset.reset();
+            this.$router.push("/");
           }
         });
       } else {
