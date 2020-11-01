@@ -8,6 +8,6 @@ ADD . ${APP_ROOT}
 
 RUN yarn
 RUN yarn build
-RUN yarn export
+RUN yarn generate
 
 ENV HOST 0.0.0.0
