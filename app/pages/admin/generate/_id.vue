@@ -473,25 +473,23 @@ export default {
   async fetch({ store, params }) {
     await store.dispatch("report/getById", { id: params.id });
   },
-  async mounted() {
-    if (this.$store.state.departmentName == "") {
-      console.log("im in");
-      await this.$store.dispatch("setDepartmentName", this.$auth.user.department);
-      this.formattedFileName =
-        this.$store.state.departmentName +
-        "_" +
-        this.savedData.userType +
-        "_" +
-        "_Report_for_the_period_of_" +
-        this.$moment(this.savedData.from).format("Do_MMMM_YYYY") +
-        " to " +
-        this.$moment(this.savedData.to).format("Do_MMMM_YYYY") +
-        ",_RY(" +
-        this.savedData.annual_year +
-        " - " +
-        `${this.savedData.annual_year + 1}` +
-        ")";
-    }
+  mounted() {
+    console.log("im in");
+    this.$store.dispatch("setDepartmentName", this.$auth.user.department);
+    this.formattedFileName =
+      this.$store.state.departmentName +
+      "_" +
+      this.savedData.userType +
+      "_" +
+      "_Report_for_the_period_of_" +
+      this.$moment(this.savedData.from).format("Do_MMMM_YYYY") +
+      " to " +
+      this.$moment(this.savedData.to).format("Do_MMMM_YYYY") +
+      ",_RY(" +
+      this.savedData.annual_year +
+      " - " +
+      `${this.savedData.annual_year + 1}` +
+      ")";
   },
   methods: {
     copyReport() {

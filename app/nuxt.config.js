@@ -4,6 +4,7 @@ export default {
   /*
    ** Headers of the page
    */
+  target: "static",
   head: {
     titleTemplate: "%s - " + process.env.npm_package_description,
     title: process.env.npm_package_description || "",
