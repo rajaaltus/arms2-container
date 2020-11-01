@@ -7,9 +7,31 @@
       <v-card-text>
         <v-form ref="resetForm" @submit.prevent="">
           <v-col cols="12">
-            <v-text-field v-model="userData.password" required dense outlined placeholder="Enter new password" label="New Password"></v-text-field>
+            <v-text-field
+              v-model="userData.password"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="show1 ? 'text' : 'password'"
+              required
+              dense
+              outlined
+              placeholder="Enter new password"
+              label="New Password"
+              @click:append="show1 = !show1"
+            >
+            </v-text-field>
 
-            <v-text-field v-model="confirmPassword" required dense outlined placeholder="Re-Type password" label="Re-Type Password"></v-text-field>
+            <v-text-field
+              v-model="confirmPassword"
+              :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="show2 ? 'text' : 'password'"
+              required
+              dense
+              outlined
+              placeholder="Re-Type password"
+              label="Re-Type Password"
+              @click:append="show2 = !show2"
+            >
+            </v-text-field>
           </v-col>
         </v-form>
       </v-card-text>
@@ -28,6 +50,8 @@ export default {
   auth: false,
   data() {
     return {
+      show1: false,
+      show2: false,
       confirmPassword: "",
       userData: {
         id: 0,
@@ -43,8 +67,8 @@ export default {
     this.getUser();
   },
   methods: {
-    async getUser() {
-      await this.$axios
+    getUser() {
+      this.$axios
         .$get(`/users?resetPasswordToken=${this.resetKey}`)
         .then((resp) => {
           if (resp.length > 0) {
@@ -52,7 +76,7 @@ export default {
             console.log(this.userData.id);
           } else {
             this.$store.dispatch("snackbar/setSnackbar", { color: "red", text: "Token Expired! Please try resetting the password!", timeout: 3000 });
-            this.$router.push("/admin");
+            this.$router.push("/login");
           }
         })
         .catch((e) => {
@@ -66,11 +90,13 @@ export default {
       if (this.validateRetype()) {
         var payload = this.userData;
         console.log(payload);
-        this.$axios
-          .$put(`/users/${payload.id}`, payload)
+        this.$store
+          .dispatch("user/updatePassword", payload)
           .then((resp) => {
-            this.$router.push("/login");
-            this.$store.dispatch("snackbar/setSnackbar", { color: "green", text: "Password updated! Login with your new password", timeout: 3000 });
+            if (resp) {
+              this.$store.dispatch("snackbar/setSnackbar", { color: "green", text: "Password updated! Login with your new password", timeout: 3000 });
+              this.$router.push("/");
+            }
           })
           .catch((e) => {
             this.$store.dispatch("snackbar/setSnackbar", { color: "red", text: e.message, timeout: 3000 });

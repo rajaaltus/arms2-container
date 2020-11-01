@@ -1,14 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      v-model="drawer"
-      src="/dashboard_back_1.jpg"
-      :mini-variant.sync="mini"
-      floating
-      permanent
-      app
-      dark
-    >
+    <v-navigation-drawer v-model="drawer" src="/dashboard_back_1.jpg" :mini-variant.sync="mini" floating permanent app dark>
       <div class="py-3" style="max-height: 400px;">
         <v-list-item v-if="!mini">
           <v-img src="/logo.png" max-width="30%"></v-img>
@@ -45,12 +37,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item
-        dense
-        link
-        to="/settings"
-        v-if="$auth.user.userType === 'DEPARTMENT'"
-      >
+      <v-list-item dense link to="/settings" v-if="$auth.user.userType === 'DEPARTMENT'">
         <v-list-item-icon>
           <v-icon color="orange">mdi-cogs</v-icon>
         </v-list-item-icon>
@@ -73,15 +60,7 @@
       <v-list nav>
         <div v-if="$auth.user.userType === 'DEPARTMENT'">
           <template v-for="item in items">
-            <v-list-group
-              v-if="item.children"
-              :key="item.title"
-              :to="item.to"
-              v-model="item.model"
-              :prepend-icon="item.icon"
-              append-icon=""
-              color="green"
-            >
+            <v-list-group v-if="item.children" :key="item.title" :to="item.to" v-model="item.model" :prepend-icon="item.icon" append-icon="" color="green">
               <template v-slot:activator>
                 <v-list-item-content>
                   <v-list-item-title class="menu-title">
@@ -89,16 +68,7 @@
                   </v-list-item-title>
                 </v-list-item-content>
               </template>
-              <v-list-item
-                v-for="(child, i) in item.children"
-                :key="i"
-                :to="child.to"
-                link
-                router
-                dense
-                exact
-                class="px-2"
-              >
+              <v-list-item v-for="(child, i) in item.children" :key="i" :to="child.to" link router dense exact class="px-2">
                 <v-list-item-action v-if="child.icon">
                   <v-icon>{{ child.icon }}</v-icon>
                 </v-list-item-action>
@@ -109,15 +79,7 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list-group>
-            <v-list-item
-              v-else
-              :key="item.title"
-              :to="item.to"
-              link
-              router
-              exact
-              dense
-            >
+            <v-list-item v-else :key="item.title" :to="item.to" link router exact dense>
               <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
@@ -132,15 +94,7 @@
         <!-- Faculty forms -->
         <div v-if="$auth.user.userType === 'FACULTY'">
           <template v-for="item in itemsFaculty">
-            <v-list-group
-              v-if="item.children"
-              :key="item.title"
-              :to="item.to"
-              v-model="item.model"
-              :prepend-icon="item.icon"
-              append-icon=""
-              color="green"
-            >
+            <v-list-group v-if="item.children" :key="item.title" :to="item.to" v-model="item.model" :prepend-icon="item.icon" append-icon="" color="green">
               <template v-slot:activator>
                 <v-list-item-content>
                   <v-list-item-title class="menu-title">
@@ -148,16 +102,7 @@
                   </v-list-item-title>
                 </v-list-item-content>
               </template>
-              <v-list-item
-                v-for="(child, i) in item.children"
-                :key="i"
-                :to="child.to"
-                link
-                router
-                dense
-                exact
-                class="px-2"
-              >
+              <v-list-item v-for="(child, i) in item.children" :key="i" :to="child.to" link router dense exact class="px-2">
                 <v-list-item-action v-if="child.icon">
                   <v-icon>{{ child.icon }}</v-icon>
                 </v-list-item-action>
@@ -168,15 +113,7 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list-group>
-            <v-list-item
-              v-else
-              :key="item.title"
-              :to="item.to"
-              link
-              router
-              exact
-              dense
-            >
+            <v-list-item v-else :key="item.title" :to="item.to" link router exact dense>
               <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
@@ -191,15 +128,7 @@
         <!-- Student forms -->
         <div v-if="$auth.user.userType === 'STUDENT'">
           <template v-for="item in itemsStudent">
-            <v-list-group
-              v-if="item.children"
-              :key="item.title"
-              :to="item.to"
-              v-model="item.model"
-              :prepend-icon="item.icon"
-              append-icon=""
-              color="green"
-            >
+            <v-list-group v-if="item.children" :key="item.title" :to="item.to" v-model="item.model" :prepend-icon="item.icon" append-icon="" color="green">
               <template v-slot:activator>
                 <v-list-item-content>
                   <v-list-item-title class="menu-title">
@@ -207,16 +136,7 @@
                   </v-list-item-title>
                 </v-list-item-content>
               </template>
-              <v-list-item
-                v-for="(child, i) in item.children"
-                :key="i"
-                :to="child.to"
-                link
-                router
-                dense
-                exact
-                class="px-2"
-              >
+              <v-list-item v-for="(child, i) in item.children" :key="i" :to="child.to" link router dense exact class="px-2">
                 <v-list-item-action v-if="child.icon">
                   <v-icon>{{ child.icon }}</v-icon>
                 </v-list-item-action>
@@ -227,15 +147,7 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list-group>
-            <v-list-item
-              v-else
-              :key="item.title"
-              :to="item.to"
-              link
-              router
-              exact
-              dense
-            >
+            <v-list-item v-else :key="item.title" :to="item.to" link router exact dense>
               <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
@@ -255,7 +167,7 @@
             <v-icon color="white">mdi-apple-icloud</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title class="menu-title">Version 2.1.0</v-list-item-title>
+            <v-list-item-title class="menu-title">2.1.1</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -274,12 +186,7 @@
     </v-app-bar-nav-icon> -->
       <v-spacer></v-spacer>
       <h2>Reporting Year</h2>
-      <v-card
-        elevation="0"
-        class="amber ml-3 mr-2 px-2 display-1 font-weight-bold"
-      >
-        {{ $store.state.selectedYear }} - {{ $store.state.selectedYear + 1 }}
-      </v-card>
+      <v-card elevation="0" class="amber ml-3 mr-2 px-2 display-1 font-weight-bold"> {{ $store.state.selectedYear }} - {{ $store.state.selectedYear + 1 }} </v-card>
     </v-app-bar>
     <v-main>
       <v-container fluid>
@@ -323,7 +230,6 @@ export default {
   data() {
     return {
       drawer: true,
-
       items: [
         { title: "Home", icon: "mdi-home", to: "/admin" },
         {
@@ -413,15 +319,14 @@ export default {
   },
   methods: {
     handleErrors() {
-      this.$store.dispatch('snackbar/setSnackbar', {color: 'red', text:'Program Creation Failed!', timeout: 3000})
+      this.$store.dispatch("snackbar/setSnackbar", { color: "red", text: "Program Creation Failed!", timeout: 3000 });
     },
     removeSnackbar(snackbar) {
       this.$store.dispatch("snackbar/remove", snackbar);
     },
     async setAvatar() {
       if (this.user) {
-        if (this.user.image)
-          this.avatar_url = `${this.$axios.defaults.baseURL}${this.user.image.url}`;
+        if (this.user.image) this.avatar_url = `${this.$axios.defaults.baseURL}${this.user.image.url}`;
         else this.avatar_url = "/avatar-default-icon.png";
       } else this.avatar_url = "/avatar-default-icon.png";
     },

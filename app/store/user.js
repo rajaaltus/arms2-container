@@ -97,6 +97,16 @@ export const mutations = {
 };
 
 export const actions = {
+  async updatePassword({ commit }, payload) {
+    return await this.$axios
+      .$put(`/users/${payload.id}`)
+      .then((response) => {
+        return true;
+      })
+      .catch((e) => {
+        return e;
+      });
+  },
   async forgotPassword({ commit }, payload) {
     return await this.$axios
       .$post("/auth/forgot-password", payload)
