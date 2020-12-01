@@ -124,7 +124,8 @@ export const actions = {
         return true;
       })
       .catch((e) => {
-        return e;
+        // console.log("error from store: ", e.response.statusText);
+        return e.response;
       });
   },
   async deleteUser({ commit }, { id }) {
