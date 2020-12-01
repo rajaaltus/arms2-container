@@ -69,6 +69,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   layout: "login",
   auth: false,
@@ -109,26 +110,23 @@ export default {
     async registerMe() {
       if (this.$refs.regForm.validate()) {
         var regPayload = this.register;
-        let res = this.$store.dispatch("user/addUser", regPayload);
-        res.then((data) => {
-          console.log("Result:", data);
-          if (data == true) {
-            Swal.fire({
-              title: "Successfully Registered your Account.",
-              text: "Please contact to your department to activate your account.",
-              icon: "info",
-            });
-            this.reset();
-            this.$router.push("/login");
-          } else {
-            Swal.fire({
-              title: "Failure!",
-              text: data.response.data.message ? data.response.data.message[0].messages[0].message : "Something Wrong! Please try again.",
-              icon: "error",
-            });
-            // console.log('Reg Failure:', data.response.data.message[0].messages[0].message)
-          }
-        });
+        let res = await this.$store.dispatch("user/addUser", regPayload);
+        // console.log("Resp:", res);
+        if (res == true) {
+          Swal.fire({
+            title: "Successfully Registered your Account.",
+            text: "Please contact to your department to activate your account.",
+            icon: "info",
+          });
+          this.reset();
+          this.$router.push("/login");
+        } else {
+          Swal.fire({
+            title: "Failure!",
+            text: res.data.message ? res.data.message[0].messages[0].message : "Something Wrong! Please try again.",
+            icon: "error",
+          });
+        }
       }
     },
     reset() {
