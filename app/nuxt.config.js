@@ -77,7 +77,7 @@ export default {
     // baseURL: 'http://armsbackend.localhost'
     // baseURL: "http://51.79.160.53:1338",
     //  baseURL: 'https://genie2.rotihouselao.com'
-    baseURL: "http://14.139.159.112:1338",
+    baseURL: "http://103.162.73.11:1338",
   },
 
   /*
